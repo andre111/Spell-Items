@@ -1,9 +1,11 @@
 package me.andre111.items;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.andre111.items.config.ConfigManager;
+import me.andre111.items.item.CustomItem;
 import me.andre111.items.item.ItemManager;
 import me.andre111.items.item.enchant.SpecialEnchantmentManager;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
@@ -14,6 +16,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.protocol.ProtocolLibrary;
@@ -91,6 +95,36 @@ public class SpellItems extends JavaPlugin {
 		enchantManager.reload(ConfigManager.getItemFile());
 	}
 
+	//#######################################
+	//Spieler hat geklickt custom item
+	//actions:
+	//0 = leftclick
+	//1 = rigthclick
+	//2 = eat
+	//#######################################
+	public static void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Player target) {
+		ItemMeta im = item.getItemMeta();
+		if(im!=null) {
+			if(im.hasDisplayName()) {
+				List<CustomItem> cil = SpellItems.itemManager.getItemByDisplayName(im.getDisplayName());
+				if(cil!=null) {
+					for(int i=0; i<cil.size(); i++) {
+						CustomItem ci = cil.get(i);
+
+						if(ci.isThisItem(item)) {
+							if(block!=null)
+								ci.cast(action, player, block);
+							else if(target!=null)
+								ci.cast(action, player, target);
+							else
+								ci.cast(action, player);
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public static void log(String s) {
 		logger.info(prefix+s);
 	}

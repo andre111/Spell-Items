@@ -6,7 +6,6 @@ import me.andre111.items.item.CustomItem;
 import me.andre111.items.item.spell.ItemLaunch;
 
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -91,16 +90,16 @@ public class SpellItemListener implements Listener {
 		if(item==null) return;
 		
 		if (action==Action.RIGHT_CLICK_AIR) {
-			playerSpecialItemC(player, item, 1, null, null);
+			SpellItems.playerSpecialItemC(player, item, 1, null, null);
 		}
 		else if(action==Action.RIGHT_CLICK_BLOCK) {
-			playerSpecialItemC(player, item, 1, event.getClickedBlock(), null);
+			SpellItems.playerSpecialItemC(player, item, 1, event.getClickedBlock(), null);
 		}
 		else if(action==Action.LEFT_CLICK_AIR) {
-			playerSpecialItemC(player, item, 0, null, null);
+			SpellItems.playerSpecialItemC(player, item, 0, null, null);
 		}
 		else if(action==Action.LEFT_CLICK_BLOCK) {
-			playerSpecialItemC(player, item, 0, event.getClickedBlock(), null);
+			SpellItems.playerSpecialItemC(player, item, 0, event.getClickedBlock(), null);
 		}
 	}
 	
@@ -111,7 +110,7 @@ public class SpellItemListener implements Listener {
 		Entity entity = event.getRightClicked();
 		ItemStack item = event.getPlayer().getItemInHand();
 		if(entity instanceof Player) {
-			playerSpecialItemC(player, item, 1, null, (Player)entity);
+			SpellItems.playerSpecialItemC(player, item, 1, null, (Player)entity);
 		}
 	}
 	
@@ -120,37 +119,7 @@ public class SpellItemListener implements Listener {
 		Player player = event.getPlayer();
 		ItemStack item = event.getItem();
 
-		playerSpecialItemC(player, item, 2, null, null);
-	}
-	
-	//#######################################
-	//Spieler hat geklickt custom item
-	//actions:
-	//0 = leftclick
-	//1 = rigthclick
-	//2 = eat
-	//#######################################
-	public void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Player target) {
-		ItemMeta im = item.getItemMeta();
-		if(im!=null) {
-			if(im.hasDisplayName()) {
-				List<CustomItem> cil = SpellItems.itemManager.getItemByDisplayName(im.getDisplayName());
-				if(cil!=null) {
-					for(int i=0; i<cil.size(); i++) {
-						CustomItem ci = cil.get(i);
-
-						if(ci.isThisItem(item)) {
-							if(block!=null)
-								ci.cast(action, player, block);
-							else if(target!=null)
-								ci.cast(action, player, target);
-							else
-								ci.cast(action, player);
-						}
-					}
-				}
-			}
-		}
+		SpellItems.playerSpecialItemC(player, item, 2, null, null);
 	}
 	
 	@EventHandler
