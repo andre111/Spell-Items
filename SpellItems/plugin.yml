@@ -1,0 +1,7 @@
+name: SpellItems
+main: me.andre111.items.SpellItems
+version: 0.1
+website: http://andre111.bplaced.net/
+author: andre111
+
+softdepend: [ProtocolLib]

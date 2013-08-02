@@ -1,0 +1,7 @@
+items:
+   dummy_item:
+     name: "dummy"
+
+enchantments:
+   dummy_enchant:
+     name: "dummy"

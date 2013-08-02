@@ -1,0 +1,67 @@
+package me.andre111.items.item.spell;
+
+import java.util.List;
+
+import me.andre111.items.item.ItemSpell;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Silverfish;
+
+public class ItemRoar extends ItemSpell {
+	private double range;
+	private String message = "";
+	
+	@Override
+	public void setCastVar(int id, double var) {
+		if(id==0) range = var;
+	}
+	
+	@Override
+	public void setCastVar(int id, String var) {
+		if(id==1) message = var;
+	}
+	
+	@Override
+	public boolean cast(Player player) {	
+		return castAtEntity(player, player);
+	}
+	@Override
+	public boolean cast(Player player, Block block) {	
+		return cast(player);
+	}
+	@Override
+	public boolean cast(Player player, Player target) {	
+		return cast(player);
+	}
+	@Override
+	public boolean cast(Player player, Location target) {
+		Arrow a = (Arrow) target.getWorld().spawnEntity(target, EntityType.ARROW);
+		boolean success = castAtEntity(a, player);
+		a.remove();
+		
+		return success;
+	}
+	
+	private boolean castAtEntity(Entity ent, Player damage) {
+		boolean success = false;
+		List<Entity> entities = ent.getNearbyEntities(range, range, range);
+        for (Entity e : entities) {
+        	if (e instanceof Silverfish) {
+        		((Silverfish)e).damage((double) 0, damage);
+        		success = true;
+        	}
+        }
+		
+        if(!message.equals(""))
+        	//Bukkit.getServer().broadcastMessage(ConfigManager.getLanguage().getString("string_brood_roar","A Broodmother roars!"));
+        	Bukkit.getServer().broadcastMessage("A Broodmother roars!");
+        
+        return success;
+	}
+}

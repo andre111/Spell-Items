@@ -1,0 +1,2 @@
+# WARNING: when this is enabled, Players can only see their real exp when opening an inventory(other than their normal one)
+always_show_stats: false
