@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import me.andre111.items.config.ConfigManager;
 import me.andre111.items.item.CustomItem;
 import me.andre111.items.item.ItemManager;
@@ -68,6 +69,11 @@ public class SpellItems extends JavaPlugin {
 		itemManager.loadItems(ConfigManager.getItemFile());
 		
 		new SpellItemListener(this);
+		
+		SpellCommandExecutor command = new SpellCommandExecutor();
+		for(String st : getDescription().getCommands().keySet()) {
+			getCommand(st).setExecutor(command);
+		}
 		
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {

@@ -1,7 +1,42 @@
 name: SpellItems
 main: me.andre111.items.SpellItems
-version: 1.0
+version: 1.1
 website: http://andre111.bplaced.net/
 author: andre111
 
 softdepend: [ProtocolLib]
+
+commands:
+   siGive:
+      description: Allows you to give Items to Players using the SpellItems Syntax(Look into the items.yml for it)
+      aliases: []
+      usage: /<command> [player] [...item]
+      permission: spellitems.give
+   siEnchant:
+      description: Allows you to enchant the Item you are currently holding with a custom Enchantment
+      aliases: []
+      usage: /<command> [internal_enchantment_name]
+      permission: spellitems.enchant
+   siHelp:
+      description: Provides more info about the commands or the Itemsyntax(use "syntax")
+      aliases: []
+      usage: /<command> [command]
+      permission: spellitems.help
+      
+permissions:
+   spellitems.*:
+      description: Gives you all SpellItems permissions
+      default: op
+      children:
+         spellitems.give: true
+         spellitems.enchant: true
+         spellitems.help: true
+   spellitems.give:
+      description: Allows you to give Items to Players using the SpellItems Syntax(Look into the items.yml for it)
+      default: op
+   spellitems.enchant:
+      description: Allows you to enchant the Item you are currently holding with a custom Enchantment
+      default: op
+   spellitems.help:
+      description: Provides more info about the commands or the Itemsyntax(use "syntax")
+      default: op
