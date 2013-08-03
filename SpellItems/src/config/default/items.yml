@@ -119,7 +119,7 @@
 # castVar0: Item(formated)
 # castVar1: Times
 ######################################
-# "ItemsSnowballs"
+# "ItemSnowballs"
 # Throw a barricade of snowballs
 #
 # castVar0: Required ammount
@@ -241,7 +241,7 @@ items:
          - "Caster ItemEffectSound ARROW_HIT:1:0.5"
        cooldown: 5
        mana:
-         cost: 40
+         cost: 0
        casts:
          0:
            cast: "ItemLeap"
@@ -272,7 +272,7 @@ items:
          - "Caster ItemEffectSound BAT_IDLE:1:0.5"
        cooldown: 1
        mana:
-         cost: 15
+         cost: 0
        casts:
          0:
            cast: "ItemDamage"
