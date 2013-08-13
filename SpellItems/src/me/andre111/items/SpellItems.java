@@ -51,7 +51,8 @@ public class SpellItems extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		SpellItems.instance = this;
+		if(SpellItems.instance==null)
+			SpellItems.instance = this;
 		
 		ConfigManager.initConfig();
 		
@@ -81,6 +82,12 @@ public class SpellItems extends JavaPlugin {
 				ManaManager.tick();
 		    }
 		}, 20, 20);
+	}
+	
+	@Override
+	public void onDisable() {
+		if(SpellItems.instance!=null)
+			SpellItems.instance = null;
 	}
 	
 	//used to load custom items from other plugins
