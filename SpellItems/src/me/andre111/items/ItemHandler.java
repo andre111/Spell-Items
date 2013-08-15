@@ -103,8 +103,8 @@ public class ItemHandler {
 					String added = "";
 					int j = 4;
 					while(geteilt.length>j) {
-						if(added.equals("")) added = geteilt[j];
-						else added = added + " " + geteilt[j];
+						if(added.equals("")) added = geteilt[j].intern();
+						else added = added + " " + geteilt[j].intern();
 						j++;
 					}
 
