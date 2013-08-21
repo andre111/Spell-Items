@@ -125,6 +125,8 @@ public class SpecialEnchantmentManager {
 	
 	//get enchantments from item
 	public void attackPlayerByPlayer(Player attacker, Player player, ItemStack it) {
+		if(it==null) return;
+		if(it.getItemMeta()==null) return;
 		if(it.getItemMeta().getLore()==null) return;
 		
 		for(String st : it.getItemMeta().getLore()) {
@@ -151,6 +153,8 @@ public class SpecialEnchantmentManager {
 	
 	//save enchants on arrow
 	public void procectileShoot(ItemStack bow, Projectile a) {
+		if(bow==null) return;
+		if(bow.getItemMeta()==null) return;
 		if(bow.getItemMeta().getLore()==null) return;
 		
 		int pos = 0;
