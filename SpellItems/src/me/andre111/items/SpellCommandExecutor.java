@@ -141,7 +141,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 					if(args.length>1) {
 						int value = 0;
 						try {
-							value = Integer.parseInt(args[2]);
+							value = Integer.parseInt(args[1]);
 						} catch (NumberFormatException e) {
 							sender.sendMessage("Could not interpret "+args[2]+" as a number");
 							return false;

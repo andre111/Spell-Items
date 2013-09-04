@@ -57,6 +57,7 @@ public class RewardManager {
 	public static void addRewards(FileConfiguration df) {
 		//rewards
 		ConfigurationSection as = df.getConfigurationSection("rewards");
+		if(as==null) return;
 		Set<String> strings2 = as.getKeys(false);
 		String[] stK2 = strings2.toArray(new String[strings2.size()]);
 		//load rewards
