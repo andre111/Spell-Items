@@ -94,6 +94,11 @@ public class RewardManager {
 		for(String player : pointMap.keySet()) {
 			rewardFile.set(player, pointMap.get(player));
 		}
+		try {
+			rewardFile.save(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void loadRewardPoints() {
 		File file = new File(SpellItems.instance.getDataFolder(), "rewardData.yml");
