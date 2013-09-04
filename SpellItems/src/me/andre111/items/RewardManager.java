@@ -111,7 +111,7 @@ public class RewardManager {
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 		
 		for (Entry<String, Object> m : rewardFile.getValues(false).entrySet()) {
-			pointMap.put(m.getKey(), Integer.parseInt((String)m.getValue()));
+			pointMap.put(m.getKey(), (Integer)m.getValue());
 		}
 	}
 }
