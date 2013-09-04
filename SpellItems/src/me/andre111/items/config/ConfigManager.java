@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class ConfigManager {
 	private static FileConfiguration configfile;
 	private static FileConfiguration itemfile;
+	private static FileConfiguration rewardfile;
 	
 	public static void initConfig() {
 		exportConfigs();
@@ -26,21 +27,32 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(SpellItems.instance.getDataFolder(), "config/default/items.yml"), new File(SpellItems.instance.getDataFolder(), "items.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(SpellItems.instance.getDataFolder(), "rewards.yml").exists()) {
+			try {
+				FileHandler.copyFolder(new File(SpellItems.instance.getDataFolder(), "config/default/rewards.yml"), new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
+			} catch (IOException e) {}
+		}
 		configfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "config.yml"));
 		itemfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "items.yml"));
+		rewardfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
 	}
 	
 	private static void exportConfigs() {
 		SpellItems.instance.saveResource("config/default/config.yml", true);
 		SpellItems.instance.saveResource("config/default/items.yml", true);
+		SpellItems.instance.saveResource("config/default/rewards.yml", true);
 	}
 
 	public static void reloadConfig() {
 		itemfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "items.yml"));
+		rewardfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
 	}
 	
 	public static FileConfiguration getItemFile() {
 		return itemfile;
+	}
+	public static FileConfiguration getRewardFile() {
+		return rewardfile;
 	}
 	public static FileConfiguration getStaticConfig() {
 		return configfile;

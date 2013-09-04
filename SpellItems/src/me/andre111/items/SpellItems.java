@@ -70,6 +70,7 @@ public class SpellItems extends JavaPlugin {
 		itemManager.loadItems(ConfigManager.getItemFile());
 		
 		RewardManager.loadRewardPoints();
+		RewardManager.addRewards(ConfigManager.getRewardFile());
 		
 		new SpellItemListener(this);
 		
@@ -99,9 +100,13 @@ public class SpellItems extends JavaPlugin {
 		enchantManager.addEnchants(config);
 		itemManager.addItems(config);
 	}
+	public static void addRewardsFromConfiguration(FileConfiguration config) {
+		RewardManager.addRewards(config);
+	}
 	public static void reload() {
 		reloadItems();
 		reloadEnchantmets();
+		reloadRewards();
 	}
 	public static void reloadItems() {
 		ConfigManager.reloadConfig();
@@ -110,6 +115,11 @@ public class SpellItems extends JavaPlugin {
 	public static void reloadEnchantmets() {
 		ConfigManager.reloadConfig();
 		enchantManager.reload(ConfigManager.getItemFile());
+	}
+	public static void reloadRewards() {
+		ConfigManager.reloadConfig();
+		RewardManager.clearRewards();
+		RewardManager.addRewards(ConfigManager.getRewardFile());
 	}
 
 	//#######################################
