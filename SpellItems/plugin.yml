@@ -17,6 +17,11 @@ commands:
       aliases: []
       usage: /<command> [internal_enchantment_name]
       permission: spellitems.enchant
+   siMana:
+      description: Allows you to set the maximum Mana and Mana regenerationrate for Players
+      aliases: []
+      usage: /<command> [player] [maxmana_or_regen] [value]
+      permission: spellitems.mana
    siHelp:
       description: Provides more info about the commands or the Itemsyntax(use "syntax")
       aliases: []
@@ -30,12 +35,16 @@ permissions:
       children:
          spellitems.give: true
          spellitems.enchant: true
+         spellitems.mana: true
          spellitems.help: true
    spellitems.give:
       description: Allows you to give Items to Players using the SpellItems Syntax(Look into the items.yml for it)
       default: op
    spellitems.enchant:
       description: Allows you to enchant the Item you are currently holding with a custom Enchantment
+      default: op
+   spellitems.mana:
+      description: Allows you to set the maximum Mana and Mana regenerationrate for Players
       default: op
    spellitems.help:
       description: Provides more info about the commands or the Itemsyntax(use "syntax")

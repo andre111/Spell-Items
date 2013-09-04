@@ -81,6 +81,50 @@ public class SpellCommandExecutor implements CommandExecutor {
 				return false;
 			}
 		}
+		//MANA COMMAND
+		if(command.getName().equalsIgnoreCase("siMana")) {
+			if(!sender.hasPermission("spellitems.enchant")) {
+				sender.sendMessage("You don't have the Permission to do that!");
+				return false;
+			}
+			
+			//get the player
+			if(args.length>0) {
+				Player player = Bukkit.getServer().getPlayerExact(args[0]);
+				
+				if(player!=null) {
+					//get the value
+					if(args.length>2) {
+						int value = 0;
+						try {
+							value = Integer.parseInt(args[2]);
+						} catch (NumberFormatException e) {
+							sender.sendMessage("Could not interpret "+args[2]+" as a number");
+							return false;
+						}
+						
+						if(args[1].equalsIgnoreCase("maxmana")) {
+							ManaManager.setMaxMana(player.getName(), value, true);
+						} else if(args[1].equalsIgnoreCase("regen")) {
+							ManaManager.setManaRegen(player.getName(), value);
+						} else {
+							sender.sendMessage("Could not find variable: "+args[1]);
+							sender.sendMessage("Please use maxmana or regen");
+							return false;
+						}
+					} else {
+						sender.sendMessage("Please specify a variable and the value!");
+						return false;
+					}
+				} else {
+					sender.sendMessage("Player "+args[0]+" not found!");
+					return false;
+				}
+			} else {
+				sender.sendMessage("Please specify a player!");
+				return false;
+			}
+		}
 		//HELP COMMAND
 		if(command.getName().equalsIgnoreCase("siHelp")) {
 			if(!sender.hasPermission("spellitems.help")) {
