@@ -52,6 +52,7 @@ public class SpellItemListener implements Listener {
 	}
 	
 	//custom enchants
+	private boolean ignoreDamage = false;
 	@EventHandler(priority=EventPriority.MONITOR)
 	public void onEntityDamageEntityMonitor(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
@@ -63,7 +64,12 @@ public class SpellItemListener implements Listener {
 			SpellItems.enchantManager.attackPlayerByPlayer(attacker, player, attacker.getItemInHand());
 			
 			//"leftclicking"
-			SpellItems.playerSpecialItemC(attacker, attacker.getItemInHand(), 0, null, player);
+			if (!ignoreDamage) {
+				ignoreDamage = true;
+				SpellItems.playerSpecialItemC(attacker, attacker.getItemInHand(), 0, null, player);
+			} else {
+				ignoreDamage = false;
+			}
 		}
 		if(event.getDamager() instanceof Projectile) {
 			Projectile a = (Projectile) event.getDamager();
