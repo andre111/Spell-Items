@@ -14,6 +14,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemHandler {
+	private static final Random random = new Random();
+	
 	public static ItemStack decodeItem(String str) {
 		while(str.startsWith(" ")) {
 			str = str.substring(1);
@@ -26,7 +28,7 @@ public class ItemHandler {
 		int damage = 0;
 		int countmin = 1;
 		int countmax = -1;
-		int chance = 100;
+		double chance = 100;
 		boolean addGlow = false;
 		boolean exception = false;
 		ItemStack item = null;
@@ -52,12 +54,12 @@ public class ItemHandler {
 			}
 			//chance
 			if(geteilt.length>2) {
-				chance = Integer.parseInt(geteilt[2]);
+				chance = Double.parseDouble(geteilt[2]);
 			}
 
-			if((id!=0 || item!=null) && (new Random()).nextInt(100)<chance) {
+			if((id!=0 || item!=null) && random.nextDouble()*100<chance) {
 				int count = countmin;
-				if(countmax!=-1) count = countmin + (new Random()).nextInt(countmax-countmin+1);
+				if(countmax!=-1) count = countmin + random.nextInt(countmax-countmin+1);
 				if(item==null) {
 					item = new ItemStack(id, count, (short)damage);
 				} else {
