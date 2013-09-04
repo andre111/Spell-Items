@@ -61,6 +61,9 @@ public class SpellItemListener implements Listener {
 		if(event.getDamager() instanceof Player) {
 			Player attacker = (Player) event.getDamager();
 			SpellItems.enchantManager.attackPlayerByPlayer(attacker, player, attacker.getItemInHand());
+			
+			//"leftclicking"
+			SpellItems.playerSpecialItemC(attacker, attacker.getItemInHand(), 0, null, player);
 		}
 		if(event.getDamager() instanceof Projectile) {
 			Projectile a = (Projectile) event.getDamager();
