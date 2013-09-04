@@ -1,6 +1,7 @@
 package me.andre111.items;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -43,6 +44,7 @@ public class RewardManager {
 				
 				if(level==pPoints || (repeating && pPoints%level==0)) {
 					player.getInventory().addItem(ItemHandler.decodeItem(r.getItem()));
+					ItemHandler.updateInventory(player);
 					
 					if(r.isReset()) reset = true;
 				}
@@ -81,7 +83,12 @@ public class RewardManager {
 	//save and load reward data
 	public static void saveRewardPoints() {
 		File file = new File(SpellItems.instance.getDataFolder(), "rewardData.yml");
-		if (!file.exists()) file.mkdirs();
+		if (!file.exists())
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 		
 		for(String player : pointMap.keySet()) {
@@ -90,7 +97,12 @@ public class RewardManager {
 	}
 	public static void loadRewardPoints() {
 		File file = new File(SpellItems.instance.getDataFolder(), "rewardData.yml");
-		if (!file.exists()) file.mkdirs();
+		if (!file.exists())
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 		
 		for (Entry<String, Object> m : rewardFile.getValues(false).entrySet()) {
