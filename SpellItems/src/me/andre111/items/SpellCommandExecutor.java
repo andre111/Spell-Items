@@ -83,7 +83,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 		}
 		//MANA COMMAND
 		if(command.getName().equalsIgnoreCase("siMana")) {
-			if(!sender.hasPermission("spellitems.enchant")) {
+			if(!sender.hasPermission("spellitems.mana")) {
 				sender.sendMessage("You don't have the Permission to do that!");
 				return false;
 			}
@@ -125,6 +125,42 @@ public class SpellCommandExecutor implements CommandExecutor {
 				return false;
 			}
 		}
+		//REWARD COMMAND
+		if(command.getName().equalsIgnoreCase("siReward")) {
+			if(!sender.hasPermission("spellitems.reward")) {
+				sender.sendMessage("You don't have the Permission to do that!");
+				return false;
+			}
+
+			//get the player
+			if(args.length>0) {
+				Player player = Bukkit.getServer().getPlayerExact(args[0]);
+
+				if(player!=null) {
+					//get the value
+					if(args.length>1) {
+						int value = 0;
+						try {
+							value = Integer.parseInt(args[2]);
+						} catch (NumberFormatException e) {
+							sender.sendMessage("Could not interpret "+args[2]+" as a number");
+							return false;
+						}
+
+						RewardManager.addRewardPoints(player, value);
+					} else {
+						sender.sendMessage("Please specify the ammount of points to give!");
+						return false;
+					}
+				} else {
+					sender.sendMessage("Player "+args[0]+" not found!");
+					return false;
+				}
+			} else {
+				sender.sendMessage("Please specify a player!");
+				return false;
+			}
+		}
 		//HELP COMMAND
 		if(command.getName().equalsIgnoreCase("siHelp")) {
 			if(!sender.hasPermission("spellitems.help")) {
@@ -150,6 +186,19 @@ public class SpellCommandExecutor implements CommandExecutor {
 						return true;
 					}
 				}
+				if(args[0].equalsIgnoreCase("siMana")) {
+					if(sender.hasPermission("spellitems.mana")) {
+						sender.sendMessage("Set the Maximum Mana and Manaregeneration per second for a Player");
+						sender.sendMessage("Setting Maximum Mana will also completly fill the Players Mana");
+						return true;
+					}
+				}
+				if(args[0].equalsIgnoreCase("siReward")) {
+					if(sender.hasPermission("spellitems.reward")) {
+						sender.sendMessage("Give Rewardpoints to a Player");
+						return true;
+					}
+				}
 				if(args[0].equalsIgnoreCase("Syntax")) {
 					sender.sendMessage("Itemsyntax: ");
 					sender.sendMessage("id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id_OR_customEnchantmentName>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>");
@@ -162,7 +211,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 					return true;
 				}
 			} else {
-				sender.sendMessage("Please specify what you wnat more Info about!");
+				sender.sendMessage("Please specify what you want more Info about!");
 				return false;
 			}
 		}

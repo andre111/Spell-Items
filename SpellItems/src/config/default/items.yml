@@ -47,9 +47,9 @@
 ######################################
 # "ItemDamage"
 # Damages or heals a Player
-# WARNING: This is affected by the friendly_fire option!
 # castVar0: castOnSelf(1=true)
 # castVar1: damage(negative to heal)
+# castVar2: range(for targeted spells)
 ######################################
 # "ItemCommand"
 # Execute command as the Player or console
@@ -164,6 +164,11 @@
 #
 # castVar0: to self or targeted player(1=self)
 # castVar1: amount
+######################################
+# "ItemRewardPoints"
+# Gives Rewardpoints a Player
+# castVar0: castOnSelf(1=true)
+# castVar1: points
 ######################################
 # ""
 # 

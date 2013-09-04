@@ -69,6 +69,8 @@ public class SpellItems extends JavaPlugin {
 		itemManager = new ItemManager();
 		itemManager.loadItems(ConfigManager.getItemFile());
 		
+		RewardManager.loadRewardPoints();
+		
 		new SpellItemListener(this);
 		
 		SpellCommandExecutor command = new SpellCommandExecutor();
@@ -88,6 +90,8 @@ public class SpellItems extends JavaPlugin {
 	public void onDisable() {
 		if(SpellItems.instance!=null)
 			SpellItems.instance = null;
+		
+		RewardManager.saveRewardPoints();
 	}
 	
 	//used to load custom items from other plugins
