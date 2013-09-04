@@ -89,10 +89,10 @@ public class SpellItems extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
+		RewardManager.saveRewardPoints();
+		
 		if(SpellItems.instance!=null)
 			SpellItems.instance = null;
-		
-		RewardManager.saveRewardPoints();
 	}
 	
 	//used to load custom items from other plugins
