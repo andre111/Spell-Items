@@ -148,6 +148,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 						}
 
 						RewardManager.addRewardPoints(player, value);
+						return true;
 					} else {
 						sender.sendMessage("Please specify the ammount of points to give!");
 						return false;
