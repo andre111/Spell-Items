@@ -170,6 +170,11 @@
 # castVar0: castOnSelf(1=true)
 # castVar1: points
 ######################################
+# "ItemRandom"
+# Randomly gives out success or fail
+# of spell
+# castVar0: chance: 1 out of this
+######################################
 # ""
 # 
 #
