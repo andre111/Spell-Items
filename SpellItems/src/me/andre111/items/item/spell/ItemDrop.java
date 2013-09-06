@@ -3,6 +3,7 @@ package me.andre111.items.item.spell;
 import me.andre111.items.item.ItemSpell;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,7 +14,7 @@ public class ItemDrop extends ItemSpell {
 	public boolean cast(Player player, Player target) {
 		ItemStack held = target.getItemInHand();
 		target.setItemInHand(null);
-		if(held.getTypeId()!=0) {
+		if(held.getType()!=Material.AIR) {
 			target.getWorld().dropItemNaturally(target.getLocation(), held);
 			
 			return true;

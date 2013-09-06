@@ -5,6 +5,7 @@ import me.andre111.items.item.ItemSpell;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -53,9 +54,9 @@ public class ItemLay extends ItemSpell {
 				for(int yy=-radius; yy<=radius; yy++) {
 					for(int zz=-radius; zz<=radius; zz++) {
 						Block block = w.getBlockAt(x+xx, y+yy, z+zz);
-						int bid = block.getTypeId();
-						if(bid==1 || bid==4 || bid==98) {
-							block.setTypeId(97);
+						Material bid = block.getType();
+						if(bid==Material.STONE || bid==Material.COBBLESTONE || bid==Material.SMOOTH_BRICK) {
+							block.setType(Material.MONSTER_EGGS);
 						}
 					}
 				}

@@ -34,7 +34,7 @@ public class ItemBlink extends ItemSpell {
 		if (iter != null) {
 			while (iter.hasNext()) {
 				b = iter.next();
-				if (SpellItems.transparent.contains((byte)b.getTypeId())) {
+				if (SpellItems.isPathable(b.getType())) {
 					prev = b;
 				} else {
 					found = b;
