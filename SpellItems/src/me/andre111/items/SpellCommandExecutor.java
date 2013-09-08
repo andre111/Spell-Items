@@ -143,11 +143,11 @@ public class SpellCommandExecutor implements CommandExecutor {
 						try {
 							value = Integer.parseInt(args[1]);
 						} catch (NumberFormatException e) {
-							if(args[2].equalsIgnoreCase("reset")) {
+							if(args[1].equalsIgnoreCase("reset")) {
 								RewardManager.resetRewardPoints(player);
 								return true;
 							} else {
-								sender.sendMessage("Could not interpret "+args[2]+" as a number");
+								sender.sendMessage("Could not interpret "+args[1]+" as a number");
 								return false;
 							}
 						}
