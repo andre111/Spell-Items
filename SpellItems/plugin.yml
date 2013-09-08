@@ -23,9 +23,9 @@ commands:
       usage: /<command> [player] [maxmana_or_regen] [value]
       permission: spellitems.mana
    siReward:
-      description: Gives a Player Rewardpoints
+      description: Gives a Player Rewardpoints/resets them
       aliases: []
-      usage: /<command> [player] [points]
+      usage: /<command> [player] [points_or_"reset"]
       permission: spellitems.reward
    siHelp:
       description: Provides more info about the commands or the Itemsyntax(use "syntax")
@@ -53,7 +53,7 @@ permissions:
       description: Allows you to set the maximum Mana and Mana regenerationrate for Players
       default: op
    spellitems.reward:
-      description: Gives a Player Rewardpoints
+      description: Gives a Player Rewardpoints/resets them
       default: op
    spellitems.help:
       description: Provides more info about the commands or the Itemsyntax(use "syntax")

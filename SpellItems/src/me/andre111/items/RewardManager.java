@@ -31,6 +31,10 @@ public class RewardManager {
 		
 		giveOutReward(player);
 	}
+	//resets the players points to 0
+	public static void resetRewardPoints(Player player) {
+		pointMap.put(player.getName(), 0);
+	}
 	
 	//gives out rewards when the required ammount is reached
 	private static void giveOutReward(Player player) {

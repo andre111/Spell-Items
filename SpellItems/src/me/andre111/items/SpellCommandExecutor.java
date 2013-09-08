@@ -143,8 +143,13 @@ public class SpellCommandExecutor implements CommandExecutor {
 						try {
 							value = Integer.parseInt(args[1]);
 						} catch (NumberFormatException e) {
-							sender.sendMessage("Could not interpret "+args[2]+" as a number");
-							return false;
+							if(args[2].equalsIgnoreCase("reset")) {
+								RewardManager.resetRewardPoints(player);
+								return true;
+							} else {
+								sender.sendMessage("Could not interpret "+args[2]+" as a number");
+								return false;
+							}
 						}
 
 						RewardManager.addRewardPoints(player, value);
@@ -197,6 +202,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("siReward")) {
 					if(sender.hasPermission("spellitems.reward")) {
 						sender.sendMessage("Give Rewardpoints to a Player");
+						sender.sendMessage("Use \"reset\" to reset the Players points");
 						return true;
 					}
 				}
