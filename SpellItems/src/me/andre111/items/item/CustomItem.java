@@ -155,14 +155,15 @@ public class CustomItem implements IUpCounter {
 		if(actions==0) cost = getManaCostL();
 		if(actions==2) cost = getManaCostEat();
 		
-		if(cost>0)
-		if(ManaManager.getMana(player.getName())<cost) {
-			//player.sendMessage(ConfigManager.getLanguage().getString("string_needmana", "You need -0- Mana!").replace("-0-", ""+cost));
-			player.sendMessage("You need -0- Mana!".replace("-0-", ""+cost));
-			return true;
+		if(cost>0) {
+			if(ManaManager.getMana(player.getName())<cost) {
+				//player.sendMessage(ConfigManager.getLanguage().getString("string_needmana", "You need -0- Mana!").replace("-0-", ""+cost));
+				player.sendMessage("You need -0- Mana!".replace("-0-", ""+cost));
+				return true;
+			}
+			
+			ManaManager.substractMana(player.getName(), cost);
 		}
-		
-		ManaManager.substractMana(player.getName(), cost);
 		
 		//substract items
 		if(isUse()) {

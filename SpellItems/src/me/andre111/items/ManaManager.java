@@ -14,7 +14,7 @@ public class ManaManager {
 			String player = e.getKey();
 			int m = e.getValue();
 			
-			if(maxMana==null || player==null) continue;
+			if(maxMana==null || player==null || !maxMana.containsKey(player)) continue;
 	
 			int maxm = maxMana.get(player);
 			
@@ -62,8 +62,8 @@ public class ManaManager {
 		
 		mana.put(player, value);
 		
-		if(maxMana!=null) 
-		changedMana(player, value, maxMana.get(player));
+		if(maxMana!=null && player!=null && maxMana.containsKey(player) && maxMana.get(player)!=null);
+			changedMana(player, value, maxMana.get(player));
 	}
 	
 	//update mana stat
