@@ -198,6 +198,11 @@ public class SpellItems extends JavaPlugin {
 				material == Material.CARROT ||
 				material == Material.WOOD_BUTTON;
 	}
+	public static boolean isUntachable(Material material) {
+		return
+				material == Material.OBSIDIAN ||
+				material == Material.ENCHANTMENT_TABLE;
+	}
 	
 	public final static HashSet<Player> jumpingNormal = new HashSet<Player>();
 }

@@ -175,6 +175,23 @@
 # of spell
 # castVar0: chance: 1 out of this
 ######################################
+# "ItemWorldThunderStorm"
+# Creates a Thunderstorm with many
+# Lightnings in the world
+# castVar0: time(ticks->20=1 second)
+# castVar1: chance(1-100) to strike a lightning per tick(default: 8)
+# castVar2: distance(the maximum distance from the selected player)(default: 10)
+######################################
+# "ItemWorldTornado"
+# Creates a destrutive tornado
+# in the current world/location
+# castVar0: time(ticks->20=1 second)
+# castVar1: moveSpeed(default:  0.05)
+# castVar2: chance(1-100) to change direction per tick(default: 1)
+# castVar3: chance(1-100) to pickup/throw a block per tick(default: 70)
+# castVar4: radius of picking up blocks(default: 3)
+# castVar5: hurting blocks(1=true)
+######################################
 # ""
 # 
 #
