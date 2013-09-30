@@ -1,8 +1,11 @@
 # WARNING:
-# You should always set a lore,
-# because the items are identified by
-# id,data,name and lore
-# and lore can not be canged in normal minecraft!
+# No longer true
+# Items are now Identified by 
+# id,data and a unique invisible tag
+# --You should always set a lore,
+# --because the items are identified by
+# --id,data,name and lore
+# --and lore can not be canged in normal minecraft!
 
 # required is a number of the spell that needs to succed before using this(-1 = none)
 

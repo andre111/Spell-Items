@@ -86,7 +86,7 @@ public class WorldTornado extends WorldEffect {
 	private void handleBlocks() {
 		if(rand.nextInt(100)>=blockChance) return;
 		
-		//throw blocks or rotate them(maybe difficult)?
+		//throw blocks or --rotate them(maybe difficult)?
 		Location blockLoc = loc.clone();
 		blockLoc.add(rand.nextInt(radius*2)-radius, rand.nextInt(radius*2)-radius, rand.nextInt(radius*2)-radius);
 		blockLoc = blockLoc.getWorld().getHighestBlockAt(blockLoc).getLocation();

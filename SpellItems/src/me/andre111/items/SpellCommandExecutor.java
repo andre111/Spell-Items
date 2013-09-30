@@ -214,7 +214,6 @@ public class SpellCommandExecutor implements CommandExecutor {
 					sender.sendMessage("id of a default enchantment or the internalname of a custom one");
 					sender.sendMessage("-1 to completly ignore enchants(if you want to set a name)");
 					sender.sendMessage("-10 to only get the glowing Effect without an enchantment");
-					sender.sendMessage("WARNING: Do not change name or lore of custom Items or they will not work!");
 					return true;
 				}
 			} else {

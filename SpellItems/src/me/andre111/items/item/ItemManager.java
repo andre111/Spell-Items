@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import me.andre111.items.SpellItems;
+import me.andre111.items.utils.AttributeStorage;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -241,7 +244,22 @@ public class ItemManager {
 		
 		return null;
 	}
-	public List<CustomItem> getItemByDisplayName(String name) {
+	public List<CustomItem> getItemByAtrribute(ItemStack it) {
+		ArrayList<CustomItem> itemList = new ArrayList<CustomItem>();
+		
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		if(!storage.getData("").startsWith("si_customitem_")) return itemList;
+		String iname = storage.getData("").replace("si_customitem_", "");
+		
+		for(int i=0; i<items.length; i++) {
+			if(iname.equals(items[i].getInternalName())) {
+				itemList.add(items[i]);
+			}
+		}
+		
+		return itemList;
+	}
+	/*public List<CustomItem> getItemByDisplayName(String name) {
 		ArrayList<CustomItem> itemList = new ArrayList<CustomItem>();
 		
 		for(int i=0; i<items.length; i++) {
@@ -251,7 +269,7 @@ public class ItemManager {
 		}
 		
 		return itemList;
-	}
+	}*/
 	public CustomItem getItemByName(String name) {
 		for(int i=0; i<items.length; i++) {
 			if(name.equals(items[i].getInternalName())) {

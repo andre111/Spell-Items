@@ -32,7 +32,6 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SpellItemListener implements Listener {
@@ -135,10 +134,10 @@ public class SpellItemListener implements Listener {
 	public void onBlockPlace(BlockPlaceEvent event){
 		//specialitems - block place disable
 		ItemStack item = event.getItemInHand();
-		ItemMeta im = item.getItemMeta();
+		/*ItemMeta im = item.getItemMeta();
 		if(im!=null) {
-			if(im.hasDisplayName()) {
-				List<CustomItem> cil = SpellItems.itemManager.getItemByDisplayName(im.getDisplayName());
+			if(im.hasDisplayName()) {*/
+				List<CustomItem> cil = SpellItems.itemManager.getItemByAtrribute(item);
 				if(cil!=null) {
 					for(int i=0; i<cil.size(); i++) {
 						CustomItem ci = cil.get(i);
@@ -150,8 +149,8 @@ public class SpellItemListener implements Listener {
 						}
 					}
 				}
-			}
-		}
+			/*}
+		}*/
 	}
 	
 	//fallingsand

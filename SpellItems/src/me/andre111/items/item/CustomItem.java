@@ -8,6 +8,7 @@ import me.andre111.items.ManaManager;
 import me.andre111.items.SpellItems;
 import me.andre111.items.StatManager;
 import me.andre111.items.iface.IUpCounter;
+import me.andre111.items.utils.AttributeStorage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -226,24 +227,33 @@ public class CustomItem implements IUpCounter {
 		}
 		
 		it.setItemMeta(im);
-		return it;
+		
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		storage.setData("si_customitem_"+getInternalName());
+		
+		return storage.getTarget();
 	}
 	public boolean isThisItem(ItemStack it) {
 		if(it.getTypeId()!=id) return false;
 		if(!ignoreDamage && it.getDurability()!=damage) return false;
-		ItemMeta im = it.getItemMeta();
+		
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		if(!storage.getData("").startsWith("si_customitem_")) return false;
+		if(!storage.getData("").replace("si_customitem_", "").equals(getInternalName())) return false;
+		
+		/*ItemMeta im = it.getItemMeta();
 		if(!im.getDisplayName().equals(name)) return false;
 		if(im.hasLore()) {
 			return isLoreCorrect(im);
 		} else {
 			if(lore.size()>0) return false;
-		}
+		}*/
 		
 		return true;
 	}
 	
 	//compare lore to ignore custom enchantments
-	private boolean isLoreCorrect(ItemMeta im) {
+	/*private boolean isLoreCorrect(ItemMeta im) {
 		int pos = 0;
 		for(String st : im.getLore()) {
 			if(!SpellItems.enchantManager.isCustomEnchantment(st)) {
@@ -255,7 +265,7 @@ public class CustomItem implements IUpCounter {
 		if(lore.size()>pos) return false;
 		
 		return true;
-	}
+	}*/
 	
 	public void setSizeR(int size) {
 		castsR = new ItemSpell[size];

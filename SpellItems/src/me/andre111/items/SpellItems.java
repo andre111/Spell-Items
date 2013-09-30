@@ -2,6 +2,7 @@ package me.andre111.items;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,6 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.protocol.ProtocolLibrary;
@@ -26,6 +26,8 @@ import com.comphenix.protocol.ProtocolManager;
 
 public class SpellItems extends JavaPlugin {
 	public static SpellItems instance;
+	//IMPORTANT VALUE: DO NEVER CHANGE
+	public static final UUID itemUUID = UUID.fromString("5a544aff-9352-43b7-a397-dc8dd3914d0d");
 	
 	public static Logger logger;
 	public static String prefix = "[SpellItems] ";
@@ -130,10 +132,10 @@ public class SpellItems extends JavaPlugin {
 	//2 = eat
 	//#######################################
 	public static void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Player target) {
-		ItemMeta im = item.getItemMeta();
+		/*ItemMeta im = item.getItemMeta();
 		if(im!=null) {
-			if(im.hasDisplayName()) {
-				List<CustomItem> cil = SpellItems.itemManager.getItemByDisplayName(im.getDisplayName());
+			if(im.hasDisplayName()) {*/
+				List<CustomItem> cil = SpellItems.itemManager.getItemByAtrribute(item);
 				if(cil!=null) {
 					for(int i=0; i<cil.size(); i++) {
 						CustomItem ci = cil.get(i);
@@ -148,8 +150,8 @@ public class SpellItems extends JavaPlugin {
 						}
 					}
 				}
-			}
-		}
+			/*}
+		}*/
 	}
 	
 	public static void log(String s) {
