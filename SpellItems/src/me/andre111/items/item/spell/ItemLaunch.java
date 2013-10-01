@@ -66,7 +66,9 @@ public class ItemLaunch extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location location, Player target, Block blockClicked) {
+		if(player==null) return false;
+		
 		Location loc = player.getEyeLocation();
 		FallingBlock fs = loc.getWorld().spawnFallingBlock(loc, blockId, blockData);
 		
@@ -86,21 +88,12 @@ public class ItemLaunch extends ItemSpell {
 	
 		return true;
 	}
-	
-	@Override
-	public boolean cast(Player player, Block target) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	
+
 	public void onHit(Player player, Block block) {
 		//effects
 		getItem().createEffects(block.getLocation(), getAction(), "onHit");
 		
 		if(onHit!=null && player!=null)
-			onHit.cast(player, block.getLocation());
+			onHit.cast(player, block.getLocation(), null, null);
 	}
 }

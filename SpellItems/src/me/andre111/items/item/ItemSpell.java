@@ -13,13 +13,14 @@ public class ItemSpell {
 	public void setCastVar(int id, String var) {
 	}
 	
-	public boolean cast(Player player, boolean[] states) {
+	/*public boolean cast(Player player, boolean[] states) {
 		//required other attacks to succed
 		if(require!=-1) {
 			if(!states[require]) return false;
 		}
 		
-		return cast(player);
+		//return cast(player);
+		return cast(player, player.getLocation(), null, null);
 	}
 	public boolean cast(Player player, Block block, boolean[] states) {
 		//required other attacks to succed
@@ -27,7 +28,8 @@ public class ItemSpell {
 			if(!states[require]) return false;
 		}
 
-		return cast(player, block);
+		//return cast(player, block);
+		return cast(player, player.getLocation(), null, block);
 	}
 	public boolean cast(Player player, Player target, boolean[] states) {
 		//required other attacks to succed
@@ -35,20 +37,21 @@ public class ItemSpell {
 			if(!states[require]) return false;
 		}
 
-		return cast(player, target);
-	}
+		//return cast(player, target);
+		return cast(player, player.getLocation(), target, null);
+	}*/
 	
-	public boolean cast(Player player) {
-		return false;
+	//player can be null!
+	public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states) {
+		//required other attacks to succed
+		if(require!=-1) {
+			if(!states[require]) return false;
+		}
+		
+		return cast(player, loc, target, block);
 	}
-	public boolean cast(Player player, Block block) {
-		return false;
-	}
-	public boolean cast(Player player, Player target) {
-		return false;
-	}
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
+	//player can be null!
+	public boolean cast(Player player, Location loc, Player target, Block block) {
 		return false;
 	}
 	

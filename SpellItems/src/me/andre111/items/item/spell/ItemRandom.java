@@ -18,20 +18,7 @@ public class ItemRandom extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
-		return castIntern();
-	}
-	@Override
-	public boolean cast(Player player, Block target) {
-		return castIntern();
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return castIntern();
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
 		return castIntern();
 	}
 	

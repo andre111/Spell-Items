@@ -30,30 +30,20 @@ public class ItemArmorSet extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
-		if(!self) return false;
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		Player pTarget = null;
+		if(self) {
+			pTarget = player;
+		} else if(target!=null) {
+			pTarget = target;
+		}
 		
-		setArmor(player);
+		if(pTarget!=null) {
+			setArmor(pTarget);
+			return true;
+		}
 		
-		return true;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		Player p = player;
-		if(!self) p = target;
-		
-		setArmor(p);
-		
-		return true;
-	}
-	@Override
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
+		return false;
 	}
 	
 	private void setArmor(Player player) {

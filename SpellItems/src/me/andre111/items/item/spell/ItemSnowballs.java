@@ -29,7 +29,9 @@ public class ItemSnowballs extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {	
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
 		if(ItemHandler.countItems(player, 332, 0)>=needed) {
 			ItemHandler.removeItems(player, 332, 0, needed);
 
@@ -52,18 +54,5 @@ public class ItemSnowballs extends ItemSpell {
 			}
 			return false;
 		}
-	}
-	
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
 	}
 }

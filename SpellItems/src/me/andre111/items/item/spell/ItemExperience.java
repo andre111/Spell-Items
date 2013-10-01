@@ -16,30 +16,20 @@ public class ItemExperience extends ItemSpell {
 		if(id==1) amount = (int) Math.round(var);
 	}
 	
-	
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		Player pTarget = null;
 		if(self) {
-			player.giveExp(amount);
-			return true;
+			pTarget = player;
+		} else if(target!=null) {
+			pTarget = target;
 		}
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		if(!self) {
-			target.giveExp(amount);
+		
+		if(pTarget!=null) {
+			pTarget.giveExp(amount);
 			return true;
 		}
 		
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
+		return false;
 	}
 }

@@ -13,9 +13,14 @@ private int ammount = 2;
 	public void setCastVar(int id, double var) {
 		if(id==0) ammount = (int) Math.round(var);
 	}
-
+	
 	@Override
-	public boolean cast(Player player, Player target) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(target==null) {
+			if(player!=null) resetCoolDown(player);
+			return false;
+		}
+		
 		int newfood = target.getFoodLevel()-ammount;
 		if(newfood<0) newfood = 0;
 		
@@ -28,21 +33,5 @@ private int ammount = 2;
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public boolean cast(Player player) {
-		resetCoolDown(player);
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		resetCoolDown(player);
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		resetCoolDown(player);
-		return false;
 	}
 }

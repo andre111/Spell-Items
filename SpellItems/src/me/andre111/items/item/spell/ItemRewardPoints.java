@@ -18,32 +18,22 @@ public class ItemRewardPoints extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
-		if(!self) return false;
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		Player pTarget = null;
+		if(self) {
+			pTarget = player;
+		} else if(target!=null) {
+			pTarget = target;
+		}
 		
-		return castIntern(player, player);
-	}
-	@Override
-	public boolean cast(Player player, Block target) {
-		if(self)
-			return castIntern(player, player);
-		else
-			return false;
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		if(self)
-			return castIntern(player, player);
-		else
-			return castIntern(target, player);
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc) {
+		if(pTarget!=null) {
+			return castIntern(pTarget);
+		}
+		
 		return false;
 	}
 	
-	private boolean castIntern(Player player, Player source) {
+	private boolean castIntern(Player player) {
 		if(points>0) {
 			RewardManager.addRewardPoints(player, points);
 		}

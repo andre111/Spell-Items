@@ -19,41 +19,17 @@ public class ItemExplode extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {	
+	public boolean cast(Player player, Location loc, Player target, Block block) {
 		World w = player.getWorld();
-		Location loc = player.getLocation();
+		//Location loc = player.getLocation();
 		
-		if(kill) {
+		if(kill && player!=null) {
 			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 			player.damage((double) 10000);
 		}
 		
 		w.createExplosion(loc, power);
 		w.createExplosion(loc, power);
-		
-		return true;
-	}
-	
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	
-	@Override
-	public boolean cast(Player player, Location target) {
-		World w = target.getWorld();
-		
-		if(kill) {
-			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-			player.damage((double) 10000);
-		}
-		
-		w.createExplosion(target, power);
-		w.createExplosion(target, power);
 		
 		return true;
 	}

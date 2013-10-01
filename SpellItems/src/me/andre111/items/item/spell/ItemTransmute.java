@@ -34,9 +34,10 @@ public class ItemTransmute extends ItemSpell {
 		if(id>4) items.add(var);
 	}
 	
-	
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location location, Player target, Block block) {
+		if(player==null) return false;
+		
 		if(ItemHandler.countItems(player, iid, data)>=ammount || ammount==0) {
 			if(ammount!=0)
 				ItemHandler.removeItems(player, iid, data, ammount);
@@ -67,17 +68,5 @@ public class ItemTransmute extends ItemSpell {
 			resetCoolDown(player);
 		}
 		return false;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
 	}
 }

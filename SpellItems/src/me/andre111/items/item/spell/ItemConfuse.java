@@ -19,26 +19,15 @@ public class ItemConfuse extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player, Player target) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(target==null) {
+			if(player!=null) resetCoolDown(player);
+			return false;
+		}
+		
 		target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration, level), true);
 		target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, duration, level), true);
 		
 		return true;
-	}
-	
-	@Override
-	public boolean cast(Player player) {
-		resetCoolDown(player);
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		resetCoolDown(player);
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		resetCoolDown(player);
-		return false;
 	}
 }

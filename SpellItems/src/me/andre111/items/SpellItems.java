@@ -141,12 +141,7 @@ public class SpellItems extends JavaPlugin {
 						CustomItem ci = cil.get(i);
 
 						if(ci.isThisItem(item)) {
-							if(block!=null)
-								ci.cast(action, player, block);
-							else if(target!=null)
-								ci.cast(action, player, target);
-							else
-								ci.cast(action, player);
+							ci.cast(action, player, null, block, target);
 						}
 					}
 				}

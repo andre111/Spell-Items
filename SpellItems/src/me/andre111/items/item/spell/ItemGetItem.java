@@ -23,7 +23,9 @@ public class ItemGetItem extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {	
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
 		PlayerInventory inv = player.getInventory();
 		for(int i=0; i<times; i++) {
 			ItemStack it = ItemHandler.decodeItem(item);
@@ -34,18 +36,5 @@ public class ItemGetItem extends ItemSpell {
 		ItemHandler.updateInventory(player);
 		
 		return false;
-	}
-	
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
 	}
 }

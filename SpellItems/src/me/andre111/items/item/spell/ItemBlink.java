@@ -3,9 +3,7 @@ package me.andre111.items.item.spell;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 
-import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
@@ -21,7 +19,9 @@ public class ItemBlink extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {	
+	public boolean cast(Player player, Location location, Player target, Block block) {
+		if(player==null) return false;
+		
 		BlockIterator iter; 
 		try {
 			iter = new BlockIterator(player, range>0&&range<150?range:150);
@@ -79,16 +79,7 @@ public class ItemBlink extends ItemSpell {
 		}
 	}
 	
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	
-	@Override
+	/*@Override
 	public boolean cast(Player player, Location loc) {
 		if (loc != null) {
 			loc.setX(loc.getX()+.5);
@@ -108,5 +99,5 @@ public class ItemBlink extends ItemSpell {
 			resetCoolDown(player);
 		}
 		return false;
-	}
+	}*/
 }

@@ -25,21 +25,12 @@ public class ItemLay extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {	
-		return castAt(player, player.getLocation());
-	}
-	@Override
-	public boolean cast(Player player, Block block) {	
-		return castAt(player, player.getLocation());
-	}
-	@Override
-	public boolean cast(Player player, Player target) {	
-		return castAt(player, player.getLocation());
-	}
-	
-	@Override
-	public boolean cast(Player player, Location target) {
-		return castAt(player, target);
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player!=null) {
+			return castAt(player, loc);
+		}
+		
+		return false;
 	}
 	
 	private boolean castAt(Player player, Location loc) {

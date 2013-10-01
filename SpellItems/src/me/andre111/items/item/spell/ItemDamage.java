@@ -1,18 +1,16 @@
 package me.andre111.items.item.spell;
 
-import java.util.ArrayList;
-
 import me.andre111.items.item.ItemSpell;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class ItemDamage extends ItemSpell {
 	private boolean self = true;
 	private int damage = 4;
 	
+	@SuppressWarnings("unused")
 	private double range;
 	
 	@Override
@@ -23,27 +21,22 @@ public class ItemDamage extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
-		if(!self) return false;
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		Player pTarget = null;
+		if(self) {
+			pTarget = player;
+		} else if(target!=null) {
+			pTarget = target;
+		}
 		
-		return castIntern(player, player);
-	}
-	@Override
-	public boolean cast(Player player, Block target) {
-		if(self)
-			return castIntern(player, player);
-		else
-			return false;
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		if(self)
-			return castIntern(player, player);
-		else
-			return castIntern(target, player);
+		if(pTarget!=null) {
+			castIntern(pTarget, player);
+		}
+		
+		return false;
 	}
 	
-	@Override
+	/*@Override
 	public boolean cast(Player player, Location loc) {
 		if(self) return false;
 		
@@ -64,7 +57,7 @@ public class ItemDamage extends ItemSpell {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	private boolean castIntern(Player player, Player source) {
 		if(damage>0) {

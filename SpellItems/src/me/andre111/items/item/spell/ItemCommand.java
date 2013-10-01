@@ -23,39 +23,12 @@ public class ItemCommand extends ItemSpell {
 	}
 
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
 		boolean succed = false;
 		for(String st : commands) {
-			if(!st.contains("-1-")) {
-				String command = st.replace("-0-", player.getName());
-				succed = true;
-				if(console)
-					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
-				else
-					Bukkit.getServer().dispatchCommand(player, command);
-			}
-		}
-		return succed;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		boolean succed = false;
-		for(String st : commands) {
-			if(!st.contains("-1-")) {
-				String command = st.replace("-0-", player.getName());
-				succed = true;
-				if(console)
-					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
-				else
-					Bukkit.getServer().dispatchCommand(player, command);
-			}
-		}
-		return succed;
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		boolean succed = false;
-		for(String st : commands) {
+			if(player==null && st.contains("-0-")) continue;
+			if(target==null && st.contains("-1-")) continue;
+			
 			String command = st.replace("-0-", player.getName());
 			command = command.replace("-1-", target.getName());
 			succed = true;
@@ -63,22 +36,6 @@ public class ItemCommand extends ItemSpell {
 				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
 			else
 				Bukkit.getServer().dispatchCommand(player, command);
-		}
-		return succed;
-	}
-	@Override
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
-		boolean succed = false;
-		for(String st : commands) {
-			if(!st.contains("-1-")) {
-				String command = st.replace("-0-", player.getName());
-				succed = true;
-				if(console)
-					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
-				else
-					Bukkit.getServer().dispatchCommand(player, command);
-			}
 		}
 		return succed;
 	}

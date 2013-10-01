@@ -11,7 +11,12 @@ import org.bukkit.inventory.ItemStack;
 public class ItemDrop extends ItemSpell {
 	
 	@Override
-	public boolean cast(Player player, Player target) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(target==null) {
+			if(player!=null) resetCoolDown(player);
+			return false;
+		}
+		
 		ItemStack held = target.getItemInHand();
 		target.setItemInHand(null);
 		if(held.getType()!=Material.AIR) {
@@ -20,22 +25,6 @@ public class ItemDrop extends ItemSpell {
 			return true;
 		}
 		
-		return false;
-	}
-	
-	@Override
-	public boolean cast(Player player) {
-		resetCoolDown(player);
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		resetCoolDown(player);
-		return false;
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		resetCoolDown(player);
 		return false;
 	}
 }

@@ -18,28 +18,15 @@ public class ItemWorldThunderStorm extends ItemSpell {
 		if(id==1) chance = (int) Math.round(var);
 		if(id==2) distance = (int) Math.round(var);
 	}
-
+	
 	@Override
-	public boolean cast(Player player) {
-		return castIntern(player);
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		return castIntern(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return castIntern(player);
-	}
-	@Override
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
-		return castIntern(player);
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		return castIntern(loc);
 	}
 	
-	private boolean castIntern(Player player) {
+	private boolean castIntern(Location loc) {
 		WorldThunderStorm effect = new WorldThunderStorm(chance, distance);
-		effect.start(player.getWorld(), player.getLocation(), time);
+		effect.start(loc.getWorld(), loc, time);
 		
 		return true;
 	}

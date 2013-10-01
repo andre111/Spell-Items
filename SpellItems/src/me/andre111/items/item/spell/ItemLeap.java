@@ -1,13 +1,10 @@
 package me.andre111.items.item.spell;
 
-import java.util.ArrayList;
-
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -17,6 +14,7 @@ public class ItemLeap extends ItemSpell {
 	private float power = 1;
 	private boolean disableDamage = true;
 	
+	@SuppressWarnings("unused")
 	private double range;
 	
 	@Override
@@ -29,21 +27,14 @@ public class ItemLeap extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
 		spellLeap(player, forward, upward, power, disableDamage);
 		return true;
 	}
 	
-	@Override
-	public boolean cast(Player player, Block target) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	
-	@Override
+	/*@Override
 	public boolean cast(Player player, Location loc) {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for(Entity e : loc.getWorld().getEntities()) {
@@ -62,7 +53,7 @@ public class ItemLeap extends ItemSpell {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	public static void spellLeap(Player player, double forward, double upward, float power, boolean diasableDamage) {
 		Vector v = player.getLocation().getDirection();

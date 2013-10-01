@@ -35,20 +35,7 @@ public class ItemReplace extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
-		return replaceNear(player.getLocation());
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		return replaceNear(player.getLocation());
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return replaceNear(player.getLocation());
-	}
-	@Override
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
 		return replaceNear(loc);
 	}
 	

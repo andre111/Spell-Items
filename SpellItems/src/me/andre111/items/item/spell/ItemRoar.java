@@ -28,24 +28,16 @@ public class ItemRoar extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {	
-		return castAtEntity(player, player);
-	}
-	@Override
-	public boolean cast(Player player, Block block) {	
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {	
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Location target) {
-		Arrow a = (Arrow) target.getWorld().spawnEntity(target, EntityType.ARROW);
-		boolean success = castAtEntity(a, player);
-		a.remove();
-		
-		return success;
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player!=null && player.getLocation()==loc) {
+			return castAtEntity(player, player);
+		} else {
+			Arrow a = (Arrow) target.getWorld().spawnEntity(loc, EntityType.ARROW);
+			boolean success = castAtEntity(a, player);
+			a.remove();
+			
+			return success;
+		}
 	}
 	
 	private boolean castAtEntity(Entity ent, Player damage) {

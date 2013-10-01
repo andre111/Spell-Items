@@ -67,49 +67,27 @@ public class CustomItem implements IUpCounter {
 	//0 = leftclick
 	//1 = rigthclick
 	//2 = eat
-	public void cast(int actions, Player player) {
+	public void cast(int actions, Player player, Location loc, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
 		
 		if(castsTemp != null) {
-			if(cooldownManaCheck(actions, player)) return;
+			if(player!=null && cooldownManaCheck(actions, player)) return;
 		
-			castIntern(actions, player, null, null);
-		}
-	}
-	public void cast(int actions, Player player, Block block) {
-		ItemSpell[] castsTemp = castsR;
-		if(actions==0) castsTemp = castsL;
-		if(actions==2) castsTemp = castsEat;
-		
-		if(castsTemp != null) {
-			if(cooldownManaCheck(actions, player)) return;
-			
-			castIntern(actions, player, block, null);
-		}
-	}
-	public void cast(int actions, Player player, Player target) {
-		ItemSpell[] castsTemp = castsR;
-		if(actions==0) castsTemp = castsL;
-		if(actions==2) castsTemp = castsEat;
-		
-		if(castsTemp != null) {
-			if(cooldownManaCheck(actions, player)) return;
-		
-			castIntern(actions, player, null, target);
+			castIntern(actions, player, loc, block, player);
 		}
 	}
 	
-	private void castIntern(int actions, Player player, Block block, Player target) {
-		if(isHasCounter()) {
+	private void castIntern(int actions, Player player, Location loc, Block block, Player target) {
+		if(isHasCounter() && player!=null) {
 			StatManager.setCounter(player.getName(), this, player.getName()+"::"+actions);
 		} else {
-			castUse(actions, player, block, target);
+			castUse(actions, player, loc, block, target);
 		}
 	}
 	
-	private void castUse(int actions, Player player, Block block, Player target) {
+	private void castUse(int actions, Player player, Location loc, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
@@ -120,18 +98,20 @@ public class CustomItem implements IUpCounter {
 			int pos = 0;
 			for(ItemSpell castUse : castsTemp) {
 				if(castUse != null) {
-					putOnCoolDown(actions, player);
+					if(player!=null) putOnCoolDown(actions, player);
+					
+					
 					if(block!=null) {
-						states[pos] = castUse.cast(player, block, states);
 						createEffects(block.getLocation(), actions, "Target");
 					}
 					else if(target!=null) {
-						states[pos] = castUse.cast(player, target, states);
 						createEffects(target.getLocation(), actions, "Target");
 					}
-					else {
-						states[pos] = castUse.cast(player, states);
+					
+					if(loc==null) {
+						loc = player.getLocation();
 					}
+					states[pos] = castUse.cast(player, loc, target, block, states);
 					createEffects(player.getLocation(), actions, "Caster");
 				}
 				
@@ -491,7 +471,7 @@ public class CustomItem implements IUpCounter {
 		if(player!=null) {
 			createEffects(player.getLocation(), action, "CounterFinish");
 			
-			castUse(action, player, null, null);
+			castUse(action, player, null, null, null);
 		}
 	}
 }

@@ -16,27 +16,13 @@ public class ItemSetDamage extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
 		ItemStack it = player.getItemInHand();
-		
 		it.setDurability((short) damage);
-		
 		player.setItemInHand(it);
 		
 		return true;
-	}
-	
-	@Override
-	public boolean cast(Player player, Block target) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc) {
-		return false;
 	}
 }

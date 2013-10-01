@@ -52,7 +52,7 @@ public class CustomEnchant {
 			int pos = 0;
 			for(ItemSpell castUse : casts) {
 				if(castUse != null) {
-					states[pos] = castUse.cast(player, target, states);
+					states[pos] = castUse.cast(player, null, target, null, states);
 					
 					createEffects(target.getLocation(), "Target");
 					createEffects(player.getLocation(), "Caster");
