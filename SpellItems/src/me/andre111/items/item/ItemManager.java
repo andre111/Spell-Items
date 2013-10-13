@@ -7,6 +7,7 @@ import java.util.Set;
 import me.andre111.items.SpellItems;
 import me.andre111.items.utils.AttributeStorage;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -246,6 +247,8 @@ public class ItemManager {
 	}
 	public List<CustomItem> getItemByAtrribute(ItemStack it) {
 		ArrayList<CustomItem> itemList = new ArrayList<CustomItem>();
+		
+		if(it.getType()==Material.AIR) return itemList;
 		
 		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
 		if(!storage.getData("").startsWith("si_customitem_")) return itemList;
