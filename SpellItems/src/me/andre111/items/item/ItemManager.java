@@ -250,7 +250,7 @@ public class ItemManager {
 		
 		if(it.getType()==Material.AIR) return itemList;
 		
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		AttributeStorage storage = AttributeStorage.newTarget(it.clone(), SpellItems.itemUUID);
 		if(!storage.getData("").startsWith("si_customitem_")) return itemList;
 		String iname = storage.getData("").replace("si_customitem_", "");
 		
