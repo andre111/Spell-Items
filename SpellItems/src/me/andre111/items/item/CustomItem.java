@@ -75,7 +75,7 @@ public class CustomItem implements IUpCounter {
 		if(castsTemp != null) {
 			if(player!=null && cooldownManaCheck(actions, player)) return;
 		
-			castIntern(actions, player, loc, block, player);
+			castIntern(actions, player, loc, block, target);
 		}
 	}
 	
