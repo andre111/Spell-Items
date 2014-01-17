@@ -22,10 +22,10 @@ public class ItemSmash extends ItemSpell {
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		Location targetLoc = null;
 		
-		if(loc!=null) {
-			targetLoc = loc;
-		} else if(block!=null) {
+		if(block!=null) {
 			targetLoc = block.getLocation();
+		} else if(loc!=null) {
+			targetLoc = loc;
 		}
 		
 		if(targetLoc!=null) {
