@@ -32,7 +32,7 @@ public class ItemRoar extends ItemSpell {
 		if(player!=null && player.getLocation()==loc) {
 			return castAtEntity(player, player);
 		} else {
-			Arrow a = (Arrow) target.getWorld().spawnEntity(loc, EntityType.ARROW);
+			Arrow a = (Arrow) player.getWorld().spawnEntity(loc, EntityType.ARROW);
 			boolean success = castAtEntity(a, player);
 			a.remove();
 			
