@@ -195,6 +195,11 @@
 # castVar4: radius of picking up blocks(default: 3)
 # castVar5: hurting blocks(1=true)
 ######################################
+# "ItemKill"
+# Kills a Player
+# castVar0: castOnSelf(1=true)
+# castVar1: range(for targeted spells)
+######################################
 # ""
 # 
 #
