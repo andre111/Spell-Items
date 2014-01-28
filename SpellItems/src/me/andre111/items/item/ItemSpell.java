@@ -1,5 +1,8 @@
 package me.andre111.items.item;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import me.andre111.items.SpellItems;
 
 import org.bukkit.Location;
@@ -12,40 +15,20 @@ public class ItemSpell {
 	}
 	public void setCastVar(int id, String var) {
 	}
+	public void setCastVar(int id, Object var) {
+	}
 	
-	/*public boolean cast(Player player, boolean[] states) {
+	//player can be null!
+	public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states, HashMap<Integer, Object> variables) {
 		//required other attacks to succed
 		if(require!=-1) {
 			if(!states[require]) return false;
 		}
 		
-		//return cast(player);
-		return cast(player, player.getLocation(), null, null);
-	}
-	public boolean cast(Player player, Block block, boolean[] states) {
-		//required other attacks to succed
-		if(require!=-1) {
-			if(!states[require]) return false;
-		}
-
-		//return cast(player, block);
-		return cast(player, player.getLocation(), null, block);
-	}
-	public boolean cast(Player player, Player target, boolean[] states) {
-		//required other attacks to succed
-		if(require!=-1) {
-			if(!states[require]) return false;
-		}
-
-		//return cast(player, target);
-		return cast(player, player.getLocation(), target, null);
-	}*/
-	
-	//player can be null!
-	public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states) {
-		//required other attacks to succed
-		if(require!=-1) {
-			if(!states[require]) return false;
+		//set vars from Variables
+		currentVariables = variables;
+		for(Map.Entry<Integer, Integer> vars : variable.entrySet()) {
+			setCastVar(vars.getKey(), variables.get(vars.getValue()));
 		}
 		
 		return cast(player, loc, target, block);
@@ -53,6 +36,11 @@ public class ItemSpell {
 	//player can be null!
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		return false;
+	}
+	
+	private HashMap<Integer, Object> currentVariables;
+	public HashMap<Integer, Object> getVariables() {
+		return currentVariables;
 	}
 	
 	//Type of Attack:
@@ -67,6 +55,8 @@ public class ItemSpell {
 	private String itemName = "";
 	private int action = 0;
 	private int require = -1;
+	
+	private HashMap<Integer, Integer> variable = new HashMap<Integer, Integer>();
 	
 	public void setItemName(String name) {
 		itemName = name;
@@ -85,6 +75,9 @@ public class ItemSpell {
 	}
 	public int getRequire() {
 		return require;
+	}
+	public void setVariable(int id, int var) {
+		variable.put(id, var);
 	}
 	
 	public CustomItem getItem() {

@@ -3,6 +3,7 @@ package me.andre111.items.item.spell;
 import java.util.List;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,6 +26,12 @@ public class ItemRoar extends ItemSpell {
 	@Override
 	public void setCastVar(int id, String var) {
 		if(id==1) message = var;
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) range = ItemVariableHelper.getVariableAsDouble(var);
+		else if(id==1) message = ItemVariableHelper.getVariableAsString(var);
 	}
 	
 	@Override

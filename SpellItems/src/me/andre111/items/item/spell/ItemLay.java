@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,6 +23,12 @@ public class ItemLay extends ItemSpell {
 	@Override
 	public void setCastVar(int id, String var) {
 		if(id==1) message = var;
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) radius = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==1) message = ItemVariableHelper.getVariableAsString(var);
 	}
 	
 	@Override

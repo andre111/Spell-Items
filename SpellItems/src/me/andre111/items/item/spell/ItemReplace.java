@@ -1,6 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -28,6 +29,23 @@ public class ItemReplace extends ItemSpell {
 		}
 		else if(id==2) {
 			String[] split = var.split(":");
+			
+			replaceID = Integer.parseInt(split[0]);
+			replaceDamage = Integer.parseInt(split[1]);
+		}
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) range = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==1) {
+			String[] split = ItemVariableHelper.getVariableAsString(var).split(":");
+			
+			originalID = Integer.parseInt(split[0]);
+			originalDamage = Integer.parseInt(split[1]);
+		}
+		else if(id==2) {
+			String[] split = ItemVariableHelper.getVariableAsString(var).split(":");
 			
 			replaceID = Integer.parseInt(split[0]);
 			replaceDamage = Integer.parseInt(split[1]);

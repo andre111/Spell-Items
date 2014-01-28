@@ -101,6 +101,16 @@ public class SpecialEnchantmentManager {
 				ItemSpell itS = enTemp.getCast(id);
 
 				for(int i=0; i<stList.size(); i++) {
+					//load vars->set to has var
+					if(stList.get(i).startsWith("var:")) {
+						try {
+							int varid = Integer.parseInt(stList.get(i).replace("var:", ""));
+							itS.setVariable(i, varid);
+							continue;
+						} catch (NumberFormatException  e) {
+						}
+					}
+					//load as normal string/int
 					itS.setCastVar(i, stList.get(i));
 					try {
 						double d = Double.parseDouble(stList.get(i));

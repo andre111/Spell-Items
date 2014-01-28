@@ -3,6 +3,7 @@ package me.andre111.items.item.spell;
 import java.util.ArrayList;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,6 +21,12 @@ public class ItemCommand extends ItemSpell {
 	@Override
 	public void setCastVar(int id, String var) {
 		if(id>0) commands.add(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) console = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		else commands.add(ItemVariableHelper.getVariableAsString(var));
 	}
 
 	@Override

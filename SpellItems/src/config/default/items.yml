@@ -22,6 +22,11 @@
 #   damage: true
 #   itemSwitch: true
 # -------
+# Certain Spells can be used to set variables
+# you can use
+# "var:0" or "var:1" -> in general "var:id"
+# as an castVar to use the Variable
+# -------
 
 # Usable attacks(cast):
 ######################################
@@ -199,6 +204,46 @@
 # Kills a Player
 # castVar0: castOnSelf(1=true)
 # castVar1: range(for targeted spells)
+######################################
+# "ItemVariableSet"
+# Sets a variable to the given Object
+#
+# castVar0: variableID(int)
+# castVar1: value
+# Available values:
+# playerPos, targetPos, blockPos
+# player, target, block
+# time
+######################################
+# "ItemVariableSetRandom"
+# Sets a variable to a random Number
+#
+# castVar0: variableID(int)
+# castVar1: minValue
+# castVar2: maxValue
+# castVar3: useDecimals(1=true)
+######################################
+# "ItemVariableCheck"
+# Checks a variable with another Object
+#
+# castVar0: variableID(int)
+# castVar1: otherValue
+# castVar2: Operation
+# Availavle operations:
+# 0: ==     (only for numbers)
+# 1: >      (only for numbers)
+# 2: <      (only for numbers)
+# 3: >=     (only for numbers)
+# 4: <=     (only for numbers)
+# 5: !=     (only for numbers)
+# 6: equals
+# 7: !equals
+######################################
+# "ItemVariableCheckNull"
+# Checks a variable for null
+#
+# castVar0: variableID(int)
+# castVar1: isNull(1=true, 0=false)
 ######################################
 # ""
 # 

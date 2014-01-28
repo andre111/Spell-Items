@@ -1,6 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -16,6 +17,12 @@ public class ItemConfuse extends ItemSpell {
 	public void setCastVar(int id, double var) {
 		if(id==0) duration = (int) Math.round(var);
 		else if(id==1) level = (int) Math.round(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) duration = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==1) level = ItemVariableHelper.getVariableAsInt(var);
 	}
 	
 	@Override

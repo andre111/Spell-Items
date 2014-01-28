@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import me.andre111.items.RewardManager;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 public class ItemRewardPoints extends ItemSpell {
 	private boolean self = true;
@@ -15,6 +16,12 @@ public class ItemRewardPoints extends ItemSpell {
 	public void setCastVar(int id, double var) {
 		if(id==0) self = var==1;
 		else if(id==1) points = (int) Math.round(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) self = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		else if(id==1) points = ItemVariableHelper.getVariableAsInt(var);
 	}
 	
 	@Override

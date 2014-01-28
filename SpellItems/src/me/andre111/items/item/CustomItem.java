@@ -1,6 +1,7 @@
 package me.andre111.items.item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import me.andre111.items.CooldownManager;
@@ -94,6 +95,7 @@ public class CustomItem implements IUpCounter {
 		
 		if(castsTemp != null) {
 			boolean[] states = new boolean[castsTemp.length];
+			HashMap<Integer, Object> variables = new HashMap<Integer, Object>();
 			
 			int pos = 0;
 			for(ItemSpell castUse : castsTemp) {
@@ -111,7 +113,7 @@ public class CustomItem implements IUpCounter {
 					if(loc==null) {
 						loc = player.getLocation();
 					}
-					states[pos] = castUse.cast(player, loc, target, block, states);
+					states[pos] = castUse.cast(player, loc, target, block, states, variables);
 					createEffects(player.getLocation(), actions, "Caster");
 				}
 				

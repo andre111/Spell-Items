@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Location;
@@ -62,6 +63,43 @@ public class ItemLaunch extends ItemSpell {
 		//castVars für onHit
 		else if(id>7) {
 			if(onHit!=null) onHit.setCastVar(id-6, var);
+		}
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) blockId = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==1) blockData = (byte) ItemVariableHelper.getVariableAsInt(var);
+		else if(id==2) power = ItemVariableHelper.getVariableAsDouble(var);
+		else if(id==3) drop = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		else if(id==4) block = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		else if(id==5) damage = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		else if(id==6) hurt = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==7) {
+			try {
+				String varS = ItemVariableHelper.getVariableAsString(var);
+				if(!varS.contains("me.andre111.dvz.item.spell.")) {
+					varS = "me.andre111.dvz.item.spell." + varS;
+				}
+				Class<?> c = Class.forName(varS);
+				if(c.getSuperclass().equals(ItemSpell.class)) {
+					onHit = (ItemSpell) c.newInstance();
+					onHit.setItemName(getItemName());
+					onHit.setAction(getAction());
+				}
+			} catch (ClassNotFoundException e) {
+			} catch (InstantiationException e) {
+			} catch (IllegalAccessException e) {
+			}
+		} 
+		else if(id>7) {
+			if(onHit!=null) {
+				try {
+					onHit.setCastVar(id-6, Double.parseDouble(ItemVariableHelper.getVariableAsString(var)));
+				} catch(NumberFormatException e) {
+					onHit.setCastVar(id-6, ItemVariableHelper.getVariableAsString(var));
+				}
+			}
 		}
 	}
 	

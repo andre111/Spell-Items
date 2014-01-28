@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -23,15 +24,25 @@ public class ItemTransmute extends ItemSpell {
 	@Override
 	public void setCastVar(int id, double var) {
 		if(id==0) iid = (int) Math.round(var);
-		if(id==1) data = (int) Math.round(var);
-		if(id==2) ammount = (int) Math.round(var);
-		if(id==4) addToInv = var==1;
+		else if(id==1) data = (int) Math.round(var);
+		else if(id==2) ammount = (int) Math.round(var);
+		else if(id==4) addToInv = var==1;
 	}
 	
 	@Override
 	public void setCastVar(int id, String var) {
 		if(id==3) failNeed = var;
 		if(id>4) items.add(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) iid = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==1) data = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==2) ammount = ItemVariableHelper.getVariableAsInt(var);
+		else if(id==3) failNeed = ItemVariableHelper.getVariableAsString(var);
+		else if(id==4) addToInv = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		else if(id>4) items.add(ItemVariableHelper.getVariableAsString(var));
 	}
 	
 	@Override

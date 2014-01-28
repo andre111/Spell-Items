@@ -1,6 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -14,6 +15,12 @@ public class ItemExperience extends ItemSpell {
 	public void setCastVar(int id, double var) {
 		if(id==0) self = var==1;
 		if(id==1) amount = (int) Math.round(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) self = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+		if(id==1) amount = ItemVariableHelper.getVariableAsInt(var);
 	}
 	
 	@Override

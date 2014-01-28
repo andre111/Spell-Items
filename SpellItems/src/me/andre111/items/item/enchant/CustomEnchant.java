@@ -1,6 +1,7 @@
 package me.andre111.items.item.enchant;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import me.andre111.items.item.ItemEffect;
@@ -48,11 +49,12 @@ public class CustomEnchant {
 	public void cast(Player player, Player target) {
 		if(casts != null) {
 			boolean[] states = new boolean[casts.length];
+			HashMap<Integer, Object> variables = new HashMap<Integer, Object>();
 			
 			int pos = 0;
 			for(ItemSpell castUse : casts) {
 				if(castUse != null) {
-					states[pos] = castUse.cast(player, null, target, null, states);
+					states[pos] = castUse.cast(player, null, target, null, states, variables);
 					
 					createEffects(target.getLocation(), "Target");
 					createEffects(player.getLocation(), "Caster");

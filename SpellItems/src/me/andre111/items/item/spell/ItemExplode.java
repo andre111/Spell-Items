@@ -1,6 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.ItemVariableHelper;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -16,6 +17,12 @@ public class ItemExplode extends ItemSpell {
 	public void setCastVar(int id, double var) {
 		if(id==0) power = (float) var;
 		else if(id==1) kill = (var==1);
+	}
+	
+	@Override
+	public void setCastVar(int id, Object var) {
+		if(id==0) power = (float) ItemVariableHelper.getVariableAsDouble(var);
+		else if(id==1) kill = ItemVariableHelper.getVariableAndIntegerBoolean(var);
 	}
 	
 	@Override
