@@ -3,7 +3,7 @@ package me.andre111.items.item.spell;
 import java.util.ArrayList;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Location;
@@ -27,10 +27,10 @@ public class ItemPotionEffect extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) self = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) self = var.getAsIntBoolean();
 		else if(id>0) {
-			effects.add(ItemVariableHelper.getVariableAsString(var));
+			effects.add(var.getAsString());
 		}
 	}
 	

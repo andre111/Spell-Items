@@ -1,7 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -25,14 +25,15 @@ public class ItemVariableCheck extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) variable = ItemVariableHelper.getVariableAsInt(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) variable = var.getAsInt();
 		else if(id==1) obj = var;
 	}
 	
+	//TODO - change to better support the possibilities of the new variable system
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
-		Object var = getVariables().get(variable);
+		Object var = getVariables().get(variable).getObj();
 		
 		//only for integers/doubles
 		if(operation>=0 && operation<=5) {

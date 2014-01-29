@@ -1,7 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -20,9 +20,9 @@ public class ItemKill extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) self = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==1) range = ItemVariableHelper.getVariableAsDouble(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) self = var.getAsIntBoolean();
+		else if(id==1) range = var.getAsDouble();
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import java.util.List;
 
 import me.andre111.items.item.ItemEffect;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.SpellVariable;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
@@ -49,7 +50,7 @@ public class CustomEnchant {
 	public void cast(Player player, Player target) {
 		if(casts != null) {
 			boolean[] states = new boolean[casts.length];
-			HashMap<Integer, Object> variables = new HashMap<Integer, Object>();
+			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();
 			
 			int pos = 0;
 			for(ItemSpell castUse : casts) {

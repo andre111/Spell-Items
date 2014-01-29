@@ -1,7 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 import me.andre111.items.world.WorldTornado;
 
 import org.bukkit.Location;
@@ -28,13 +28,13 @@ public class ItemWorldTornado extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) time = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) moveSpeed = ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==2) changeChance = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==3) blockChance = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==4) radius = (int) Math.abs(ItemVariableHelper.getVariableAsInt(var));
-		else if(id==5) hurt = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) time = var.getAsInt();
+		else if(id==1) moveSpeed = var.getAsDouble();
+		else if(id==2) changeChance = var.getAsInt();
+		else if(id==3) blockChance = var.getAsInt();
+		else if(id==4) radius = (int) Math.abs(var.getAsInt());
+		else if(id==5) hurt = var.getAsIntBoolean();
 	}
 	
 	@Override

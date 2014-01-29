@@ -1,7 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -22,31 +22,31 @@ public class ItemVariableSet extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) variable = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) value = ItemVariableHelper.getVariableAsString(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) variable = var.getAsInt();
+		else if(id==1) value = var.getAsString();
 	}
 	
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		if(value.equalsIgnoreCase("playerPos")) {
 			if(player!=null)
-				getVariables().put(variable, player.getLocation());
+				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, player.getLocation()));
 		} else if(value.equalsIgnoreCase("targetPos")) {
 			if(target!=null)
-				getVariables().put(variable, target.getLocation());
+				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, target.getLocation()));
 		} else if(value.equalsIgnoreCase("blockPos")) {
 			if(block!=null)
-				getVariables().put(variable, block.getLocation());
+				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, block.getLocation()));
 		} else if(value.equalsIgnoreCase("player")) {
-			getVariables().put(variable, player);
+			getVariables().put(variable, new SpellVariable(SpellVariable.PLAYER, player));
 		} else if(value.equalsIgnoreCase("target")) {
-			getVariables().put(variable, target);
+			getVariables().put(variable, new SpellVariable(SpellVariable.PLAYER, target));
 		} else if(value.equalsIgnoreCase("block")) {
-			getVariables().put(variable, block);
+			getVariables().put(variable, new SpellVariable(SpellVariable.BLOCK, block));
 		} else if(value.equalsIgnoreCase("time")) {
 			if(player!=null) {
-				getVariables().put(variable, player.getWorld().getTime());
+				getVariables().put(variable, new SpellVariable(SpellVariable.DOUBLE, (Double) (0.0D+player.getWorld().getTime())));
 			}
 		}
 		

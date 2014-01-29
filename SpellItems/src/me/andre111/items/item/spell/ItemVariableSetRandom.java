@@ -3,7 +3,7 @@ package me.andre111.items.item.spell;
 import java.util.Random;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -26,20 +26,21 @@ public class ItemVariableSetRandom extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) variable = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) minValue = ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==2) maxValue = ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==3) decimals = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) variable = var.getAsInt();
+		else if(id==1) minValue = var.getAsDouble();
+		else if(id==2) maxValue = var.getAsDouble();
+		else if(id==3) decimals = var.getAsIntBoolean();
 	}
 	
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		if(decimals) {
-			getVariables().put(variable, minValue+rand.nextDouble()*(maxValue-minValue));
+			double random = minValue+rand.nextDouble()*(maxValue-minValue);
+			getVariables().put(variable, new SpellVariable(SpellVariable.DOUBLE, (Double) random));
 		} else {
-			int random = (int) (minValue) + rand.nextInt((int)maxValue - (int)minValue);
-			getVariables().put(variable, random);
+			double random = (int) (minValue) + rand.nextInt((int)maxValue - (int)minValue);
+			getVariables().put(variable, new SpellVariable(SpellVariable.DOUBLE, (Double) random));
 		}
 		
 		return true;

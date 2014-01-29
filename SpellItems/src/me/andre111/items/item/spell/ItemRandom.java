@@ -7,7 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 public class ItemRandom extends ItemSpell {
 	private Random rand = new Random();
@@ -19,8 +19,8 @@ public class ItemRandom extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) chance = ItemVariableHelper.getVariableAsInt(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) chance = var.getAsInt();
 	}
 	
 	@Override

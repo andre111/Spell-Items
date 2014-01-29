@@ -2,7 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -31,12 +31,12 @@ public class ItemArmorSet extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) self = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==1) helmet = ItemVariableHelper.getVariableAsString(var);
-		else if(id==2) chest = ItemVariableHelper.getVariableAsString(var);
-		else if(id==3) leggins = ItemVariableHelper.getVariableAsString(var);
-		else if(id==4) boots = ItemVariableHelper.getVariableAsString(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) self = var.getAsIntBoolean();
+		else if(id==1) helmet = var.getAsString();
+		else if(id==2) chest = var.getAsString();
+		else if(id==3) leggins = var.getAsString();
+		else if(id==4) boots = var.getAsString();
 	}
 	
 	@Override

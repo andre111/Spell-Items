@@ -2,7 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Location;
@@ -67,17 +67,17 @@ public class ItemLaunch extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) blockId = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) blockData = (byte) ItemVariableHelper.getVariableAsInt(var);
-		else if(id==2) power = ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==3) drop = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==4) block = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==5) damage = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==6) hurt = ItemVariableHelper.getVariableAsInt(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) blockId = var.getAsInt();
+		else if(id==1) blockData = (byte) var.getAsInt();
+		else if(id==2) power = var.getAsDouble();
+		else if(id==3) drop = var.getAsIntBoolean();
+		else if(id==4) block = var.getAsIntBoolean();
+		else if(id==5) damage = var.getAsIntBoolean();
+		else if(id==6) hurt = var.getAsInt();
 		else if(id==7) {
 			try {
-				String varS = ItemVariableHelper.getVariableAsString(var);
+				String varS = var.getAsString();
 				if(!varS.contains("me.andre111.dvz.item.spell.")) {
 					varS = "me.andre111.dvz.item.spell." + varS;
 				}
@@ -95,9 +95,9 @@ public class ItemLaunch extends ItemSpell {
 		else if(id>7) {
 			if(onHit!=null) {
 				try {
-					onHit.setCastVar(id-6, Double.parseDouble(ItemVariableHelper.getVariableAsString(var)));
+					onHit.setCastVar(id-6, Double.parseDouble(var.getAsString()));
 				} catch(NumberFormatException e) {
-					onHit.setCastVar(id-6, ItemVariableHelper.getVariableAsString(var));
+					onHit.setCastVar(id-6, var.getAsString());
 				}
 			}
 		}

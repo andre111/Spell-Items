@@ -1,7 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 import me.andre111.items.world.WorldThunderStorm;
 
 import org.bukkit.Location;
@@ -21,10 +21,10 @@ public class ItemWorldThunderStorm extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) time = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) chance = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==2) distance = ItemVariableHelper.getVariableAsInt(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) time = var.getAsInt();
+		else if(id==1) chance = var.getAsInt();
+		else if(id==2) distance = var.getAsInt();
 	}
 	
 	@Override

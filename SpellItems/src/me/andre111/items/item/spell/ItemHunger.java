@@ -1,14 +1,14 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class ItemHunger extends ItemSpell {
-private int ammount = 2;
+	private int ammount = 2;
 	
 	@Override
 	public void setCastVar(int id, double var) {
@@ -16,8 +16,8 @@ private int ammount = 2;
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) ammount = ItemVariableHelper.getVariableAsInt(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) ammount = var.getAsInt();
 	}
 	
 	@Override

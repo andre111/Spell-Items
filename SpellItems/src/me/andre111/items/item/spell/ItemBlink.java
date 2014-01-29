@@ -2,7 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -20,9 +20,9 @@ public class ItemBlink extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) range = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) isReset = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) range = var.getAsInt();
+		else if(id==1) isReset = var.getAsIntBoolean();
 	}
 	
 	@Override

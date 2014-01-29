@@ -4,7 +4,7 @@ import java.util.Random;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -30,10 +30,10 @@ public class ItemSnowballs extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) needed = ItemVariableHelper.getVariableAsInt(var);
-		else if(id==1) needS = ItemVariableHelper.getVariableAsString(var);
-		else if(id==2) isReset = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) needed = var.getAsInt();
+		else if(id==1) needS = var.getAsString();
+		else if(id==2) isReset = var.getAsIntBoolean();
 	}
 	
 	@Override

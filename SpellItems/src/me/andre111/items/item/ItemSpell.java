@@ -15,11 +15,11 @@ public class ItemSpell {
 	}
 	public void setCastVar(int id, String var) {
 	}
-	public void setCastVar(int id, Object var) {
+	public void setCastVar(int id, SpellVariable var) {
 	}
 	
 	//player can be null!
-	public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states, HashMap<Integer, Object> variables) {
+	public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states, HashMap<Integer, SpellVariable> variables) {
 		//required other attacks to succed
 		if(require!=-1) {
 			if(!states[require]) return false;
@@ -38,8 +38,8 @@ public class ItemSpell {
 		return false;
 	}
 	
-	private HashMap<Integer, Object> currentVariables;
-	public HashMap<Integer, Object> getVariables() {
+	private HashMap<Integer, SpellVariable> currentVariables;
+	public HashMap<Integer, SpellVariable> getVariables() {
 		return currentVariables;
 	}
 	

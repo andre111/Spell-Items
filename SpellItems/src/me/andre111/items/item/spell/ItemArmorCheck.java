@@ -2,7 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -19,9 +19,9 @@ public class ItemArmorCheck extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) self = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==1) shouldHave = ItemVariableHelper.getVariableAndIntegerBoolean(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) self = var.getAsIntBoolean();
+		else if(id==1) shouldHave = var.getAsIntBoolean();
 	}
 	
 	@Override

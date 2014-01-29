@@ -2,7 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.ItemVariableHelper;
+import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -28,12 +28,12 @@ public class ItemLeap extends ItemSpell {
 	}
 	
 	@Override
-	public void setCastVar(int id, Object var) {
-		if(id==0) forward = ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==1) upward = ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==2) power = (float) ItemVariableHelper.getVariableAsDouble(var);
-		else if(id==3) disableDamage = ItemVariableHelper.getVariableAndIntegerBoolean(var);
-		else if(id==4) range = ItemVariableHelper.getVariableAsDouble(var);
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) forward = var.getAsDouble();
+		else if(id==1) upward = var.getAsDouble();
+		else if(id==2) power = (float) var.getAsDouble();
+		else if(id==3) disableDamage = var.getAsIntBoolean();
+		else if(id==4) range = var.getAsDouble();
 	}
 	
 	@Override

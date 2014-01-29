@@ -95,7 +95,7 @@ public class CustomItem implements IUpCounter {
 		
 		if(castsTemp != null) {
 			boolean[] states = new boolean[castsTemp.length];
-			HashMap<Integer, Object> variables = new HashMap<Integer, Object>();
+			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();
 			
 			int pos = 0;
 			for(ItemSpell castUse : castsTemp) {
