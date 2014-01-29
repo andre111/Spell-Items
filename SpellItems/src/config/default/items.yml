@@ -211,9 +211,20 @@
 # castVar0: variableID(int)
 # castVar1: value
 # Available values:
-# playerPos, targetPos, blockPos
-# player, target, block
-# time
+# Locations: playerPos, targetPos, blockPos, worldSpawn
+# Players: player, target, randomPlayer(only in same World)
+# Numbers: time
+# block
+######################################
+# "ItemVariableSetPlayerValue"
+# Sets a variable to the given Object gotten from a player
+#
+# castVar0: variableID(int)
+# castVar1: playername/variable with player
+# castVar2: value
+# Available values:
+# Locations: location, spawn
+# Numbers: health, food, saturation, gamemode
 ######################################
 # "ItemVariableSetRandom"
 # Sets a variable to a random Number
@@ -229,7 +240,7 @@
 # castVar0: variableID(int)
 # castVar1: otherValue
 # castVar2: Operation
-# Availavle operations:
+# Available operations:
 # 0: ==     (only for numbers)
 # 1: >      (only for numbers)
 # 2: <      (only for numbers)
@@ -244,6 +255,12 @@
 #
 # castVar0: variableID(int)
 # castVar1: isNull(1=true, 0=false)
+######################################
+# "ItemTeleport"
+# Teleport a player to a location
+#
+# castVar0: playername/variable with player/"" for casting player
+# castVar1: location(variable)
 ######################################
 # ""
 # 
@@ -388,7 +405,7 @@ items:
              - "5:600:0"
 
 enchantments:
-   posion:
+   poison:
      name: "Poison"
      effects: []
      casts:

@@ -10,6 +10,10 @@ public class SpellVariable {
 	public static final String DOUBLE = "DOUBLE";
 	public static final String STRING = "STRING";
 	public static final String LOCATION = "LOCATION";
+	/**
+	 * @Deprecated Use STRING and store Playername instead to avoid issues with disconnection players
+	 */
+	@Deprecated
 	public static final String PLAYER = "PLAYER";
 	public static final String BLOCK = "BLOCK";
 	
