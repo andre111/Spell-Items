@@ -32,9 +32,9 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(SpellItems.instance.getDataFolder(), "config/default/rewards.yml"), new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
 			} catch (IOException e) {}
 		}
-		configfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "config.yml"));
-		itemfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "items.yml"));
-		rewardfile = YamlConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
+		configfile = SIFileConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "config.yml"));
+		itemfile = SIFileConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "items.yml"));
+		rewardfile = SIFileConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
 	}
 	
 	private static void exportConfigs() {
