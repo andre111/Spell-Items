@@ -49,9 +49,11 @@ public class ItemVariableSet extends ItemSpell {
 				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, player.getWorld().getSpawnLocation()));
 		//Players
 		} else if(value.equalsIgnoreCase("player")) {
-			getVariables().put(variable, new SpellVariable(SpellVariable.STRING, player.getName())); //new SpellVariable(SpellVariable.PLAYER, player)
+			if(player!=null)
+				getVariables().put(variable, new SpellVariable(SpellVariable.STRING, player.getName())); //new SpellVariable(SpellVariable.PLAYER, player)
 		} else if(value.equalsIgnoreCase("target")) {
-			getVariables().put(variable, new SpellVariable(SpellVariable.STRING, target.getName())); //new SpellVariable(SpellVariable.PLAYER, target)
+			if(target!=null)
+				getVariables().put(variable, new SpellVariable(SpellVariable.STRING, target.getName())); //new SpellVariable(SpellVariable.PLAYER, target)
 		} else if(value.equalsIgnoreCase("randomPlayer")) {
 			if(player!=null) {
 				List<Player> players = player.getWorld().getPlayers();

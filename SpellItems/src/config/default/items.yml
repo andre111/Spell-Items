@@ -403,6 +403,57 @@ items:
            castVars:
              - 1
              - "5:600:0"
+   teleTester:
+     name: "Swapper"
+     lore:
+       - "&6Switch position with the clicking player!"
+       - "Left: nothing"
+       - "Right: Swap"
+     id: 370
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       cooldown: 5
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       cooldown: 1
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemVariableSet"
+           require: -1
+           castVars:
+             - 0
+             - "playerPos"
+         1:
+           cast: "ItemVariableSet"
+           require: -1
+           castVars:
+             - 1
+             - "targetPos"
+         3:
+           cast: "ItemVariableSet"
+           require: -1
+           castVars:
+             - 2
+             - "target"
+         4:
+           cast: "ItemTeleport"
+           require: -1
+           castVars:
+             - ""
+             - "var:1"
+         5:
+           cast: "ItemTeleport"
+           require: -1
+           castVars:
+             - "var:2"
+             - "var:0"
 
 enchantments:
    poison:

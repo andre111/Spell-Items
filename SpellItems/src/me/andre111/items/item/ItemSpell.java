@@ -28,7 +28,9 @@ public class ItemSpell {
 		//set vars from Variables
 		currentVariables = variables;
 		for(Map.Entry<Integer, Integer> vars : variable.entrySet()) {
-			setCastVar(vars.getKey(), variables.get(vars.getValue()));
+			if(variables.get(vars.getValue())!=null) {
+				setCastVar(vars.getKey(), variables.get(vars.getValue()));
+			}
 		}
 		
 		return cast(player, loc, target, block);
