@@ -33,7 +33,10 @@ public class ItemSpell {
 			}
 		}
 		
-		return cast(player, loc, target, block);
+		boolean success = cast(player, loc, target, block);
+		currentVariables = null;
+		
+		return success;
 	}
 	//player can be null!
 	public boolean cast(Player player, Location loc, Player target, Block block) {
