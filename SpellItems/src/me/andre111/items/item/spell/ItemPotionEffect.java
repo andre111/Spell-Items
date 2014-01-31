@@ -6,6 +6,7 @@ import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.SpellVariable;
 import me.andre111.items.utils.PlayerHandler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,22 +14,18 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class ItemPotionEffect extends ItemSpell {
-	private boolean self = true;
+	private String playername = "";
 	private ArrayList<String> effects = new ArrayList<String>();
 	
 	@Override
-	public void setCastVar(int id, double var) {
-		if(id==0) self = (var==1);
-	}
-	
-	@Override
 	public void setCastVar(int id, String var) {
-		if(id>0) effects.add(var);
+		if(id==0) playername = var;
+		else if(id>0) effects.add(var);
 	}
 	
 	@Override
 	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) self = var.getAsIntBoolean();
+		if(id==0) playername = var.getAsString();
 		else if(id>0) {
 			effects.add(var.getAsString());
 		}
@@ -36,15 +33,14 @@ public class ItemPotionEffect extends ItemSpell {
 	
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
-		Player pTarget = null;
-		if(self) {
+		Player pTarget = Bukkit.getPlayerExact(playername);
+		if(playername.equals("")) {
 			pTarget = player;
-		} else if(target!=null) {
-			pTarget = target;
 		}
 		
 		if(pTarget!=null) {
 			addEffects(pTarget);
+			return true;
 		}
 		
 		return false;

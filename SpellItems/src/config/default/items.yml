@@ -55,7 +55,7 @@
 ######################################
 # "ItemDamage"
 # Damages or heals a Player
-# castVar0: castOnSelf(1=true)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: damage(negative to heal)
 # castVar2: range(for targeted spells)
 ######################################
@@ -77,13 +77,13 @@
 # "ItemArmorCheck"
 # Check if an Player has armor
 #
-# castVar0: self(1=true) or target
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: should have armor(1=true)
 ######################################
 # "ItemArmorSet"
 # Sets the Armor of an player
 # (formated itemcodes)
-# castVar0: self(1=true) or target
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: helmet
 # castVar2: chestpice
 # castVar3: leggins
@@ -92,7 +92,7 @@
 # "ItemPotionEffect"
 # Adds one or more effects to an player
 #
-# castVar0: self(1=true)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1+: effectID:duration:level
 ######################################
 # "ItemBlink"
@@ -170,12 +170,12 @@
 # "ItemExperience"
 # Give Experience
 #
-# castVar0: to self or targeted player(1=self)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: amount
 ######################################
 # "ItemRewardPoints"
 # Gives Rewardpoints a Player
-# castVar0: castOnSelf(1=true)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: points
 ######################################
 # "ItemRandom"
@@ -202,7 +202,7 @@
 ######################################
 # "ItemKill"
 # Kills a Player
-# castVar0: castOnSelf(1=true)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: range(for targeted spells)
 ######################################
 # "ItemVariableSet"
@@ -372,16 +372,22 @@ items:
          cost: 0
        casts:
          0:
-           cast: "ItemDamage"
+           cast: "ItemVariableSet"
            require: -1
            castVars:
              - 0
-             - 2
+             - "target"
          1:
            cast: "ItemDamage"
            require: 0
            castVars:
-             - 1
+             - "var:0"
+             - 2
+         2:
+           cast: "ItemDamage"
+           require: 1
+           castVars:
+             - ""
              - -2
    eatTester:
      name: "EAT ME!"
@@ -401,7 +407,7 @@ items:
            cast: "ItemPotionEffect"
            require: -1
            castVars:
-             - 1
+             - ""
              - "5:600:0"
    teleTester:
      name: "Swapper"
@@ -461,8 +467,14 @@ enchantments:
      effects: []
      casts:
        0:
-         cast: "ItemPotionEffect"
+         cast: "ItemVariableSet"
          require: -1
          castVars:
            - 0
+           - "target"
+       1:
+         cast: "ItemPotionEffect"
+         require: 0
+         castVars:
+           - "var:0"
            - "19:60:4"

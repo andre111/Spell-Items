@@ -36,39 +36,57 @@ public class ItemVariableSet extends ItemSpell {
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		//Locations
 		if(value.equalsIgnoreCase("playerPos")) {
-			if(player!=null)
+			if(player!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, player.getLocation()));
+				return true;
+			}
 		} else if(value.equalsIgnoreCase("targetPos")) {
-			if(target!=null)
+			if(target!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, target.getLocation()));
+				return true;
+			}
 		} else if(value.equalsIgnoreCase("blockPos")) {
-			if(block!=null)
+			if(block!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, block.getLocation()));
+				return true;
+			}
 		} else if(value.equalsIgnoreCase("worldSpawn")) {
-			if(player!=null)
+			if(player!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.LOCATION, player.getWorld().getSpawnLocation()));
+				return true;
+			}
 		//Players
 		} else if(value.equalsIgnoreCase("player")) {
-			if(player!=null)
+			if(player!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.STRING, player.getName())); //new SpellVariable(SpellVariable.PLAYER, player)
+				return true;
+			}
 		} else if(value.equalsIgnoreCase("target")) {
-			if(target!=null)
+			if(target!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.STRING, target.getName())); //new SpellVariable(SpellVariable.PLAYER, target)
+				return true;
+			}
 		} else if(value.equalsIgnoreCase("randomPlayer")) {
 			if(player!=null) {
 				List<Player> players = player.getWorld().getPlayers();
 				int pos = rand.nextInt(players.size());
 				getVariables().put(variable, new SpellVariable(SpellVariable.STRING, players.get(pos).getName())); //new SpellVariable(SpellVariable.PLAYER, players.get(pos))
+				return true;
 			}
 		//Block
 		} else if(value.equalsIgnoreCase("block")) {
-			getVariables().put(variable, new SpellVariable(SpellVariable.BLOCK, block));
+			if (block!=null) {
+				getVariables().put(variable, new SpellVariable(SpellVariable.BLOCK, block));
+				return true;
+			}
 		//Numbers
 		} else if(value.equalsIgnoreCase("time")) {
-			if(player!=null)
+			if(player!=null) {
 				getVariables().put(variable, new SpellVariable(SpellVariable.DOUBLE, (Double) (0.0D+player.getWorld().getTime())));
+				return true;
+			}
 		}
 		
-		return true;
+		return false;
 	}
 }

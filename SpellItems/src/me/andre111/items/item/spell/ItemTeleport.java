@@ -26,7 +26,7 @@ public class ItemTeleport extends ItemSpell {
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		Player tplayer = Bukkit.getPlayerExact(playername);
-		if(tplayer==null) {
+		if(playername.equals("")) {
 			tplayer = player;
 		}
 		

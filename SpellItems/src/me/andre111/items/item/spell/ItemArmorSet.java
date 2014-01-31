@@ -4,13 +4,14 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.SpellVariable;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemArmorSet extends ItemSpell {
-	private boolean self = false;
+	private String playername = "";
 	
 	private String helmet = "";
 	private String chest = "";
@@ -18,13 +19,9 @@ public class ItemArmorSet extends ItemSpell {
 	private String boots = "";
 	
 	@Override
-	public void setCastVar(int id, double var) {
-		if(id==0) self = (var==1);
-	}
-	
-	@Override
 	public void setCastVar(int id, String var) {
-		if(id==1) helmet = var;
+		if(id==0) playername = var;
+		else if(id==1) helmet = var;
 		else if(id==2) chest = var;
 		else if(id==3) leggins = var;
 		else if(id==4) boots = var;
@@ -32,7 +29,7 @@ public class ItemArmorSet extends ItemSpell {
 	
 	@Override
 	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) self = var.getAsIntBoolean();
+		if(id==0) playername = var.getAsString();
 		else if(id==1) helmet = var.getAsString();
 		else if(id==2) chest = var.getAsString();
 		else if(id==3) leggins = var.getAsString();
@@ -41,11 +38,9 @@ public class ItemArmorSet extends ItemSpell {
 	
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
-		Player pTarget = null;
-		if(self) {
+		Player pTarget = Bukkit.getPlayerExact(playername);
+		if(playername.equals("")) {
 			pTarget = player;
-		} else if(target!=null) {
-			pTarget = target;
 		}
 		
 		if(pTarget!=null) {
