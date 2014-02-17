@@ -1,5 +1,6 @@
 package me.andre111.items;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.logging.Logger;
 import me.andre111.items.config.ConfigManager;
 import me.andre111.items.item.CustomItem;
 import me.andre111.items.item.ItemManager;
+import me.andre111.items.item.SpellLoader;
 import me.andre111.items.item.enchant.SpecialEnchantmentManager;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
@@ -36,6 +38,7 @@ public class SpellItems extends JavaPlugin {
 	
 	public static ItemManager itemManager;
 	public static SpecialEnchantmentManager enchantManager;
+	public static LuaController luacontroller;
 	
 	
 	@Override
@@ -49,6 +52,8 @@ public class SpellItems extends JavaPlugin {
 		DynamicClassFunctions.setClasses();
 		DynamicClassFunctions.setMethods();
 		DynamicClassFunctions.setFields();
+		
+		SpellLoader.addSpells();
 	}
 	
 	@Override
@@ -70,6 +75,9 @@ public class SpellItems extends JavaPlugin {
 		enchantManager.loadEnchants(ConfigManager.getItemFile());
 		itemManager = new ItemManager();
 		itemManager.loadItems(ConfigManager.getItemFile());
+		
+		luacontroller = new LuaController();
+		luacontroller.loadScript(new File(SpellItems.instance.getDataFolder(), "spells.lua").getAbsolutePath());
 		
 		RewardManager.loadRewardPoints();
 		RewardManager.addRewards(ConfigManager.getRewardFile());

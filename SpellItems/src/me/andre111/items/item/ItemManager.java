@@ -99,8 +99,12 @@ public class ItemManager {
 		itTemp.setManaCostEat(df.getInt("items."+it+".onEat.mana.cost", 0));
 		
 		//Cast
+		itTemp.setLuaR(df.getString("items."+it+".rightclick.lua", ""));
+		itTemp.setLuaL(df.getString("items."+it+".leftclick.lua", ""));
+		itTemp.setLuaEat(df.getString("items."+it+".onEat.lua", ""));
+		
 		//right
-		ConfigurationSection as = df.getConfigurationSection("items."+it+".rightclick.casts");
+		/*ConfigurationSection as = df.getConfigurationSection("items."+it+".rightclick.casts");
 		if(as!=null) {
 			Set<String> strings2 = as.getKeys(false);
 			if(strings2.size()>0) {
@@ -139,13 +143,13 @@ public class ItemManager {
 					loadCast(df, itTemp, it, castsEat[i], 2, i);
 				}
 			}
-		}
+		}*/
 	
 		items[itemCounter] = itTemp;
 		itemCounter++;
 	}
 	
-	private void loadCast(FileConfiguration df, CustomItem itTemp, String it, String name, int action, int id) {
+	/*private void loadCast(FileConfiguration df, CustomItem itTemp, String it, String name, int action, int id) {
 		String click = "rightclick";
 		if(action==0) click = "leftclick";
 		if(action==2) click = "onEat";
@@ -214,7 +218,7 @@ public class ItemManager {
 		} else {
 			if(itTemp.getCastEat(id)==null) itTemp.setCastEat(new ItemSpell(), id);
 		}
-	}
+	}*/
 	
 	public static ItemEffect getItemEffect(String st) {
 		ItemEffect effect = null;

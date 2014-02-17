@@ -8,8 +8,38 @@ import me.andre111.items.SpellItems;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.Varargs;
+import org.luaj.vm2.lib.VarArgFunction;
 
-public class ItemSpell {
+public class ItemSpell extends VarArgFunction {
+	//###############################################
+	//Static Spellcontroll
+	//###############################################
+	public static Varargs RETURN_FALSE;
+	public static Varargs RETURN_TRUE;
+	static {
+		LuaValue[] rfalse = new LuaValue[1];
+		rfalse[0] = LuaValue.FALSE;
+		RETURN_FALSE = LuaValue.varargsOf(rfalse);
+		
+		LuaValue[] rtrue = new LuaValue[1];
+		rtrue[0] = LuaValue.TRUE;
+		RETURN_TRUE = LuaValue.varargsOf(rtrue);
+	}
+	
+	private static HashMap<String, ItemSpell> spells = new HashMap<String, ItemSpell>();
+	
+	public static void addSpellToLUA(ItemSpell spell, String name) {
+		spells.put(name, spell);
+	}
+	
+	public static void addSpellFunctions(LuaValue library) {
+		for(Map.Entry<String, ItemSpell> entry : spells.entrySet()) {
+			library.set(entry.getKey(), entry.getValue());
+		}
+	}
+	//###############################################
 	
 	public void setCastVar(int id, double var) {
 	}
@@ -56,6 +86,10 @@ public class ItemSpell {
 		return 0;
 	}*/
 	
+	@Override
+	public Varargs invoke(Varargs args) {
+		return null;
+	}
 	
 	private String itemName = "";
 	private int action = 0;

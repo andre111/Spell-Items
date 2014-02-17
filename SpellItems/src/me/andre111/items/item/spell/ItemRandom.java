@@ -31,4 +31,6 @@ public class ItemRandom extends ItemSpell {
 	private boolean castIntern() {
 		return rand.nextInt(chance)==0;
 	}
+	
+	//TODO - no longer required because
 }

@@ -37,4 +37,6 @@ public class ItemVariableCheckNull extends ItemSpell {
 		else
 			return false;
 	}
+	
+	//TODO - nicht mehr benötigt wegen lua?
 }

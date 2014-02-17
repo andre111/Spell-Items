@@ -72,4 +72,6 @@ public class ItemVariableCheck extends ItemSpell {
 		
 		return false;
 	}
+	
+	//TODO - nicht mehr benötigt wegen lua?
 }

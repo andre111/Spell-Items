@@ -62,8 +62,10 @@ public class SpecialEnchantmentManager {
 		}
 		
 		//Cast
+		enTemp.setLua(df.getString("enchantments."+en+".lua", ""));
+		
 		//right
-		ConfigurationSection as = df.getConfigurationSection("enchantments."+en+".casts");
+		/*ConfigurationSection as = df.getConfigurationSection("enchantments."+en+".casts");
 		if(as!=null) {
 			Set<String> strings2 = as.getKeys(false);
 			if(strings2.size()>0) {
@@ -74,7 +76,7 @@ public class SpecialEnchantmentManager {
 					loadCast(df, enTemp, en, casts[i], i);
 				}
 			}
-		}
+		}*/
 
 		enchants[enchantCounter] = enTemp;
 		enchantCounter++;

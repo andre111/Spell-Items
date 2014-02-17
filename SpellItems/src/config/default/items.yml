@@ -370,25 +370,7 @@ items:
        cooldown: 1
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 0
-             - "target"
-         1:
-           cast: "ItemDamage"
-           require: 0
-           castVars:
-             - "var:0"
-             - 2
-         2:
-           cast: "ItemDamage"
-           require: 1
-           castVars:
-             - ""
-             - -2
+       lua: "vampire"
    eatTester:
      name: "EAT ME!"
      lore:
@@ -402,13 +384,7 @@ items:
        cooldown: 1
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemPotionEffect"
-           require: -1
-           castVars:
-             - ""
-             - "5:600:0"
+       lua: "eatTester"
    teleTester:
      name: "Swapper"
      lore:
@@ -418,63 +394,15 @@ items:
      id: 370
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 5
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 1
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 0
-             - "playerPos"
-         1:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 1
-             - "targetPos"
-         3:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 2
-             - "target"
-         4:
-           cast: "ItemTeleport"
-           require: -1
-           castVars:
-             - ""
-             - "var:1"
-         5:
-           cast: "ItemTeleport"
-           require: -1
-           castVars:
-             - "var:2"
-             - "var:0"
+       lua: "teleTester"
 
 enchantments:
    poison:
      name: "Poison"
      effects: []
-     casts:
-       0:
-         cast: "ItemVariableSet"
-         require: -1
-         castVars:
-           - 0
-           - "target"
-       1:
-         cast: "ItemPotionEffect"
-         require: 0
-         castVars:
-           - "var:0"
-           - "19:60:4"
+     lua: "poisonEnchant"

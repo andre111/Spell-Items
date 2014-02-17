@@ -32,6 +32,11 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(SpellItems.instance.getDataFolder(), "config/default/rewards.yml"), new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(SpellItems.instance.getDataFolder(), "spells.lua").exists()) {
+			try {
+				FileHandler.copyFolder(new File(SpellItems.instance.getDataFolder(), "config/default/spells.lua"), new File(SpellItems.instance.getDataFolder(), "spells.lua"));
+			} catch (IOException e) {}
+		}
 		configfile = SIFileConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "config.yml"));
 		itemfile = SIFileConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "items.yml"));
 		rewardfile = SIFileConfiguration.loadConfiguration(new File(SpellItems.instance.getDataFolder(), "rewards.yml"));
@@ -41,6 +46,7 @@ public class ConfigManager {
 		SpellItems.instance.saveResource("config/default/config.yml", true);
 		SpellItems.instance.saveResource("config/default/items.yml", true);
 		SpellItems.instance.saveResource("config/default/rewards.yml", true);
+		SpellItems.instance.saveResource("config/default/spells.lua", true);
 	}
 
 	public static void reloadConfig() {

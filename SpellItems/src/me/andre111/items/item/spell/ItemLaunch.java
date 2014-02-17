@@ -5,12 +5,15 @@ import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.SpellVariable;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.Varargs;
 
 public class ItemLaunch extends ItemSpell {
 	private int blockId = 1;
@@ -133,5 +136,13 @@ public class ItemLaunch extends ItemSpell {
 		
 		if(onHit!=null && player!=null)
 			onHit.cast(player, block.getLocation(), null, null);
+	}
+	
+	
+	@Override
+	public Varargs invoke(Varargs args) {
+		//TODO - reimplement with lua system
+		
+		return RETURN_FALSE;
 	}
 }

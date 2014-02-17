@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemEffect;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.SpellVariable;
@@ -23,6 +24,8 @@ public class CustomEnchant {
 	
 	private ArrayList<ItemEffect> effects = new ArrayList<ItemEffect>();
 	private ItemSpell[] casts;
+	
+	private String lua;
 	
 	
 	public void applyToPlayer(Player player) {
@@ -48,7 +51,7 @@ public class CustomEnchant {
 	}
 	
 	public void cast(Player player, Player target) {
-		if(casts != null) {
+		/*if(casts != null) {
 			boolean[] states = new boolean[casts.length];
 			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();
 			
@@ -63,6 +66,13 @@ public class CustomEnchant {
 				
 				pos += 1;
 			}
+		}*/
+		
+		if(!lua.equals("")) {
+			if(player!=null) return;
+
+			
+			SpellItems.luacontroller.castFunction(lua, player.getName(), target.getName(), null, null);
 		}
 	}
 	
@@ -105,5 +115,11 @@ public class CustomEnchant {
 	}
 	public void setCast(ItemSpell cast, int pos) {
 		this.casts[pos] = cast;
+	}
+	public String getLua() {
+		return lua;
+	}
+	public void setLua(String lua) {
+		this.lua = lua;
 	}
 }

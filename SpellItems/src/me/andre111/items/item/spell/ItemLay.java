@@ -1,6 +1,7 @@
 package me.andre111.items.item.spell;
 
 import me.andre111.items.ItemHandler;
+import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.SpellVariable;
 
@@ -10,9 +11,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.Varargs;
 
 public class ItemLay extends ItemSpell {
-	private int radius;
+	/*private int radius;
 	private String message = "";
 	
 	@Override
@@ -38,9 +41,33 @@ public class ItemLay extends ItemSpell {
 		}
 		
 		return false;
+	}*/
+	
+	@Override
+	public Varargs invoke(Varargs args) {
+		if(args.narg()>=3) {
+			LuaValue playerN = args.arg(1);
+			LuaValue radiusN = args.arg(2);
+			LuaValue messageN = args.arg(3);
+			
+			if(playerN.isstring() && radiusN.isint() && messageN.isstring()) {
+				Player player = Bukkit.getPlayerExact(playerN.toString());
+				int radius = radiusN.toint();
+				String message = messageN.toString();
+				
+				if(player!=null) {
+					if(castAt(player, player.getLocation(), radius, message))
+						return RETURN_TRUE;
+				}
+			}
+		} else {
+			SpellItems.log("Missing Argument for "+getClass().getCanonicalName());
+		}
+		
+		return RETURN_FALSE;
 	}
 	
-	private boolean castAt(Player player, Location loc) {
+	private boolean castAt(Player player, Location loc, int radius, String message) {
 		if(ItemHandler.countItems(player, 383, 0)>=1) {
 			ItemHandler.removeItems(player, 383, 0, 1);
 			

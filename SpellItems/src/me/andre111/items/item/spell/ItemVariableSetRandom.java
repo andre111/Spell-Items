@@ -45,4 +45,6 @@ public class ItemVariableSetRandom extends ItemSpell {
 		
 		return true;
 	}
+	
+	//TODO - nicht mehr gebracuht wegen lua?
 }

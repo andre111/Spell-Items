@@ -63,13 +63,17 @@ public class CustomItem implements IUpCounter {
 	private int manaCostEat;
 	
 	private ItemSpell[] castsEat;
+	
+	private String luaR;
+	private String luaL;
+	private String luaEat;
 
 	//actions:
 	//0 = leftclick
 	//1 = rigthclick
 	//2 = eat
 	public void cast(int actions, Player player, Location loc, Block block, Player target) {
-		ItemSpell[] castsTemp = castsR;
+		/*ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
 		
@@ -77,16 +81,32 @@ public class CustomItem implements IUpCounter {
 			if(player!=null && cooldownManaCheck(actions, player)) return;
 		
 			castIntern(actions, player, loc, block, target);
+		}*/
+		
+		//TODO - isHasCounter Counter und Effekte wieder einbeuen
+		String luaTemp = luaR;
+		if(actions==0) luaTemp = luaL;
+		if(actions==2) luaTemp = luaEat;
+		
+		if(!luaTemp.equals("")) {
+			if(player!=null && cooldownManaCheck(actions, player)) return;
+			
+			String targetName = "";
+			if(target!=null) targetName = target.getName();
+			
+			if(!SpellItems.luacontroller.castFunction(luaTemp, player.getName(), targetName, block, loc)) {
+				resetCoolDown(actions, player);
+			}
 		}
 	}
 	
-	private void castIntern(int actions, Player player, Location loc, Block block, Player target) {
+	/*private void castIntern(int actions, Player player, Location loc, Block block, Player target) {
 		if(isHasCounter() && player!=null) {
 			StatManager.setCounter(player.getName(), this, player.getName()+"::"+actions);
 		} else {
 			castUse(actions, player, loc, block, target);
 		}
-	}
+	}*/
 	
 	private void castUse(int actions, Player player, Location loc, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
@@ -416,6 +436,25 @@ public class CustomItem implements IUpCounter {
 		this.manaCostEat = manaCostEat;
 	}
 	
+	public String getLuaR() {
+		return luaR;
+	}
+	public void setLuaR(String luaR) {
+		this.luaR = luaR;
+	}
+	public String getLuaL() {
+		return luaL;
+	}
+	public void setLuaL(String luaL) {
+		this.luaL = luaL;
+	}
+	public String getLuaEat() {
+		return luaEat;
+	}
+	public void setLuaEat(String luaEat) {
+		this.luaEat = luaEat;
+	}
+
 	//Upcounter methods and fields
 	@Override
 	public int countUPgetMax() {
