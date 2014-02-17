@@ -149,7 +149,7 @@ public class SpellItems extends JavaPlugin {
 						CustomItem ci = cil.get(i);
 
 						if(ci.isThisItem(item)) {
-							ci.cast(action, player, null, block, target);
+							ci.cast(action, player, null, block, target, false);
 						}
 					}
 				}

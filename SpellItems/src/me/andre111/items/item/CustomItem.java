@@ -72,7 +72,7 @@ public class CustomItem implements IUpCounter {
 	//0 = leftclick
 	//1 = rigthclick
 	//2 = eat
-	public void cast(int actions, Player player, Location loc, Block block, Player target) {
+	public void cast(int actions, Player player, Location loc, Block block, Player target, boolean isCounter) {
 		/*ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
@@ -84,18 +84,23 @@ public class CustomItem implements IUpCounter {
 		}*/
 		
 		//TODO - isHasCounter Counter und Effekte wieder einbeuen
-		String luaTemp = luaR;
-		if(actions==0) luaTemp = luaL;
-		if(actions==2) luaTemp = luaEat;
-		
-		if(!luaTemp.equals("")) {
-			if(player!=null && cooldownManaCheck(actions, player)) return;
+		if(isHasCounter() && !isCounter) {
+			if(player!=null)
+				StatManager.setCounter(player.getName(), this, player.getName()+"::"+actions);
+		} else {
+			String luaTemp = luaR;
+			if(actions==0) luaTemp = luaL;
+			if(actions==2) luaTemp = luaEat;
 			
-			String targetName = "";
-			if(target!=null) targetName = target.getName();
-			
-			if(!SpellItems.luacontroller.castFunction(luaTemp, player.getName(), targetName, block, loc)) {
-				resetCoolDown(actions, player);
+			if(!luaTemp.equals("")) {
+				if(player!=null && cooldownManaCheck(actions, player)) return;
+				
+				String targetName = "";
+				if(target!=null) targetName = target.getName();
+				
+				if(!SpellItems.luacontroller.castFunction(luaTemp, player.getName(), targetName, block, loc)) {
+					resetCoolDown(actions, player);
+				}
 			}
 		}
 	}
@@ -108,7 +113,7 @@ public class CustomItem implements IUpCounter {
 		}
 	}*/
 	
-	private void castUse(int actions, Player player, Location loc, Block block, Player target) {
+	/*private void castUse(int actions, Player player, Location loc, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
@@ -140,7 +145,7 @@ public class CustomItem implements IUpCounter {
 				pos += 1;
 			}
 		}
-	}
+	}*/
 	
 	//is the item currently on cooldown
 	private boolean cooldownManaCheck(int actions, Player player) {
@@ -512,7 +517,9 @@ public class CustomItem implements IUpCounter {
 		if(player!=null) {
 			createEffects(player.getLocation(), action, "CounterFinish");
 			
-			castUse(action, player, null, null, null);
+			//castUse(action, player, null, null, null);
+			
+			cast(action, player, null, null, null, true);
 		}
 	}
 }
