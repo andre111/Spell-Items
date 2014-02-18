@@ -16,7 +16,6 @@ import me.andre111.items.item.spell.ItemLaunch;
 import me.andre111.items.item.spell.ItemLay;
 import me.andre111.items.item.spell.ItemLeap;
 import me.andre111.items.item.spell.ItemPotionEffect;
-import me.andre111.items.item.spell.ItemRandom;
 import me.andre111.items.item.spell.ItemReplace;
 import me.andre111.items.item.spell.ItemRewardPoints;
 import me.andre111.items.item.spell.ItemRoar;
@@ -25,11 +24,8 @@ import me.andre111.items.item.spell.ItemSmash;
 import me.andre111.items.item.spell.ItemSnowballs;
 import me.andre111.items.item.spell.ItemTeleport;
 import me.andre111.items.item.spell.ItemTransmute;
-import me.andre111.items.item.spell.ItemVariableCheck;
-import me.andre111.items.item.spell.ItemVariableCheckNull;
 import me.andre111.items.item.spell.ItemVariableSet;
 import me.andre111.items.item.spell.ItemVariableSetPlayerValue;
-import me.andre111.items.item.spell.ItemVariableSetRandom;
 import me.andre111.items.item.spell.ItemWorldThunderStorm;
 import me.andre111.items.item.spell.ItemWorldTornado;
 
@@ -51,7 +47,6 @@ public class SpellLoader {
 		ItemSpell.addSpellToLUA(new ItemLay(), "ItemLay");
 		ItemSpell.addSpellToLUA(new ItemLeap(), "ItemLeap");
 		ItemSpell.addSpellToLUA(new ItemPotionEffect(), "ItemPotionEffect");
-		ItemSpell.addSpellToLUA(new ItemRandom(), "ItemRandom");
 		ItemSpell.addSpellToLUA(new ItemReplace(), "ItemReplace");
 		ItemSpell.addSpellToLUA(new ItemRewardPoints(), "ItemRewardPoints");
 		ItemSpell.addSpellToLUA(new ItemRoar(), "ItemRoar");
@@ -60,11 +55,8 @@ public class SpellLoader {
 		ItemSpell.addSpellToLUA(new ItemSnowballs(), "ItemSnowballs");
 		ItemSpell.addSpellToLUA(new ItemTeleport(), "ItemTeleport");
 		ItemSpell.addSpellToLUA(new ItemTransmute(), "ItemTransmute");
-		ItemSpell.addSpellToLUA(new ItemVariableCheck(), "ItemVariableCheck");
-		ItemSpell.addSpellToLUA(new ItemVariableCheckNull(), "ItemVariableCheckNull");
 		ItemSpell.addSpellToLUA(new ItemVariableSet(), "ItemVariableSet");
 		ItemSpell.addSpellToLUA(new ItemVariableSetPlayerValue(), "ItemVariableSetPlayerValue");
-		ItemSpell.addSpellToLUA(new ItemVariableSetRandom(), "ItemVariableSetRandom");
 		ItemSpell.addSpellToLUA(new ItemWorldThunderStorm(), "ItemWorldThunderStorm");
 		ItemSpell.addSpellToLUA(new ItemWorldTornado(), "ItemWorldTornado");
 	}

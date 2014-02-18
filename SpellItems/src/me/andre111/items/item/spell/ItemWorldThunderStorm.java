@@ -2,39 +2,16 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.SpellVariable;
 import me.andre111.items.world.WorldThunderStorm;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemWorldThunderStorm extends ItemSpell {
 	/*private int time = 10*20;
 	private int chance = 8;
-	private int distance = 10;
-	
-	@Override
-	public void setCastVar(int id, double var) {
-		if(id==0) time = (int) Math.round(var);
-		else if(id==1) chance = (int) Math.round(var);
-		else if(id==2) distance = (int) Math.round(var);
-	}
-	
-	@Override
-	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) time = var.getAsInt();
-		else if(id==1) chance = var.getAsInt();
-		else if(id==2) distance = var.getAsInt();
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc, Player target, Block block) {
-		return castIntern(loc);
-	}*/
+	private int distance = 10;*/
 	
 	@Override
 	public Varargs invoke(Varargs args) {

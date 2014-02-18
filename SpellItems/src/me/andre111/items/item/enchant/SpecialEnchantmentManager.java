@@ -5,7 +5,6 @@ import java.util.Set;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemManager;
-import me.andre111.items.item.ItemSpell;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -63,71 +62,9 @@ public class SpecialEnchantmentManager {
 		
 		//Cast
 		enTemp.setLua(df.getString("enchantments."+en+".lua", ""));
-		
-		//right
-		/*ConfigurationSection as = df.getConfigurationSection("enchantments."+en+".casts");
-		if(as!=null) {
-			Set<String> strings2 = as.getKeys(false);
-			if(strings2.size()>0) {
-				String[] casts = strings2.toArray(new String[strings2.size()]);
-
-				enTemp.setSize(casts.length);
-				for(int i=0; i<casts.length; i++) {
-					loadCast(df, enTemp, en, casts[i], i);
-				}
-			}
-		}*/
 
 		enchants[enchantCounter] = enTemp;
 		enchantCounter++;
-	}
-	
-	private void loadCast(FileConfiguration df, CustomEnchant enTemp, String en, String name, int id) {
-		String basename = "enchantments."+en+".casts."+name+".";
-
-		//leftclick
-		String cast = df.getString(basename+"cast", "");
-		try {
-			if(!cast.contains("me.andre111.items.item.spell.")) {
-				cast = "me.andre111.items.item.spell." + cast;
-			}
-			Class<?> c = Class.forName(cast);
-			if(c.getSuperclass().equals(ItemSpell.class)) {
-				enTemp.setCast((ItemSpell) c.newInstance(), id);
-				enTemp.getCast(id).setItemName(en);
-				enTemp.getCast(id).setAction(10);
-				enTemp.getCast(id).setRequire(df.getInt(basename+"require", -1));
-				
-				//new method, for loading more than 2 cast vars
-				List<String> stList = df.getStringList(basename+"castVars");
-				ItemSpell itS = enTemp.getCast(id);
-
-				for(int i=0; i<stList.size(); i++) {
-					//load vars->set to has var
-					if(stList.get(i).startsWith("var:")) {
-						try {
-							int varid = Integer.parseInt(stList.get(i).replace("var:", ""));
-							itS.setVariable(i, varid);
-							continue;
-						} catch (NumberFormatException  e) {
-						}
-					}
-					//load as normal string/int
-					itS.setCastVar(i, stList.get(i));
-					try {
-						double d = Double.parseDouble(stList.get(i));
-						itS.setCastVar(i, d);
-					} catch (NumberFormatException  e) {
-					}
-				}
-				//changed to string reader, because doublelist skips string
-				//-> numbers get messed up
-			}
-		} catch (ClassNotFoundException e) {
-		} catch (InstantiationException e) {
-		} catch (IllegalAccessException e) {
-		}
-		if(enTemp.getCast(id)==null) enTemp.setCast(new ItemSpell(), id);
 	}
 	
 	//cast an enchantment

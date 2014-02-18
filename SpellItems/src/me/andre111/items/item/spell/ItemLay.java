@@ -3,7 +3,6 @@ package me.andre111.items.item.spell;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,32 +15,7 @@ import org.luaj.vm2.Varargs;
 
 public class ItemLay extends ItemSpell {
 	/*private int radius;
-	private String message = "";
-	
-	@Override
-	public void setCastVar(int id, double var) {
-		if(id==0) radius = (int) Math.round(var);
-	}
-	
-	@Override
-	public void setCastVar(int id, String var) {
-		if(id==1) message = var;
-	}
-	
-	@Override
-	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) radius = var.getAsInt();
-		else if(id==1) message = var.getAsString();
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc, Player target, Block block) {
-		if(player!=null) {
-			return castAt(player, loc);
-		}
-		
-		return false;
-	}*/
+	private String message = "";*/
 	
 	@Override
 	public Varargs invoke(Varargs args) {

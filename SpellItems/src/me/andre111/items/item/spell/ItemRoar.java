@@ -4,14 +4,9 @@ import java.util.List;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.SpellVariable;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 import org.luaj.vm2.LuaValue;
@@ -19,36 +14,7 @@ import org.luaj.vm2.Varargs;
 
 public class ItemRoar extends ItemSpell {
 	/*private double range;
-	private String message = "";
-	
-	@Override
-	public void setCastVar(int id, double var) {
-		if(id==0) range = var;
-	}
-	
-	@Override
-	public void setCastVar(int id, String var) {
-		if(id==1) message = var;
-	}
-	
-	@Override
-	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) range = var.getAsDouble();
-		else if(id==1) message = var.getAsString();
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc, Player target, Block block) {
-		if(player!=null && player.getLocation()==loc) {
-			return castAtEntity(player, player);
-		} else {
-			Arrow a = (Arrow) player.getWorld().spawnEntity(loc, EntityType.ARROW);
-			boolean success = castAtEntity(a, player);
-			a.remove();
-			
-			return success;
-		}
-	}*/
+	private String message = "";*/
 	
 	@Override
 	public Varargs invoke(Varargs args) {

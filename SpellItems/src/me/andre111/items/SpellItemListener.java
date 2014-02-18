@@ -163,7 +163,7 @@ public class SpellItemListener implements Listener {
 				ItemLaunch il = (ItemLaunch) entity.getMetadata("spellitems_falling_casting").get(0).value();
 				String playern = entity.getMetadata("spellitems_falling_playername").get(0).asString();
 
-				il.onHit(Bukkit.getServer().getPlayerExact(playern), event.getBlock());
+				//il.onHit(Bukkit.getServer().getPlayerExact(playern), event.getBlock());
 			}
 			//disable blocks from fallingsand
 			if(entity.hasMetadata("spellitems_falling_noblock")) {

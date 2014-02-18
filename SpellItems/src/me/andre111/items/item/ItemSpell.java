@@ -5,8 +5,6 @@ import java.util.Map;
 
 import me.andre111.items.SpellItems;
 
-import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -41,15 +39,8 @@ public class ItemSpell extends VarArgFunction {
 	}
 	//###############################################
 	
-	public void setCastVar(int id, double var) {
-	}
-	public void setCastVar(int id, String var) {
-	}
-	public void setCastVar(int id, SpellVariable var) {
-	}
-	
 	//player can be null!
-	public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states, HashMap<Integer, SpellVariable> variables) {
+	/*public boolean cast(Player player, Location loc, Player target, Block block, boolean[] states, HashMap<Integer, SpellVariable> variables) {
 		//required other attacks to succed
 		if(require!=-1) {
 			if(!states[require]) return false;
@@ -76,7 +67,7 @@ public class ItemSpell extends VarArgFunction {
 	private HashMap<Integer, SpellVariable> currentVariables;
 	public HashMap<Integer, SpellVariable> getVariables() {
 		return currentVariables;
-	}
+	}*/
 	
 	//Type of Attack:
 	//0: Simple Cast

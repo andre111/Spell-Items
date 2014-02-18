@@ -1,7 +1,6 @@
 package me.andre111.items.item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import me.andre111.items.CooldownManager;

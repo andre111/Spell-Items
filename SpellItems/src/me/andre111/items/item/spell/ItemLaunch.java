@@ -2,7 +2,6 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.SpellVariable;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Bukkit;
@@ -16,7 +15,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemLaunch extends ItemSpell {
-	private int blockId = 1;
+	/*private int blockId = 1;
 	private byte blockData = 0;
 
 	private double power = 1;
@@ -136,7 +135,7 @@ public class ItemLaunch extends ItemSpell {
 		
 		if(onHit!=null && player!=null)
 			onHit.cast(player, block.getLocation(), null, null);
-	}
+	}*/
 	
 	
 	@Override

@@ -1,13 +1,11 @@
 package me.andre111.items.item.enchant;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemEffect;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.SpellVariable;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
@@ -69,7 +67,7 @@ public class CustomEnchant {
 		}*/
 		
 		if(!lua.equals("")) {
-			if(player!=null) return;
+			if(player==null) return;
 
 			
 			SpellItems.luacontroller.castFunction(lua, player.getName(), target.getName(), null, null);
