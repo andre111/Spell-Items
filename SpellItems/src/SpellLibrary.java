@@ -1,4 +1,5 @@
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.utils.CreateEffect;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -10,6 +11,9 @@ public class SpellLibrary extends TwoArgFunction {
 		LuaValue library = tableOf();
 			ItemSpell.addSpellFunctions(library);
 		env.set("spell", library);
+		LuaValue utils = tableOf();
+			utils.set("CreateEffect", new CreateEffect());
+		env.set("utils", utils);
 		return library;
 	}
 }

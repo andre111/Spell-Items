@@ -1,9 +1,18 @@
 require 'SpellLibrary'
 
 
+function firestaff(player, target, block, location)
+    spell.ItemLeap(player, 4, 1.5, 1, true)
+    utils.CreateEffect(player, "Caster")
+
+    return true
+end
+
 function vampire(player, target, block, location)
     if(spell.ItemDamage(player, target, 2)) then
         spell.ItemDamage(player, player, -2)
+        
+        utils.CreateEffect(player, "Caster")
     end
     
     return true
@@ -11,6 +20,7 @@ end
 
 function eatTester(player, target, block, location)
     spell.ItemPotionEffect(player, "5:600:0")
+    utils.CreateEffect(player, "Caster")
     
     return true
 end

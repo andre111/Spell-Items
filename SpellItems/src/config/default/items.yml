@@ -322,12 +322,6 @@ items:
      id: 369
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects:
          - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
@@ -339,15 +333,7 @@ items:
        cooldown: 5
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemLeap"
-           require: -1
-           castVars:
-             - 4
-             - 1.5
-             - 1
-             - 1
+       lua: "firestaff"
    vampire:
      name: "Vampire"
      lore:

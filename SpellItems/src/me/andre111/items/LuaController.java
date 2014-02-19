@@ -1,5 +1,7 @@
 package me.andre111.items;
 
+import me.andre111.items.item.LuaSpell;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.luaj.vm2.Globals;
@@ -28,7 +30,7 @@ public class LuaController {
 		}
 	}
 	
-	public boolean castFunction(String name, String player, String targetPlayer, Block block, Location loc) {
+	public boolean castFunction(LuaSpell spell, String name, String player, String targetPlayer, Block block, Location loc) {
 		try {
 			if(globals.get(name).isfunction()) {
 				LuaValue[] args = new LuaValue[4];
@@ -37,7 +39,9 @@ public class LuaController {
 				args[2] = LuaValue.userdataOf(block);
 				args[3] = LuaValue.userdataOf(loc);
 				
+				globals.get("utils").set("currentSpell", LuaValue.userdataOf(spell));
 				Varargs vars = globals.get(name).invoke(LuaValue.varargsOf(args));
+				globals.get("utils").set("currentSpell", LuaValue.NIL);
 				
 				if(vars.narg()>0) {
 					LuaValue returnVal = vars.arg(1);

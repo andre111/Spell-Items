@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CustomItem implements IUpCounter {
+public class CustomItem extends LuaSpell implements IUpCounter {
 	private String internalName;
 	
 	private int id;
@@ -71,6 +71,7 @@ public class CustomItem implements IUpCounter {
 	//0 = leftclick
 	//1 = rigthclick
 	//2 = eat
+	private int currentAction = 0;
 	public void cast(int actions, Player player, Location loc, Block block, Player target, boolean isCounter) {
 		/*ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
@@ -97,7 +98,8 @@ public class CustomItem implements IUpCounter {
 				String targetName = "";
 				if(target!=null) targetName = target.getName();
 				
-				if(!SpellItems.luacontroller.castFunction(luaTemp, player.getName(), targetName, block, loc)) {
+				currentAction = actions;
+				if(!SpellItems.luacontroller.castFunction(this, luaTemp, player.getName(), targetName, block, loc)) {
 					resetCoolDown(actions, player);
 				}
 			}
@@ -201,6 +203,10 @@ public class CustomItem implements IUpCounter {
 	
 	public void resetCoolDown(int action, Player player) {
 		CooldownManager.resetCustomCooldown(player.getName(), getCooldownName(action));
+	}
+	
+	public void createEffects(Location loc, String position) {
+		createEffects(loc, currentAction, position);
 	}
 	
 	public void createEffects(Location loc, int action, String position) {

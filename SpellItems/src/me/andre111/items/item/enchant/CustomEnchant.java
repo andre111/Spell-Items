@@ -6,6 +6,7 @@ import java.util.List;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemEffect;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.LuaSpell;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
@@ -14,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CustomEnchant {
+public class CustomEnchant extends LuaSpell {
 	private String internalName;
 	
 	private int id;
@@ -70,7 +71,7 @@ public class CustomEnchant {
 			if(player==null) return;
 
 			
-			SpellItems.luacontroller.castFunction(lua, player.getName(), target.getName(), null, null);
+			SpellItems.luacontroller.castFunction(this, lua, player.getName(), target.getName(), null, null);
 		}
 	}
 	
