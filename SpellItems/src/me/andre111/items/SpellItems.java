@@ -30,6 +30,7 @@ public class SpellItems extends JavaPlugin {
 	public static SpellItems instance;
 	//IMPORTANT VALUE: DO NEVER CHANGE
 	public static final UUID itemUUID = UUID.fromString("5a544aff-9352-43b7-a397-dc8dd3914d0d");
+	public static final UUID itemEnchantUUID = UUID.fromString("0109b020-a3bf-11e3-a5e2-0800200c9a66");
 	
 	public static Logger logger;
 	public static String prefix = "[SpellItems] ";

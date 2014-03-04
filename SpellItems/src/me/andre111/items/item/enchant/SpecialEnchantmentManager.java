@@ -5,8 +5,8 @@ import java.util.Set;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemManager;
+import me.andre111.items.utils.AttributeStorage;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -75,11 +75,14 @@ public class SpecialEnchantmentManager {
 	//get enchantments from item
 	public void attackPlayerByPlayer(Player attacker, Player player, ItemStack it) {
 		if(it==null) return;
-		if(it.getItemMeta()==null) return;
-		if(it.getItemMeta().getLore()==null) return;
 		
-		for(String st : it.getItemMeta().getLore()) {
-			CustomEnchant ce = getEnchantmentByDisplayname(st);
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		if(!storage.getData("").startsWith("si_customenchant_")) return;
+		String enchants = storage.getData("").replace("si_customenchant_", "");
+		
+		for(String st : enchants.split("|")) {
+			String[] info = st.split(":");
+			CustomEnchant ce = getEnchantmentByName(info[0]);
 			if(ce!=null) {
 				castOn(attacker, player, ce);
 			}
@@ -101,14 +104,17 @@ public class SpecialEnchantmentManager {
 	}
 	
 	//save enchants on arrow
-	public void procectileShoot(ItemStack bow, Projectile a) {
-		if(bow==null) return;
-		if(bow.getItemMeta()==null) return;
-		if(bow.getItemMeta().getLore()==null) return;
+	public void procectileShoot(ItemStack it, Projectile a) {
+		if(it==null) return;
+		
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		if(!storage.getData("").startsWith("si_customenchant_")) return;
+		String enchants = storage.getData("").replace("si_customenchant_", "");
 		
 		int pos = 0;
-		for(String st : bow.getItemMeta().getLore()) {
-			CustomEnchant ce = getEnchantmentByDisplayname(st);
+		for(String st : enchants.split("|")) {
+			String[] info = st.split(":");
+			CustomEnchant ce = getEnchantmentByName(info[0]);
 			if(ce!=null) {
 				a.setMetadata("spellitems_enchant_"+pos, new FixedMetadataValue(SpellItems.instance, ce.getInternalName()));
 				pos++;
@@ -116,14 +122,14 @@ public class SpecialEnchantmentManager {
 		}
 	}
 	
-	public boolean isCustomEnchantment(String lore) {
+	/*public boolean isCustomEnchantment(String lore) {
 		if(getEnchantmentByDisplayname(lore)!=null) return true;
 		
 		return false;
-	}
+	}*/
 	
 	//IMPORTANT: This expects an level at the end of the string
-	public CustomEnchant getEnchantmentByDisplayname(String name) {
+	/*public CustomEnchant getEnchantmentByDisplayname(String name) {
 		String[] split = name.split(" ");
 		String putTogether = "";
 		for(int i=0; i<split.length-1; i++) {
@@ -139,7 +145,7 @@ public class SpecialEnchantmentManager {
 		}
 		
 		return null;
-	}
+	}*/
 	
 	public CustomEnchant getEnchantmentByName(String name) {
 		for(int i=0; i<enchants.length; i++) {

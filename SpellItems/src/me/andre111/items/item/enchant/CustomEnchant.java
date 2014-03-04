@@ -7,6 +7,7 @@ import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemEffect;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.LuaSpell;
+import me.andre111.items.utils.AttributeStorage;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
@@ -41,7 +42,16 @@ public class CustomEnchant extends LuaSpell {
 		im.setLore(st);
 		it.setItemMeta(im);
 		
-		return DynamicClassFunctions.addGlow(it);
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemEnchantUUID);
+		String currentEnchants = "";
+		if(!storage.getData("").equals("")) currentEnchants = storage.getData("").replace("si_customenchant", "");
+		if(!currentEnchants.equals("")) currentEnchants = currentEnchants + "|";
+		else currentEnchants = "si_customenchant_";
+		storage.setData(currentEnchants+getInternalName());
+		
+		ItemStack withAttribute = storage.getTarget();
+		
+		return DynamicClassFunctions.addGlow(withAttribute);
 	}
 	
 	public String getLevelName(int level) {
