@@ -40,7 +40,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 						
 						return true;
 					} else {
-						//sender.sendMessage("Could not decode Itemstring: "+itemSt);
+						sender.sendMessage("Could not decode Itemstring: "+itemSt);
 						return false;
 					}
 				} else {
