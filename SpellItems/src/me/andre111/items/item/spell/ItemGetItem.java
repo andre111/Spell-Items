@@ -30,7 +30,7 @@ public class ItemGetItem extends ItemSpell {
 				if(player!=null) {
 					PlayerInventory inv = player.getInventory();
 					for(int i=0; i<times; i++) {
-						ItemStack it = ItemHandler.decodeItem(item);
+						ItemStack it = ItemHandler.decodeItem(item, player);
 						if(it!=null)
 							inv.addItem(it);
 					}

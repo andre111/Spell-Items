@@ -50,7 +50,7 @@ public class RewardManager {
 				boolean repeating = r.isRepeating();
 				
 				if(level==pPoints || (repeating && pPoints%level==0)) {
-					player.getInventory().addItem(ItemHandler.decodeItem(r.getItem()));
+					player.getInventory().addItem(ItemHandler.decodeItem(r.getItem(), player));
 					ItemHandler.updateInventory(player);
 					r.createEffects(player.getLocation(), "PLAYER");
 					

@@ -34,13 +34,13 @@ public class SpellCommandExecutor implements CommandExecutor {
 					}
 					
 					//get the tem
-					ItemStack it = ItemHandler.decodeItem(itemSt);
+					ItemStack it = ItemHandler.decodeItem(itemSt, player);
 					if(it!=null) {
 						player.getInventory().addItem(it);
 						
 						return true;
 					} else {
-						sender.sendMessage("Could not decode Itemstring: "+itemSt);
+						//sender.sendMessage("Could not decode Itemstring: "+itemSt);
 						return false;
 					}
 				} else {

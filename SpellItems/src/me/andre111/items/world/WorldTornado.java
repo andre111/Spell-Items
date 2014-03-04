@@ -8,7 +8,6 @@ import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
@@ -143,8 +142,9 @@ public class WorldTornado extends WorldEffect {
 			if(ticker>=10) {
 				ticker = 0;
 				
-				if(rand.nextInt(6)!=0)
-					loc.getWorld().playSound(loc, Sound.BREATH, 1f, 0.3f+rand.nextFloat()/4f);
+				//TODO - Fix sound
+				//if(rand.nextInt(6)!=0)
+					//loc.getWorld().playSound(loc, Sound.BREATH, 1f, 0.3f+rand.nextFloat()/4f);
 			}
 		}
 	}

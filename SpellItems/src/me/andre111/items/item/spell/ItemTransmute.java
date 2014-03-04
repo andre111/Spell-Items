@@ -59,7 +59,7 @@ public class ItemTransmute extends ItemSpell {
 						PlayerInventory inv = player.getInventory();
 						
 						for(String st : items) {
-							ItemStack it = ItemHandler.decodeItem(st);
+							ItemStack it = ItemHandler.decodeItem(st, player);
 
 							if(it!=null) {
 								if(addToInv) {

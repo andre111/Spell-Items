@@ -7,6 +7,8 @@ import java.util.Random;
 import me.andre111.items.item.enchant.CustomEnchant;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -16,7 +18,132 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class ItemHandler {
 	private static final Random random = new Random();
 	
-	public static ItemStack decodeItem(String str) {
+	public static ItemStack decodeItem(String str, Player player) {
+		while(str.startsWith(" ")) {
+			str = str.substring(1);
+		}
+		while(str.endsWith(" ")) {
+			str = str.substring(0, str.length()-1);
+		}
+		
+		if(str.startsWith("!")) {
+			return decodeNewItem(str.substring(1), player);
+		} else {
+			return decodeOldItem(str);
+		}
+	}
+	
+	private static ItemStack decodeNewItem(String str, Player player) {
+		ItemStack item = null;
+		Material material = null;
+		int damage = 0;
+		int countmin = 1;
+		int countmax = -1;
+		double chance = 100;
+		String permission = ".";
+		String dataTag = "";
+		
+		boolean exception = false;
+		
+		String[] geteilt = str.split(" ");
+		try {
+			//Item Material or Special Item
+			if(geteilt.length>0) {
+				if(geteilt[0].toLowerCase().startsWith("minecraft:")) {
+					material = Material.matchMaterial(geteilt[0]);
+	
+					if (material == null) {
+						material = Bukkit.getUnsafe().getMaterialFromInternalName(geteilt[0]);
+					}
+				} else if(geteilt[0].toLowerCase().startsWith("spellitems:")) {
+					String[] iname = geteilt[0].split(":");
+					item = SpellItems.itemManager.getItemStackByName(iname[1]);
+				}
+			}
+			//damage 
+			if(geteilt.length>1) {
+				damage = Integer.parseInt(geteilt[1]);
+				if(!(random.nextDouble()*100<chance)) return null;
+			}
+			//count
+			if(geteilt.length>2) {
+				String[] counts = geteilt[2].split(":");
+				if(counts.length>0) countmin = Integer.parseInt(counts[0]);
+				if(counts.length>1) countmax = Integer.parseInt(counts[1]);
+			}
+			//chance
+			if(geteilt.length>3) {
+				chance = Double.parseDouble(geteilt[3]);
+			}
+			//permission
+			if(geteilt.length>5) {
+				permission = geteilt[5];
+				if(!permission.equals(".")) {
+					if(player==null) return null;
+					if(!player.hasPermission(permission)) return null;
+				}
+			}
+			//dataTag
+			if(geteilt.length>6) {
+				dataTag = geteilt[6];
+			}
+			
+			//item erstellen
+			int count = countmin;
+			if(countmax!=-1) count = countmin + random.nextInt(countmax-countmin+1);
+			if(material!=null || item==null) {
+				item = new ItemStack(material, count, (short) damage);
+			} else if(item!=null) {
+				item.setAmount(count);
+			}
+			
+			//dataTag einfügen
+			if(!dataTag.equals("")) {
+				try {
+					item = Bukkit.getUnsafe().modifyItemStack(item, dataTag);
+				} catch(Exception e) {
+				}
+			}
+			
+			//custom enchantments
+			if(geteilt.length>4) {
+				boolean addGlow = false;
+				String[] enchants = geteilt[4].split(",");
+				for(int i=0; i<enchants.length; i++) {
+					String[] split_e = enchants[i].split(":");
+					int elevel = 0;
+	
+					if(split_e.length>0) {
+						if(split_e.length>1) elevel = Integer.parseInt(split_e[1]);
+		
+						if(split_e[0].equals("-10")) {
+							addGlow = true;
+						} else {
+							CustomEnchant ce = SpellItems.enchantManager.getEnchantmentByName(split_e[0]);
+							if(ce!=null) {
+								item = ce.enchantItem(item, elevel);
+							}
+						}
+					}
+				}
+				
+				if(addGlow) {
+					item = DynamicClassFunctions.addGlow(item);
+				}
+			}
+			
+			return item;
+		} catch (NumberFormatException e) {
+			exception = true;
+		}
+		
+		if((item==null && !str.equals("0")) || exception) { 
+			SpellItems.log("Could not decode Itemstring: "+str);
+		}
+		return null;
+	}
+	
+	private static ItemStack decodeOldItem(String str) {
 		while(str.startsWith(" ")) {
 			str = str.substring(1);
 		}
@@ -146,7 +273,8 @@ public class ItemHandler {
 		return null;
 	}
 	
-	public static int decodeItemId(String str) {
+	//TODO - recode for new Itemformat Version
+	/*public static int decodeItemId(String str) {
 		while(str.startsWith(" ")) {
 			str = str.substring(1);
 		}
@@ -171,7 +299,7 @@ public class ItemHandler {
 		}
 		
 		return id;
-	}
+	}*/
 	
 	public static void clearInv(Player player, boolean enderChest) {
 		PlayerInventory inv = player.getInventory();

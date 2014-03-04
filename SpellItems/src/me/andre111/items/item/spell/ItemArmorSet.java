@@ -49,16 +49,16 @@ public class ItemArmorSet extends ItemSpell {
 	}
 	
 	private void setArmor(Player player, String helmet, String chest, String leggins, String boots) {
-		ItemStack helmetIt = ItemHandler.decodeItem(helmet);
+		ItemStack helmetIt = ItemHandler.decodeItem(helmet, player);
 		if(helmetIt!=null) player.getInventory().setHelmet(helmetIt);
 		
-		ItemStack chestIt = ItemHandler.decodeItem(chest);
+		ItemStack chestIt = ItemHandler.decodeItem(chest, player);
 		if(chestIt!=null) player.getInventory().setChestplate(chestIt);
 		
-		ItemStack legginsIt = ItemHandler.decodeItem(leggins);
+		ItemStack legginsIt = ItemHandler.decodeItem(leggins, player);
 		if(legginsIt!=null) player.getInventory().setLeggings(legginsIt);
 		
-		ItemStack bootsIt = ItemHandler.decodeItem(boots);
+		ItemStack bootsIt = ItemHandler.decodeItem(boots, player);
 		if(bootsIt!=null) player.getInventory().setBoots(bootsIt);
 	}
 }

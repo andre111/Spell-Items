@@ -94,6 +94,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 			
 			if(!luaTemp.equals("")) {
 				if(player!=null && cooldownManaCheck(actions, player)) return;
+				putOnCoolDown(actions, player);
 				
 				String targetName = "";
 				if(target!=null) targetName = target.getName();

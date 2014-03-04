@@ -34,7 +34,7 @@ public class ItemEffectItemSpray extends ItemEffect {
 		Location loc = location.clone().add(0, 1, 0);
 		final Item[] items = new Item[number];
 		for (int i = 0; i < number; i++) {
-			items[i] = loc.getWorld().dropItem(loc, ItemHandler.decodeItem(item));
+			items[i] = loc.getWorld().dropItem(loc, ItemHandler.decodeItem(item, null));
 			items[i].setVelocity(new Vector((rand.nextDouble()-.5) * force, (rand.nextDouble()-.5) * force, (rand.nextDouble()-.5) * force));
 			items[i].setPickupDelay(duration * 2);
 		}
