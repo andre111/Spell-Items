@@ -85,7 +85,9 @@ public class ItemHandler {
 			}
 			//dataTag
 			if(geteilt.length>6) {
-				dataTag = geteilt[6];
+				for(int i=6; geteilt.length>i; i++) {
+					dataTag = dataTag + geteilt[i];
+				}
 			}
 			
 			//item erstellen
@@ -102,6 +104,7 @@ public class ItemHandler {
 				try {
 					item = Bukkit.getUnsafe().modifyItemStack(item, dataTag);
 				} catch(Exception e) {
+					e.printStackTrace();
 				}
 			}
 			
@@ -116,7 +119,9 @@ public class ItemHandler {
 					if(split_e.length>0) {
 						if(split_e.length>1) elevel = Integer.parseInt(split_e[1]);
 		
-						if(split_e[0].equals("-10")) {
+						if(split_e[0].equals("-1")) {
+							
+						} else if(split_e[0].equals("-10")) {
 							addGlow = true;
 						} else {
 							CustomEnchant ce = SpellItems.enchantManager.getEnchantmentByName(split_e[0]);
