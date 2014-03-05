@@ -27,7 +27,7 @@ public class RewardManager {
 		}
 	}
 	private static void addRewardPoint(Player player) {
-		if(pointMap.containsKey(player.getName())) {
+		if(pointMap.containsKey(player.getUniqueId())) {
 			pointMap.put(player.getUniqueId(), pointMap.get(player.getUniqueId())+1);
 		} else {
 			pointMap.put(player.getUniqueId(), 1);
