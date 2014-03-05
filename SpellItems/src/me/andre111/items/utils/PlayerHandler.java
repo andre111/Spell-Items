@@ -24,7 +24,7 @@ public class PlayerHandler {
 	
 	public static Player getPlayerFromUUID(UUID uuid) {
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			if(player.getUniqueId()==uuid) {
+			if(player.getUniqueId().equals(uuid)) {
 				return player;
 			}
 		}
