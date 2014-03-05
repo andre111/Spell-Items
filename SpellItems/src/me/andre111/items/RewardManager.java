@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import me.andre111.items.item.ItemManager;
 
@@ -16,7 +17,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class RewardManager {
-	private static HashMap<String, Integer> pointMap = new HashMap<String, Integer>();
+	private static HashMap<UUID, Integer> pointMap = new HashMap<UUID, Integer>();
 	private static ArrayList<Reward> rewards = new ArrayList<Reward>();
 
 	//give a player reward points
@@ -27,21 +28,21 @@ public class RewardManager {
 	}
 	private static void addRewardPoint(Player player) {
 		if(pointMap.containsKey(player.getName())) {
-			pointMap.put(player.getName(), pointMap.get(player.getName())+1);
+			pointMap.put(player.getUniqueId(), pointMap.get(player.getUniqueId())+1);
 		} else {
-			pointMap.put(player.getName(), 1);
+			pointMap.put(player.getUniqueId(), 1);
 		}
 		
 		giveOutReward(player);
 	}
 	//resets the players points to 0
 	public static void resetRewardPoints(Player player) {
-		pointMap.put(player.getName(), 0);
+		pointMap.put(player.getUniqueId(), 0);
 	}
 	
 	//gives out rewards when the required ammount is reached
 	private static void giveOutReward(Player player) {
-		int pPoints = pointMap.get(player.getName());
+		int pPoints = pointMap.get(player.getUniqueId());
 		boolean reset = false;
 		
 		if(player.isOnline()) {
@@ -60,7 +61,7 @@ public class RewardManager {
 		}
 		
 		if (reset) {
-			pointMap.put(player.getName(), 0);
+			pointMap.put(player.getUniqueId(), 0);
 		}
 	}
 	
@@ -105,8 +106,8 @@ public class RewardManager {
 			}
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 		
-		for(String player : pointMap.keySet()) {
-			rewardFile.set(player, pointMap.get(player));
+		for(UUID player : pointMap.keySet()) {
+			rewardFile.set(player.toString(), pointMap.get(player));
 		}
 		try {
 			rewardFile.save(file);
@@ -125,7 +126,11 @@ public class RewardManager {
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 		
 		for (Entry<String, Object> m : rewardFile.getValues(false).entrySet()) {
-			pointMap.put(m.getKey(), (Integer)m.getValue());
+			try {
+				pointMap.put(UUID.fromString(m.getKey()), (Integer)m.getValue());
+			} catch(IllegalArgumentException e) {
+				SpellItems.log(m.getKey()+" could not get loaded as an UUID - it will be ignored!");
+			}
 		}
 	}
 }

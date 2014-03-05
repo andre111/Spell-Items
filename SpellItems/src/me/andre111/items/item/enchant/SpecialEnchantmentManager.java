@@ -104,7 +104,7 @@ public class SpecialEnchantmentManager {
 	}
 	
 	//save enchants on arrow
-	public void procectileShoot(ItemStack it, Projectile a) {
+	public void projectileShoot(ItemStack it, Projectile a) {
 		if(it==null) return;
 		
 		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);

@@ -2,6 +2,7 @@ package me.andre111.items.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import me.andre111.items.CooldownManager;
 import me.andre111.items.ManaManager;
@@ -9,6 +10,7 @@ import me.andre111.items.SpellItems;
 import me.andre111.items.StatManager;
 import me.andre111.items.iface.IUpCounter;
 import me.andre111.items.utils.AttributeStorage;
+import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -86,7 +88,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		//TODO - isHasCounter Counter und Effekte wieder einbeuen
 		if(isHasCounter() && !isCounter) {
 			if(player!=null)
-				StatManager.setCounter(player.getName(), this, player.getName()+"::"+actions);
+				StatManager.setCounter(player.getUniqueId(), this, player.getUniqueId()+"::"+actions);
 		} else {
 			String luaTemp = luaR;
 			if(actions==0) luaTemp = luaL;
@@ -152,7 +154,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	//is the item currently on cooldown
 	private boolean cooldownManaCheck(int actions, Player player) {
 		//cooldown
-		int cd = CooldownManager.getCustomCooldown(player.getName(), getCooldownName(actions));
+		int cd = CooldownManager.getCustomCooldown(player.getUniqueId(), getCooldownName(actions));
 		if(cd>0) {
 			//player.sendMessage(ConfigManager.getLanguage().getString("string_wait", "You have to wait -0- Seconds!").replace("-0-", ""+cd));
 			player.sendMessage("You have to wait -0- Seconds!".replace("-0-", ""+cd));
@@ -166,13 +168,13 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		if(actions==2) cost = getManaCostEat();
 		
 		if(cost>0) {
-			if(ManaManager.getMana(player.getName())<cost) {
+			if(ManaManager.getMana(player.getUniqueId())<cost) {
 				//player.sendMessage(ConfigManager.getLanguage().getString("string_needmana", "You need -0- Mana!").replace("-0-", ""+cost));
 				player.sendMessage("You need -0- Mana!".replace("-0-", ""+cost));
 				return true;
 			}
 			
-			ManaManager.substractMana(player.getName(), cost);
+			ManaManager.substractMana(player.getUniqueId(), cost);
 		}
 		
 		//substract items
@@ -195,7 +197,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		if(action==0) time = cooldownL;
 		if(action==2) time = cooldownEat;
 		
-		if(time>0) CooldownManager.setCustomCooldown(player.getName(), getCooldownName(action), time);
+		if(time>0) CooldownManager.setCustomCooldown(player.getUniqueId(), getCooldownName(action), time);
 	}
 	
 	private String getCooldownName(int actions) {
@@ -203,7 +205,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	}
 	
 	public void resetCoolDown(int action, Player player) {
-		CooldownManager.resetCustomCooldown(player.getName(), getCooldownName(action));
+		CooldownManager.resetCustomCooldown(player.getUniqueId(), getCooldownName(action));
 	}
 	
 	public void createEffects(Location loc, String position) {
@@ -495,7 +497,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void countUPincrease(String vars) {
 		String[] split = vars.split("::");
 		
-		Player player = Bukkit.getServer().getPlayerExact(split[0]);
+		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
 		
 		if(player!=null) {
@@ -506,7 +508,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void countUPinterrupt(String vars) {
 		String[] split = vars.split("::");
 		
-		Player player = Bukkit.getServer().getPlayerExact(split[0]);
+		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
 		
 		if(player!=null) {
@@ -517,7 +519,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void countUPfinish(String vars) {
 		String[] split = vars.split("::");
 		
-		Player player = Bukkit.getServer().getPlayerExact(split[0]);
+		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
 		
 		if(player!=null) {

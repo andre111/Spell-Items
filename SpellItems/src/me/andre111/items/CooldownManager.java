@@ -3,6 +3,7 @@ package me.andre111.items;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class CooldownManager {
 	private static HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
@@ -24,17 +25,17 @@ public class CooldownManager {
 	}
 	
 	
-	public static void setCustomCooldown(String player, String name, int time) {
-		customCooldown.put(player+":"+name, time);
+	public static void setCustomCooldown(UUID player, String name, int time) {
+		customCooldown.put(player.toString()+":"+name, time);
 	}
-	public static int getCustomCooldown(String player, String name) {
-		if(customCooldown.containsKey(player+":"+name)) {
-			return customCooldown.get(player+":"+name);
+	public static int getCustomCooldown(UUID player, String name) {
+		if(customCooldown.containsKey(player.toString()+":"+name)) {
+			return customCooldown.get(player.toString()+":"+name);
 		}
 		
 		return -1;
 	}
-	public static void resetCustomCooldown(String player, String name) {
-		customCooldown.remove(player+":"+name);
+	public static void resetCustomCooldown(UUID player, String name) {
+		customCooldown.remove(player.toString()+":"+name);
 	}
 }

@@ -104,9 +104,9 @@ public class SpellCommandExecutor implements CommandExecutor {
 						}
 						
 						if(args[1].equalsIgnoreCase("maxmana")) {
-							ManaManager.setMaxMana(player.getName(), value, true);
+							ManaManager.setMaxMana(player.getUniqueId(), value, true);
 						} else if(args[1].equalsIgnoreCase("regen")) {
-							ManaManager.setManaRegen(player.getName(), value);
+							ManaManager.setManaRegen(player.getUniqueId(), value);
 						} else {
 							sender.sendMessage("Could not find variable: "+args[1]);
 							sender.sendMessage("Please use maxmana or regen");
@@ -208,10 +208,10 @@ public class SpellCommandExecutor implements CommandExecutor {
 				}
 				if(args[0].equalsIgnoreCase("Syntax")) {
 					sender.sendMessage("Itemsyntax: ");
-					sender.sendMessage("id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id_OR_customEnchantmentName>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>");
-					sender.sendMessage("Name and Lore1,2,3 can contain spaces");
-					sender.sendMessage("Enchantmentids: ");
-					sender.sendMessage("id of a default enchantment or the internalname of a custom one");
+					sender.sendMessage("!<ItemName> <damagevalue> <min_count>:<max_count> <chance_to_get_item> <customEnchantmentName>:<level>,... <permission> <dataTag>");
+					sender.sendMessage("Chance is X out of 100");
+					sender.sendMessage("Enchantments: ");
+					sender.sendMessage("internalname of a custom one");
 					sender.sendMessage("-1 to completly ignore enchants(if you want to set a name)");
 					sender.sendMessage("-10 to only get the glowing Effect without an enchantment");
 					return true;

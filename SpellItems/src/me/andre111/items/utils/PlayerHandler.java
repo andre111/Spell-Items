@@ -1,5 +1,8 @@
 package me.andre111.items.utils;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -17,5 +20,15 @@ public class PlayerHandler {
 			}
 		}
 		return false;
+	}
+	
+	public static Player getPlayerFromUUID(UUID uuid) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			if(player.getUniqueId()==uuid) {
+				return player;
+			}
+		}
+		
+		return null;
 	}
 }

@@ -45,7 +45,7 @@ public class SpellItemListener implements Listener {
 		if(event.getEntity().getShooter() instanceof Player) {
 			Player shooter = (Player) event.getEntity().getShooter();
 
-			SpellItems.enchantManager.procectileShoot(shooter.getItemInHand(), event.getEntity());
+			SpellItems.enchantManager.projectileShoot(shooter.getItemInHand(), event.getEntity());
 		}
 	}
 	
@@ -208,7 +208,7 @@ public class SpellItemListener implements Listener {
 	public void onPlayerItemHeld(PlayerItemHeldEvent event) {
 		if(event.isCancelled()) return;
 
-		StatManager.interruptItem(event.getPlayer().getName());
+		StatManager.interruptItem(event.getPlayer().getUniqueId());
 	}
 	@EventHandler(priority=EventPriority.MONITOR)
 	public void onPlayerInventoryChange(InventoryClickEvent event) {
@@ -216,7 +216,7 @@ public class SpellItemListener implements Listener {
 
 		Player p = (Player) event.getWhoClicked();
 		if(event.getSlot()==p.getInventory().getHeldItemSlot()) {
-			StatManager.interruptDamage(p.getName());
+			StatManager.interruptDamage(p.getUniqueId());
 		}
 	}
 	@EventHandler(priority=EventPriority.MONITOR)
@@ -225,7 +225,7 @@ public class SpellItemListener implements Listener {
 
 		try {
 			if(event.getFrom().distanceSquared(event.getTo())>0.01)
-				StatManager.interruptMove(event.getPlayer().getName());
+				StatManager.interruptMove(event.getPlayer().getUniqueId());
 		} catch(Exception e) {
 		}
 	}
