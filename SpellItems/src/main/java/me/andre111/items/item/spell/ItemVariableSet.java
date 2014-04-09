@@ -5,8 +5,8 @@ import java.util.Random;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ public class ItemVariableSet extends ItemSpell {
 				
 				Player player = null;
 				if(objectN.isstring()) {
-					player = Bukkit.getPlayerExact(objectN.toString());
+					player = PlayerHandler.getPlayerFromUUID(objectN.toString());
 				}
 				Block block = null;
 				if(objectN.isuserdata(Block.class)) {

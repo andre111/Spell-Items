@@ -3,8 +3,8 @@ package me.andre111.items.item.spell;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -23,7 +23,7 @@ public class ItemGetItem extends ItemSpell {
 			LuaValue timesN = args.arg(3);
 			
 			if(playerN.isstring() && itemN.isstring() && timesN.isnumber()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				String item = itemN.toString();
 				int times = timesN.toint();
 				

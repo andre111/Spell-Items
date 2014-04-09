@@ -12,7 +12,6 @@ import me.andre111.items.iface.IUpCounter;
 import me.andre111.items.utils.AttributeStorage;
 import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -86,6 +85,8 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		}*/
 		
 		//TODO - isHasCounter Counter und Effekte wieder einbeuen
+		//TODO - in die LUA scripte nicht den spielernamen sondern die uuid übergeben
+		//TODO - -> alle Spells müssen bearbeitet werdem
 		if(isHasCounter() && !isCounter) {
 			if(player!=null)
 				StatManager.setCounter(player.getUniqueId(), this, player.getUniqueId()+"::"+actions);
@@ -98,11 +99,11 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 				if(player!=null && cooldownManaCheck(actions, player)) return;
 				putOnCoolDown(actions, player);
 				
-				String targetName = "";
-				if(target!=null) targetName = target.getName();
+				String targetUUID = "";
+				if(target!=null) targetUUID = target.getUniqueId().toString();
 				
 				currentAction = actions;
-				if(!SpellItems.luacontroller.castFunction(this, luaTemp, player.getName(), targetName, block, loc)) {
+				if(!SpellItems.luacontroller.castFunction(this, luaTemp, player.getUniqueId().toString(), targetUUID, block, loc)) {
 					resetCoolDown(actions, player);
 				}
 			}

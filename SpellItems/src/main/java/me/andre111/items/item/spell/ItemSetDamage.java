@@ -2,8 +2,8 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.luaj.vm2.LuaValue;
@@ -19,7 +19,7 @@ public class ItemSetDamage extends ItemSpell {
 			LuaValue damageN = args.arg(1);
 			
 			if(playerN.isstring() && damageN.isnumber()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				int damage = damageN.toint();
 				
 				if(player!=null) {

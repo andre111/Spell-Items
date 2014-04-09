@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -22,7 +23,7 @@ public class ItemCommand extends ItemSpell {
 			LuaValue consoleN = args.arg(2);
 			
 			if(playerN.isstring() && consoleN.isboolean()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				boolean console = consoleN.toboolean();
 				
 				CommandSender sender = player;

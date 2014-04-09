@@ -2,8 +2,8 @@ package me.andre111.items.item.utils;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.LuaSpell;
+import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ public class CreateEffect extends TwoArgFunction {
 		} else if(locationN.isuserdata(Block.class)) {
 			loc = ((Block) locationN.touserdata(Block.class)).getLocation();
 		} else if(locationN.isstring()) {
-			Player player = Bukkit.getPlayerExact(locationN.toString());
+			Player player = PlayerHandler.getPlayerFromUUID(locationN.toString());
 			if(player!=null) {
 				loc = player.getLocation();
 			}

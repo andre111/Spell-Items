@@ -2,8 +2,8 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.luaj.vm2.LuaValue;
@@ -28,7 +28,7 @@ public class ItemLeap extends ItemSpell {
 			LuaValue disableDamageN = args.arg(5);
 			
 			if(playerN.isstring() && forwardN.isnumber() && upwardN.isnumber() && powerN.isnumber() && disableDamageN.isboolean()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				
 				
 				if(player!=null) {

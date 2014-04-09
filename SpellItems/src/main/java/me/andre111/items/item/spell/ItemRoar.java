@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -24,7 +25,7 @@ public class ItemRoar extends ItemSpell {
 			LuaValue messageN = args.arg(3);
 			
 			if(playerN.isstring() && rangeN.isnumber() && messageN.isstring()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				double range = rangeN.todouble();
 				String message = messageN.toString();
 				

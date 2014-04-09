@@ -1,13 +1,13 @@
 package me.andre111.items.item.spell;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.Varargs;
-
 import me.andre111.items.RewardManager;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
+
+import org.bukkit.entity.Player;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.Varargs;
 
 public class ItemRewardPoints extends ItemSpell {
 	/*private String playername = "";
@@ -20,7 +20,7 @@ public class ItemRewardPoints extends ItemSpell {
 			LuaValue pointsN = args.arg(2);
 			
 			if(playerN.isstring() && pointsN.isnumber()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				int points = pointsN.toint();
 				
 				if(player!=null) {

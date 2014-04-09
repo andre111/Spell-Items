@@ -30,12 +30,12 @@ public class LuaController {
 		}
 	}
 	
-	public boolean castFunction(LuaSpell spell, String name, String player, String targetPlayer, Block block, Location loc) {
+	public boolean castFunction(LuaSpell spell, String name, String playerUUID, String targetPlayerUUID, Block block, Location loc) {
 		try {
 			if(globals.get(name).isfunction()) {
 				LuaValue[] args = new LuaValue[4];
-				args[0] = LuaValue.valueOf(player);
-				args[1] = LuaValue.valueOf(targetPlayer);
+				args[0] = LuaValue.valueOf(playerUUID);
+				args[1] = LuaValue.valueOf(targetPlayerUUID);
 				args[2] = LuaValue.userdataOf(block);
 				args[3] = LuaValue.userdataOf(loc);
 				

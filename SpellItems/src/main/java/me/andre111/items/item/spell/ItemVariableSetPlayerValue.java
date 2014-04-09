@@ -2,8 +2,8 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
@@ -21,7 +21,7 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 			LuaValue valueN = args.arg(2);
 			
 			if(playerN.isstring() && valueN.isstring()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				String value = valueN.toString();
 				
 				LuaValue[] returnValue = new LuaValue[2];
