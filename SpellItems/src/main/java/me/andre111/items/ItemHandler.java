@@ -63,7 +63,6 @@ public class ItemHandler {
 			//damage 
 			if(geteilt.length>1) {
 				damage = Integer.parseInt(geteilt[1]);
-				if(!(random.nextDouble()*100<chance)) return null;
 			}
 			//count
 			if(geteilt.length>2) {
@@ -74,6 +73,7 @@ public class ItemHandler {
 			//chance
 			if(geteilt.length>3) {
 				chance = Double.parseDouble(geteilt[3]);
+				if(!(random.nextDouble()*100<chance)) return null;
 			}
 			//permission
 			if(geteilt.length>5) {
