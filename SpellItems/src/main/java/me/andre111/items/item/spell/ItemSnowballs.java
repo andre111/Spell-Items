@@ -7,6 +7,7 @@ import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.PlayerHandler;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.util.Vector;
@@ -33,8 +34,8 @@ public class ItemSnowballs extends ItemSpell {
 				String needS = needSN.toString();
 				
 				if(player!=null) {
-					if(ItemHandler.countItems(player, 332, 0)>=needed) {
-						ItemHandler.removeItems(player, 332, 0, needed);
+					if(ItemHandler.countItems(player, Material.SNOW_BALL, 0)>=needed) {
+						ItemHandler.removeItems(player, Material.SNOW_BALL, 0, needed);
 
 						Random rand = new Random();
 						Vector mod;

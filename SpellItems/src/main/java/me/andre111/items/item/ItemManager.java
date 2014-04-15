@@ -54,7 +54,11 @@ public class ItemManager {
 		for(String st : lores) {
 			itTemp.addLore(st);
 		}
-		itTemp.setID(df.getInt("items."+it+".id", 0));
+		Material mat = null;
+			int id = df.getInt("items."+it+".id", 0);
+			mat = Material.getMaterial(id);
+		if(mat==null) return;
+		itTemp.setMaterial(mat);
 		itTemp.setDamage(df.getInt("items."+it+".data", 0));
 		itTemp.setUse(df.getBoolean("items."+it+".useUp", false));
 		itTemp.setIgnoreDamage(df.getBoolean("items."+it+".ignoreDamage", false));

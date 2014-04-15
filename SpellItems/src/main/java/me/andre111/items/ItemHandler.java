@@ -356,10 +356,10 @@ public class ItemHandler {
 	//###################################
 	//Inventory Helpers
 	//###################################
-	public static int removeItems(Player player, int type, int data, int remaining) {
+	public static int removeItems(Player player, Material type, int data, int remaining) {
 		int itemsExchanged = 0;
 		for (ItemStack i : player.getInventory()){
-			if (i != null && i.getTypeId() == type && i.getData().getData() == data){
+			if (i != null && i.getType() == type && i.getData().getData() == data){
 				if (i.getAmount() > remaining){
 					i.setAmount(i.getAmount() - remaining);
 					itemsExchanged += remaining;
@@ -375,10 +375,10 @@ public class ItemHandler {
 		return itemsExchanged;
 	}
 
-	public static int countItems(Player player, int type, int data) {
+	public static int countItems(Player player, Material type, int data) {
 		int items = 0;
 		for (ItemStack i : player.getInventory()){
-			if (i != null && i.getTypeId() == type && i.getData().getData() == data){
+			if (i != null && i.getType() == type && i.getData().getData() == data){
 				items += i.getAmount();
 			}
 		}

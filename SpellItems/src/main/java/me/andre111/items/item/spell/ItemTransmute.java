@@ -8,6 +8,7 @@ import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -50,9 +51,10 @@ public class ItemTransmute extends ItemSpell {
 						pos++;
 					}
 					
-					if(ItemHandler.countItems(player, iid, data)>=ammount || ammount==0) {
+					Material mat = Material.getMaterial(iid);
+					if(ItemHandler.countItems(player, mat, data)>=ammount || ammount==0) {
 						if(ammount!=0)
-							ItemHandler.removeItems(player, iid, data, ammount);
+							ItemHandler.removeItems(player, mat, data, ammount);
 
 						World w = player.getWorld();
 						Location loc = player.getLocation();

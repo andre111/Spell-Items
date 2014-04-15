@@ -23,7 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class CustomItem extends LuaSpell implements IUpCounter {
 	private String internalName;
 	
-	private int id;
+	private Material material;
 	private int damage;
 	private String name;
 	private ArrayList<String> lore = new ArrayList<String>();
@@ -227,7 +227,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	}
 	
 	public ItemStack getItemStack() {
-		ItemStack it = new ItemStack(id, 1, (short) damage);
+		ItemStack it = new ItemStack(material, 1, (short) damage);
 		ItemMeta im = it.getItemMeta();
 		
 		im.setDisplayName(name);
@@ -250,7 +250,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		return storage.getTarget();
 	}
 	public boolean isThisItem(ItemStack it) {
-		if(it.getTypeId()!=id) return false;
+		if(it.getType()!=material) return false;
 		if(!ignoreDamage && it.getDurability()!=damage) return false;
 		
 		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
@@ -299,8 +299,8 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void setInternalName(String internalName) {
 		this.internalName = internalName;
 	}
-	public void setID(int id) {
-		this.id = id;
+	public void setMaterial(Material mat) {
+		this.material = mat;
 	}
 	public void setDamage(int damage) {
 		this.damage = damage;

@@ -207,7 +207,7 @@ public class SpellItems extends JavaPlugin {
 				material == Material.WOOD_BUTTON;
 	}
 	public static boolean isUntachable(Material material) {
-		return
+		return  material == Material.BEDROCK ||
 				material == Material.OBSIDIAN ||
 				material == Material.ENCHANTMENT_TABLE;
 	}

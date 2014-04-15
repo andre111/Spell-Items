@@ -43,8 +43,8 @@ public class ItemLay extends ItemSpell {
 	}
 	
 	private boolean castAt(Player player, Location loc, int radius, String message) {
-		if(ItemHandler.countItems(player, 383, 0)>=1) {
-			ItemHandler.removeItems(player, 383, 0, 1);
+		if(ItemHandler.countItems(player, Material.MONSTER_EGG, 0)>=1) {
+			ItemHandler.removeItems(player, Material.MONSTER_EGG, 0, 1);
 			
 			World w = loc.getWorld();
 			int x = loc.getBlockX();
