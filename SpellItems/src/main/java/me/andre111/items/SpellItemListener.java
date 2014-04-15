@@ -3,7 +3,6 @@ package me.andre111.items;
 import java.util.List;
 
 import me.andre111.items.item.CustomItem;
-import me.andre111.items.item.spell.ItemLaunch;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -159,8 +158,8 @@ public class SpellItemListener implements Listener {
 			FallingBlock entity = (FallingBlock) event.getEntity();
 			//falling sand hit
 			if(entity.hasMetadata("spellitems_falling_casting")) {
-				ItemLaunch il = (ItemLaunch) entity.getMetadata("spellitems_falling_casting").get(0).value();
-				String playern = entity.getMetadata("spellitems_falling_playername").get(0).asString();
+				//ItemLaunch il = (ItemLaunch) entity.getMetadata("spellitems_falling_casting").get(0).value();
+				//String playern = entity.getMetadata("spellitems_falling_playername").get(0).asString();
 
 				//il.onHit(Bukkit.getServer().getPlayerExact(playern), event.getBlock());
 			}

@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.andre111.items.config.ConfigManager;
-import me.andre111.items.convert.SpellConverter_1_3_to_2_0;
 import me.andre111.items.item.CustomItem;
 import me.andre111.items.item.ItemManager;
 import me.andre111.items.item.SpellLoader;

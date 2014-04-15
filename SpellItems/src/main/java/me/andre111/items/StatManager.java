@@ -12,7 +12,7 @@ import me.andre111.items.utils.PlayerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.comphenix.protocol.Packets;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class StatManager {
@@ -110,12 +110,12 @@ public class StatManager {
 	private static void sendFakeXP(final Player player, final int level, final float xp) {
 		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
 			public void run() {
-				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(Packets.Server.SET_EXPERIENCE);
+				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
 				
 				fakeXPChange.getFloat().
 					write(0, xp);
-				fakeXPChange.getIntegers().
-					write(1, level);
+				fakeXPChange.getShorts().
+					write(0, (short) level);
 		
 		
 				try {
@@ -129,13 +129,13 @@ public class StatManager {
 	private static void sendRealXP(final Player player) {
 		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
 			public void run() {
-				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(Packets.Server.SET_EXPERIENCE);
+				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
 				
 				fakeXPChange.getFloat().
 					write(0, player.getExp());
-				fakeXPChange.getIntegers().
-					write(0, player.getTotalExperience()).
-					write(1, player.getLevel());
+				fakeXPChange.getShorts().
+					write(0, (short) player.getLevel()).
+					write(1, (short) player.getTotalExperience());
 		
 
 				try {

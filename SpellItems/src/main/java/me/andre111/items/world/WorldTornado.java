@@ -13,6 +13,7 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 
@@ -150,7 +151,7 @@ public class WorldTornado extends WorldEffect {
 	}
 	
 	private void createParticle(Location effectPos, String type) {
-		PacketContainer pc = new PacketContainer(0x3F);
+		PacketContainer pc = new PacketContainer(PacketType.Play.Server.WORLD_PARTICLES);
 		pc.getStrings().write(0, type);
 		pc.getFloat().
 			write(0, (float)effectPos.getX()).
