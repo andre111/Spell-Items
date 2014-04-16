@@ -1,0 +1,77 @@
+package me.andre111.items.volatileCode;
+
+import java.lang.reflect.InvocationTargetException;
+
+import me.andre111.items.SpellItems;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+
+public class SpellItemsPackets {
+	public static void createParticle(Location effectPos, String type) {
+		PacketContainer pc = new PacketContainer(PacketType.Play.Server.WORLD_PARTICLES);
+		pc.getStrings().write(0, type);
+		pc.getFloat().
+			write(0, (float)effectPos.getX()).
+			write(1, (float)effectPos.getY()).
+			write(2, (float)effectPos.getZ()).
+			write(3, 0.5f).
+			write(4, 0.5f).
+			write(5, 0.5f).
+			write(6, 0f);
+		pc.getIntegers().write(0, 10);
+		
+		//Create explosion effect at location
+		for(Player p : effectPos.getWorld().getPlayers()) {
+			try {
+				ProtocolLibrary.getProtocolManager().sendServerPacket(p, pc);
+			} catch (InvocationTargetException e) {
+			}
+		}
+	}
+	
+	public static void sendFakeXP(final Player player, final int level, final float xp) {
+		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
+			public void run() {
+				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
+				
+				fakeXPChange.getFloat().
+					write(0, xp);
+				fakeXPChange.getShorts().
+					write(0, (short) level);
+		
+		
+				try {
+					if(player.isOnline())
+						SpellItems.protocolManager.sendServerPacket(player, fakeXPChange);
+				} catch (Exception e) {
+				}
+			}
+		}, 1);
+	}
+	public static void sendRealXP(final Player player) {
+		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
+			public void run() {
+				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
+				
+				fakeXPChange.getFloat().
+					write(0, player.getExp());
+				fakeXPChange.getShorts().
+					write(0, (short) player.getLevel()).
+					write(1, (short) player.getTotalExperience());
+		
+
+				try {
+					if(player.isOnline())
+						SpellItems.protocolManager.sendServerPacket(player, fakeXPChange);
+				} catch (Exception e) {
+				}
+			}
+		}, 1);
+	}
+}
