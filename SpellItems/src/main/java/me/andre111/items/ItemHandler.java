@@ -6,8 +6,8 @@ import java.util.Random;
 
 import me.andre111.items.item.enchant.CustomEnchant;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
+import me.andre111.items.volatileCode.UnsafeMethods;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -53,7 +53,7 @@ public class ItemHandler {
 					material = Material.matchMaterial(geteilt[0]);
 	
 					if (material == null) {
-						material = Bukkit.getUnsafe().getMaterialFromInternalName(geteilt[0]);
+						material = UnsafeMethods.getMaterialFromInternalName(geteilt[0]);
 					}
 				} else if(geteilt[0].toLowerCase().startsWith("spellitems:")) {
 					String[] iname = geteilt[0].split(":");
@@ -102,7 +102,7 @@ public class ItemHandler {
 			//dataTag einfügen
 			if(!dataTag.equals("")) {
 				try {
-					item = Bukkit.getUnsafe().modifyItemStack(item, dataTag);
+					item = UnsafeMethods.modifyItemStack(item, dataTag);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -383,11 +383,5 @@ public class ItemHandler {
 			}
 		}
 		return items;
-	}
-	
-	//TODO - remove temporary workaround
-	@SuppressWarnings("deprecation")
-	public static void updateInventory(Player player) {
-		player.updateInventory();
 	}
 }

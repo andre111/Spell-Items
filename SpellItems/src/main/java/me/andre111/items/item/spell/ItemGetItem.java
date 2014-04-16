@@ -4,6 +4,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +36,7 @@ public class ItemGetItem extends ItemSpell {
 							inv.addItem(it);
 					}
 					
-					ItemHandler.updateInventory(player);
+					UnsafeMethods.updateInventory(player);
 					
 					return RETURN_TRUE;
 				}

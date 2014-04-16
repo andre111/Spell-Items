@@ -6,6 +6,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -46,7 +47,7 @@ public class ItemSnowballs extends ItemSpell {
 							snowball.setVelocity(snowball.getVelocity().add(mod));
 						}
 
-						ItemHandler.updateInventory(player);
+						UnsafeMethods.updateInventory(player);
 						
 						return RETURN_TRUE;
 					} else {

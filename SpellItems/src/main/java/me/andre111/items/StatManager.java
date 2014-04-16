@@ -8,12 +8,10 @@ import java.util.UUID;
 import me.andre111.items.config.ConfigManager;
 import me.andre111.items.iface.IUpCounter;
 import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.volatileCode.SpellItemsPackets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketContainer;
 
 public class StatManager {
 	private static HashMap<UUID, IUpCounter> counters = new HashMap<UUID, IUpCounter>();
@@ -30,7 +28,7 @@ public class StatManager {
 		//xp-bar
 		xpBarShown.put(player.getUniqueId(), true);
 		if(xpBarLevel.containsKey(player.getUniqueId())) {
-			sendFakeXP(player, xpBarLevel.get(player.getUniqueId()), xpBarXp.get(player.getUniqueId()));
+			SpellItemsPackets.sendFakeXP(player, xpBarLevel.get(player.getUniqueId()), xpBarXp.get(player.getUniqueId()));
 		}
 	}
 	//Hide them
@@ -39,7 +37,7 @@ public class StatManager {
 		if(!ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true") || force) {
 			//xp-bar
 			xpBarShown.put(player.getUniqueId(), false);
-			sendRealXP(player);
+			SpellItemsPackets.sendRealXP(player);
 		}
 	}
 	
@@ -62,7 +60,7 @@ public class StatManager {
 				Player p = PlayerHandler.getPlayerFromUUID(player);
 				
 				if(p!=null) {
-					sendFakeXP(p, level, xp);
+					SpellItemsPackets.sendFakeXP(p, level, xp);
 				}
 			}
 		}
@@ -83,7 +81,7 @@ public class StatManager {
 					int level = xpBarLevel.get(player.getUniqueId());
 					float xp = xpBarXp.get(player.getUniqueId());
 				
-					sendFakeXP(player, level, xp);
+					SpellItemsPackets.sendFakeXP(player, level, xp);
 				}
 			}
 		}
@@ -91,7 +89,7 @@ public class StatManager {
 	
 	public static void onInventoryOpen(Player player) {
 		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
-			sendRealXP(player);
+			SpellItemsPackets.sendRealXP(player);
 		}
 	}
 	public static void onInventoryClose(final Player player) {
@@ -105,46 +103,6 @@ public class StatManager {
 		xpBarXp.remove(player);
 		xpBarLevel.remove(player);
 		xpBarShown.remove(player);
-	}
-	
-	private static void sendFakeXP(final Player player, final int level, final float xp) {
-		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
-			public void run() {
-				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
-				
-				fakeXPChange.getFloat().
-					write(0, xp);
-				fakeXPChange.getShorts().
-					write(0, (short) level);
-		
-		
-				try {
-					if(player.isOnline())
-						SpellItems.protocolManager.sendServerPacket(player, fakeXPChange);
-				} catch (Exception e) {
-				}
-			}
-		}, 1);
-	}
-	private static void sendRealXP(final Player player) {
-		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
-			public void run() {
-				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
-				
-				fakeXPChange.getFloat().
-					write(0, player.getExp());
-				fakeXPChange.getShorts().
-					write(0, (short) player.getLevel()).
-					write(1, (short) player.getTotalExperience());
-		
-
-				try {
-					if(player.isOnline())
-						SpellItems.protocolManager.sendServerPacket(player, fakeXPChange);
-				} catch (Exception e) {
-				}
-			}
-		}, 1);
 	}
 	
 	//UpCounter
@@ -208,7 +166,7 @@ public class StatManager {
 		
 		Player p = PlayerHandler.getPlayerFromUUID(player);
 		if(p!=null) {
-			sendRealXP(p);
+			SpellItemsPackets.sendRealXP(p);
 			
 			//show stats, when they should always show
 			if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
@@ -232,7 +190,7 @@ public class StatManager {
 				
 				Player p = PlayerHandler.getPlayerFromUUID(player);
 				if(p!=null) {
-					sendRealXP(p);
+					SpellItemsPackets.sendRealXP(p);
 					
 					//show stats, when they should always show
 					if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
@@ -249,7 +207,7 @@ public class StatManager {
 				
 				Player p = PlayerHandler.getPlayerFromUUID(player);
 				if(p!=null) {
-					sendFakeXP(p, 0, ((float)cu)/counter.countUPgetMax());
+					SpellItemsPackets.sendFakeXP(p, 0, ((float)cu)/counter.countUPgetMax());
 				}
 			}
 		}

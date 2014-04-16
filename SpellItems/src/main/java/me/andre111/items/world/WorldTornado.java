@@ -1,21 +1,16 @@
 package me.andre111.items.world;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
+import me.andre111.items.volatileCode.SpellItemsPackets;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
 
 public class WorldTornado extends WorldEffect {
 	private Location loc;
@@ -120,23 +115,23 @@ public class WorldTornado extends WorldEffect {
 				effectPos.add(0, 1.75+rand.nextDouble(), 0);
 				
 				if(rand.nextInt(10)==0) {
-					createParticle(effectPos, "explode");
+					SpellItemsPackets.createParticle(effectPos, "explode");
 				} else {
-					createParticle(effectPos, "largeexplode");
+					SpellItemsPackets.createParticle(effectPos, "largeexplode");
 				}
 				//top
 				if(i==size-1) {
-					createParticle(effectPos, "hugeexplosion");
+					SpellItemsPackets.createParticle(effectPos, "hugeexplosion");
 					
 					Location effectTop = effectPos.clone();
 					effectTop = effectTop.add(4, 0, 0);
-					createParticle(effectTop, "hugeexplosion");
+					SpellItemsPackets.createParticle(effectTop, "hugeexplosion");
 					effectTop = effectTop.add(-8, 0, 0);
-					createParticle(effectTop, "hugeexplosion");
+					SpellItemsPackets.createParticle(effectTop, "hugeexplosion");
 					effectTop = effectTop.add(4, 0, 4);
-					createParticle(effectTop, "hugeexplosion");
+					SpellItemsPackets.createParticle(effectTop, "hugeexplosion");
 					effectTop = effectTop.add(0, 0, -8);
-					createParticle(effectTop, "hugeexplosion");
+					SpellItemsPackets.createParticle(effectTop, "hugeexplosion");
 				}
 			}
 			//Sound
@@ -146,28 +141,6 @@ public class WorldTornado extends WorldEffect {
 				//TODO - Fix sound
 				//if(rand.nextInt(6)!=0)
 					//loc.getWorld().playSound(loc, Sound.BREATH, 1f, 0.3f+rand.nextFloat()/4f);
-			}
-		}
-	}
-	
-	private void createParticle(Location effectPos, String type) {
-		PacketContainer pc = new PacketContainer(PacketType.Play.Server.WORLD_PARTICLES);
-		pc.getStrings().write(0, type);
-		pc.getFloat().
-			write(0, (float)effectPos.getX()).
-			write(1, (float)effectPos.getY()).
-			write(2, (float)effectPos.getZ()).
-			write(3, 0.5f).
-			write(4, 0.5f).
-			write(5, 0.5f).
-			write(6, 0f);
-		pc.getIntegers().write(0, 10);
-		
-		//Create explosion effect at location
-		for(Player p : getWorld().getPlayers()) {
-			try {
-				ProtocolLibrary.getProtocolManager().sendServerPacket(p, pc);
-			} catch (InvocationTargetException e) {
 			}
 		}
 	}

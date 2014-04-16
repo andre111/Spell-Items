@@ -6,6 +6,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -72,7 +73,7 @@ public class ItemTransmute extends ItemSpell {
 							}
 						}
 						
-						ItemHandler.updateInventory(player);
+						UnsafeMethods.updateInventory(player);
 						
 						return RETURN_TRUE;
 					} else {

@@ -55,8 +55,9 @@ public class ItemPotionEffect extends ItemSpell {
 			int level = 0;
 			if(split.length>2) level = Integer.parseInt(split[2]);
 			
-			if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
-				player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), duration, level), true);
+			PotionEffectType type = PotionEffectType.getById(id);
+			if(!PlayerHandler.hasHigherPotionEffect(player, type, level)) {
+				player.addPotionEffect(new PotionEffect(type, duration, level), true);
 			}
 		}
 	}
