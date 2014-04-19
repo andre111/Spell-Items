@@ -32,6 +32,10 @@ public class ItemSpell extends VarArgFunction {
 		spells.put(name, spell);
 	}
 	
+	public static ItemSpell getSpellFromLUAName(String name) {
+		return spells.get(name);
+	}
+	
 	public static void addSpellFunctions(LuaValue library) {
 		for(Map.Entry<String, ItemSpell> entry : spells.entrySet()) {
 			library.set(entry.getKey(), entry.getValue());

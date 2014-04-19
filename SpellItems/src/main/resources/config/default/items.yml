@@ -386,6 +386,27 @@ items:
        mana:
          cost: 0
        lua: "teleTester"
+   stackTester:
+     name: "Stacking"
+     lore:
+       - "&6Stack Players on yourself!"
+       - "Left: Drop"
+       - "Right: Stack"
+     id: 370
+     data: 0
+     useUp: false
+     rightclick:
+       effects: []
+       cooldown: 60
+       mana:
+         cost: 0
+       lua: "stackTesterR"
+     leftclick:
+       effects: []
+       cooldown: 60
+       mana:
+         cost: 0
+       lua: "stackTesterL"
 
 enchantments:
    poison:

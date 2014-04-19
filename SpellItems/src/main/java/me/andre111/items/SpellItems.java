@@ -13,6 +13,7 @@ import me.andre111.items.item.ItemManager;
 import me.andre111.items.item.SpellLoader;
 import me.andre111.items.item.enchant.SpecialEnchantmentManager;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
+import me.andre111.items.volatileCode.SpellItemsPackets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -71,6 +72,7 @@ public class SpellItems extends JavaPlugin {
 			return;
 		}
 		SpellItems.protocolManager = ProtocolLibrary.getProtocolManager();
+		SpellItemsPackets.initPacketListeners();
 		
 		enchantManager = new SpecialEnchantmentManager();
 		enchantManager.loadEnchants(ConfigManager.getItemFile());

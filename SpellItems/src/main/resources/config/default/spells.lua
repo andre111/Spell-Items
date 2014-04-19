@@ -39,6 +39,13 @@ function teleTester(player, target, block, location)
     return false
 end
 
+function stackTesterR(player, target, block, location)
+    return spell.ItemEntityStack(player, true, target, 1)
+end
+function stackTesterL(player, target, block, location)
+    return spell.ItemEntityStack(player, false)
+end
+
 function poisonEnchant(player, target, block, location)
     spell.ItemPotionEffect(target, "19:60:4")
     

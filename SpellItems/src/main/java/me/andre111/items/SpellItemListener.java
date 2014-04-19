@@ -3,6 +3,7 @@ package me.andre111.items;
 import java.util.List;
 
 import me.andre111.items.item.CustomItem;
+import me.andre111.items.volatileCode.SpellItemsPackets;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -28,7 +29,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -168,6 +171,20 @@ public class SpellItemListener implements Listener {
 				event.setCancelled(true);
 			}
 		}
+	}
+	
+	//entity stacking
+	@EventHandler
+	public void onVehicleExitEvent(VehicleExitEvent event) {
+		Entity left = event.getExited();
+		
+		if(SpellItemsPackets.disabledExits.contains(left.getUniqueId())) {
+			event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		SpellItemsPackets.disabledExits.remove(event.getPlayer().getUniqueId());
 	}
 	
 	//manasystem on sneak?

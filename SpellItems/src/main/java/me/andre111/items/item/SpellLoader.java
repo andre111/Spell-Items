@@ -7,6 +7,7 @@ import me.andre111.items.item.spell.ItemCommand;
 import me.andre111.items.item.spell.ItemConfuse;
 import me.andre111.items.item.spell.ItemDamage;
 import me.andre111.items.item.spell.ItemDrop;
+import me.andre111.items.item.spell.ItemEntityStack;
 import me.andre111.items.item.spell.ItemExperience;
 import me.andre111.items.item.spell.ItemExplode;
 import me.andre111.items.item.spell.ItemGetItem;
@@ -38,6 +39,7 @@ public class SpellLoader {
 		ItemSpell.addSpellToLUA(new ItemConfuse(), "ItemConfuse");
 		ItemSpell.addSpellToLUA(new ItemDamage(), "ItemDamage");
 		ItemSpell.addSpellToLUA(new ItemDrop(), "ItemDrop");
+		ItemSpell.addSpellToLUA(new ItemEntityStack(), "ItemEntityStack");
 		ItemSpell.addSpellToLUA(new ItemExperience(), "ItemExperience");
 		ItemSpell.addSpellToLUA(new ItemExplode(), "ItemExplode");
 		ItemSpell.addSpellToLUA(new ItemGetItem(), "ItemGetItem");

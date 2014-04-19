@@ -7,6 +7,7 @@ import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemManager;
 import me.andre111.items.utils.AttributeStorage;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -75,6 +76,7 @@ public class SpecialEnchantmentManager {
 	//get enchantments from item
 	public void attackPlayerByPlayer(Player attacker, Player player, ItemStack it) {
 		if(it==null) return;
+		if(it.getType()==Material.AIR) return;
 		
 		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
 		if(!storage.getData("").startsWith("si_customenchant_")) return;

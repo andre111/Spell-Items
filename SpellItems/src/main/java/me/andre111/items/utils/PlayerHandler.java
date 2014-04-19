@@ -3,6 +3,8 @@ package me.andre111.items.utils;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -21,9 +23,13 @@ public class PlayerHandler {
 		}
 		return false;
 	}
-	
+
 	public static Player getPlayerFromUUID(String uuid) {
-		return getPlayerFromUUID(UUID.fromString(uuid));
+		try {
+			return getPlayerFromUUID(UUID.fromString(uuid));
+		} catch(IllegalArgumentException e) {
+			return null;
+		}
 	}
 	public static Player getPlayerFromUUID(UUID uuid) {
 		for(Player player : Bukkit.getOnlinePlayers()) {
@@ -31,7 +37,26 @@ public class PlayerHandler {
 				return player;
 			}
 		}
-		
+
+		return null;
+	}
+
+	public static Entity getEntityFromUUID(String uuid) {
+		try {
+			return getEntityFromUUID(UUID.fromString(uuid));
+		} catch(IllegalArgumentException e) {
+			return null;
+		}
+	}
+	public static Entity getEntityFromUUID(UUID uuid) {
+		for(World w : Bukkit.getWorlds()) {
+			for(Entity e : w.getEntities()) {
+				if(e.getUniqueId().equals(uuid)) {
+					return e;
+				}
+			}
+		}
+
 		return null;
 	}
 }
