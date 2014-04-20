@@ -88,7 +88,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		//TODO - in die LUA scripte nicht den spielernamen sondern die uuid übergeben
 		//TODO - -> alle Spells müssen bearbeitet werdem
 		if(isHasCounter() && !isCounter) {
-			if(player!=null)
+			if(player!=null && !cooldownManaCheck(actions, player, true))
 				StatManager.setCounter(player.getUniqueId(), this, player.getUniqueId()+"::"+actions);
 		} else {
 			String luaTemp = luaR;
@@ -96,7 +96,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 			if(actions==2) luaTemp = luaEat;
 			
 			if(!luaTemp.equals("")) {
-				if(player!=null && cooldownManaCheck(actions, player)) return;
+				if(player!=null && cooldownManaCheck(actions, player, false)) return;
 				putOnCoolDown(actions, player);
 				
 				String targetUUID = "";
@@ -153,7 +153,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	}*/
 	
 	//is the item currently on cooldown
-	private boolean cooldownManaCheck(int actions, Player player) {
+	private boolean cooldownManaCheck(int actions, Player player, boolean onlyCheck) {
 		//cooldown
 		int cd = CooldownManager.getCustomCooldown(player.getUniqueId(), getCooldownName(actions));
 		if(cd>0) {
@@ -175,11 +175,11 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 				return true;
 			}
 			
-			ManaManager.substractMana(player.getUniqueId(), cost);
+			if(!onlyCheck) ManaManager.substractMana(player.getUniqueId(), cost);
 		}
 		
 		//substract items
-		if(isUse()) {
+		if(isUse() && !onlyCheck) {
 			ItemStack item = player.getItemInHand();
 			if(item.getAmount()-1==0) 
 				item.setType(Material.AIR);
