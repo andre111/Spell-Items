@@ -45,11 +45,12 @@ public class SpellItemsPackets {
 		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
 			public void run() {
 				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
-
+				
 				fakeXPChange.getFloat().
 				write(0, xp);
-				fakeXPChange.getShorts().
-				write(0, (short) level);
+				fakeXPChange.getIntegers().
+				write(0, 0).
+				write(1, level);
 
 
 				try {
@@ -64,13 +65,12 @@ public class SpellItemsPackets {
 		Bukkit.getScheduler().runTaskLater(SpellItems.instance, new Runnable() {
 			public void run() {
 				final PacketContainer fakeXPChange = SpellItems.protocolManager.createPacket(PacketType.Play.Server.EXPERIENCE);
-
+				
 				fakeXPChange.getFloat().
 				write(0, player.getExp());
-				fakeXPChange.getShorts().
-				write(0, (short) player.getLevel()).
-				write(1, (short) player.getTotalExperience());
-
+				fakeXPChange.getIntegers().
+				write(0, player.getTotalExperience()).
+				write(1, player.getLevel());
 
 				try {
 					if(player.isOnline())
