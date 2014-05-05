@@ -25,7 +25,7 @@ public class ItemDamage extends ItemSpell {
 				double damage = damageN.todouble();
 				
 				if(player!=null && target!=null) {
-					if(castIntern(target, player, damage))
+					if(castIntern(player, target, damage))
 						return RETURN_TRUE;
 				}
 			}
