@@ -47,7 +47,7 @@ public class CustomEnchant extends LuaSpell {
 		if(!storage.getData("").equals("")) currentEnchants = storage.getData("").replace("si_customenchant_", "");
 		if(!currentEnchants.equals("")) currentEnchants = currentEnchants + "|";
 		else currentEnchants = "si_customenchant_";
-		storage.setData(currentEnchants+getInternalName());
+		storage.setData(currentEnchants+getInternalName()+":"+level);
 		
 		ItemStack withAttribute = storage.getTarget();
 		
@@ -59,7 +59,7 @@ public class CustomEnchant extends LuaSpell {
 		return "I";
 	}
 	
-	public void cast(Player player, Player target) {
+	public void cast(Player player, Player target, int enchantLevel, double damage) {
 		/*if(casts != null) {
 			boolean[] states = new boolean[casts.length];
 			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();
@@ -81,7 +81,7 @@ public class CustomEnchant extends LuaSpell {
 			if(player==null) return;
 
 			
-			SpellItems.luacontroller.castFunction(this, lua, player.getUniqueId().toString(), target.getUniqueId().toString(), null, null);
+			SpellItems.luacontroller.castFunction(this, lua, player.getUniqueId().toString(), target.getUniqueId().toString(), null, null, enchantLevel, damage);
 		}
 	}
 	

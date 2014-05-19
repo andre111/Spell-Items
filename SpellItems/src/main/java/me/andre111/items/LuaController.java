@@ -30,14 +30,16 @@ public class LuaController {
 		}
 	}
 	
-	public boolean castFunction(LuaSpell spell, String name, String playerUUID, String targetPlayerUUID, Block block, Location loc) {
+	public boolean castFunction(LuaSpell spell, String name, String playerUUID, String targetPlayerUUID, Block block, Location loc, int enchantLevel, double damage) {
 		try {
 			if(globals.get(name).isfunction()) {
-				LuaValue[] args = new LuaValue[4];
+				LuaValue[] args = new LuaValue[6];
 				args[0] = LuaValue.valueOf(playerUUID);
 				args[1] = LuaValue.valueOf(targetPlayerUUID);
 				args[2] = LuaValue.userdataOf(block);
 				args[3] = LuaValue.userdataOf(loc);
+				args[4] = LuaValue.valueOf(enchantLevel);
+				args[5] = LuaValue.valueOf(damage);
 				
 				globals.get("utils").set("currentSpell", LuaValue.userdataOf(spell));
 				Varargs vars = globals.get(name).invoke(LuaValue.varargsOf(args));

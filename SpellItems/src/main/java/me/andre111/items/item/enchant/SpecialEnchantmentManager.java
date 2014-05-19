@@ -69,12 +69,12 @@ public class SpecialEnchantmentManager {
 	}
 	
 	//cast an enchantment
-	private void castOn(Player attacker, Player player, CustomEnchant ce) {
-		ce.cast(attacker, player);
+	private void castOn(Player attacker, Player player, CustomEnchant ce, int enchantLevel, double damage) {
+		ce.cast(attacker, player, enchantLevel, damage);
 	}
 	
 	//get enchantments from item
-	public void attackPlayerByPlayer(Player attacker, Player player, ItemStack it) {
+	public void attackPlayerByPlayer(Player attacker, Player player, ItemStack it, double damage) {
 		if(it==null) return;
 		if(it.getType()==Material.AIR) return;
 		
@@ -86,20 +86,30 @@ public class SpecialEnchantmentManager {
 		for(String st : enchants.split("\\|")) {
 			String[] info = st.split(":");
 			CustomEnchant ce = getEnchantmentByName(info[0]);
+			int level = 0;
+			if(info.length>1) {
+				level = Integer.parseInt(info[1]);
+			}
+			
 			if(ce!=null) {
-				castOn(attacker, player, ce);
+				castOn(attacker, player, ce, level, damage);
 			}
 		}
 	}
 	
 	//get enchantments from arrow
-	public void attackPlayerByProjectile(Player attacker, Player player, Projectile a) {
+	public void attackPlayerByProjectile(Player attacker, Player player, Projectile a, double damage) {
 		int pos = 0;
 		while(!a.getMetadata("spellitems_enchant_"+pos).isEmpty()) {
-			String ench = a.getMetadata("spellitems_enchant_"+pos).get(0).asString();
-			CustomEnchant ce = getEnchantmentByName(ench);
+			String info[] = a.getMetadata("spellitems_enchant_"+pos).get(0).asString().split(":");
+			CustomEnchant ce = getEnchantmentByName(info[0]);
+			int level = 0;
+			if(info.length>1) {
+				level = Integer.parseInt(info[1]);
+			}
+			
 			if(ce!=null) {
-				castOn(attacker, player, ce);
+				castOn(attacker, player, ce, level, damage);
 			}
 			
 			pos++;
@@ -119,8 +129,13 @@ public class SpecialEnchantmentManager {
 		for(String st : enchants.split("\\|")) {
 			String[] info = st.split(":");
 			CustomEnchant ce = getEnchantmentByName(info[0]);
+			int level = 0;
+			if(info.length>1) {
+				level = Integer.parseInt(info[1]);
+			}
+			
 			if(ce!=null) {
-				a.setMetadata("spellitems_enchant_"+pos, new FixedMetadataValue(SpellItems.instance, ce.getInternalName()));
+				a.setMetadata("spellitems_enchant_"+pos, new FixedMetadataValue(SpellItems.instance, ce.getInternalName()+":"+level));
 				pos++;
 			}
 		}

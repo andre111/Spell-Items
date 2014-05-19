@@ -46,7 +46,7 @@ function stackTesterL(player, target, block, location)
     return spell.ItemEntityStack(player, false)
 end
 
-function poisonEnchant(player, target, block, location)
+function poisonEnchant(player, target, block, location, level, damage)
     spell.ItemPotionEffect(target, "19:60:4")
     
     return true
