@@ -78,11 +78,12 @@ public class SpecialEnchantmentManager {
 		if(it==null) return;
 		if(it.getType()==Material.AIR) return;
 		
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemEnchantUUID);
 		if(!storage.getData("").startsWith("si_customenchant_")) return;
 		String enchants = storage.getData("").replace("si_customenchant_", "");
 		
-		for(String st : enchants.split("|")) {
+		//REGEX ESCPAPE | with \ -> \| -> java escape \ -> \\|
+		for(String st : enchants.split("\\|")) {
 			String[] info = st.split(":");
 			CustomEnchant ce = getEnchantmentByName(info[0]);
 			if(ce!=null) {
@@ -109,12 +110,13 @@ public class SpecialEnchantmentManager {
 	public void projectileShoot(ItemStack it, Projectile a) {
 		if(it==null) return;
 		
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
+		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemEnchantUUID);
 		if(!storage.getData("").startsWith("si_customenchant_")) return;
 		String enchants = storage.getData("").replace("si_customenchant_", "");
 		
 		int pos = 0;
-		for(String st : enchants.split("|")) {
+		//REGEX ESCPAPE | with \ -> \| -> java escape \ -> \\|
+		for(String st : enchants.split("\\|")) {
 			String[] info = st.split(":");
 			CustomEnchant ce = getEnchantmentByName(info[0]);
 			if(ce!=null) {
