@@ -66,9 +66,18 @@ public class SpellCommandExecutor implements CommandExecutor {
 			
 			if(args.length>0) {
 				CustomEnchant ce = SpellItems.enchantManager.getEnchantmentByName(args[0]);
+				int level = 0;
+				if(args.length>1) {
+					try {
+					level = Integer.parseInt(args[1]);
+					} catch(NumberFormatException e) {
+						sender.sendMessage(args[1]+" is not a valid Number!");
+						return false;
+					}
+				}
 				if(ce!=null) {
 					ItemStack it = player.getItemInHand();
-					it = ce.enchantItem(it, 1);
+					it = ce.enchantItem(it, level);
 					player.setItemInHand(it);
 					
 					return true;

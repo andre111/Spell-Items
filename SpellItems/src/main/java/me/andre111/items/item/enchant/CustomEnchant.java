@@ -55,8 +55,30 @@ public class CustomEnchant extends LuaSpell {
 	}
 	
 	public String getLevelName(int level) {
-		//TODO - create real levels for Enchantments
-		return "I";
+		switch(level) {
+		case 0:
+			return "I";
+		case 1:
+			return "II";
+		case 2:
+			return "III";
+		case 3:
+			return "IV";
+		case 4:
+			return "V";
+		case 5:
+			return "VI";
+		case 6:
+			return "VII";
+		case 7:
+			return "VIII";
+		case 8:
+			return "IX";
+		case 9:
+			return "X";
+		default:
+			return ""+level;
+		}
 	}
 	
 	public void cast(Player player, Player target, int enchantLevel, double damage) {
