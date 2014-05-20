@@ -94,8 +94,12 @@ function thunderingblowEnchant(player, target, block, location, level, damage)
     if(maxRand<1) maxRand = 0
     
     if(math.random(0, maxRand)==0) then
-        --TODO needs effect
-        spell.ItemDamage(player, target, 10)
+        local success, tPos = spell.ItemVariableSet("playerPos", target)
+    
+        if(success) then
+            effects.CreateLightning(tPos)
+            spell.ItemDamage(player, target, 10)
+        end
     end
     
     return true

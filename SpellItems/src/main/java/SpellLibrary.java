@@ -4,6 +4,7 @@ import me.andre111.items.item.effect.ItemEffectLightning;
 import me.andre111.items.item.effect.ItemEffectNormal;
 import me.andre111.items.item.effect.ItemEffectSound;
 import me.andre111.items.item.utils.CreateEffect;
+import me.andre111.items.item.utils.LUADistanceSquared;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -17,6 +18,7 @@ public class SpellLibrary extends TwoArgFunction {
 		env.set("spell", library);
 		LuaValue utils = tableOf();
 			utils.set("CreateEffect", new CreateEffect());
+			utils.set("DistanceSquared", new LUADistanceSquared());
 		env.set("utils", utils);
 		LuaValue effects = tableOf();
 			effects.set("CreateItemSpray", new ItemEffectItemSpray()); //loc, number, duration, force, item

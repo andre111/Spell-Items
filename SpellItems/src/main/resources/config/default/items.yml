@@ -413,3 +413,28 @@ enchantments:
      name: "Poison"
      effects: []
      lua: "poisonEnchant"
+   lifesteal:
+     name: "Lifesteal"
+     effects: []
+     lua: "lifestealEnchant"
+   blind:
+     name: "Blind"
+     effects: []
+     lua: "blindEnchant"
+   deathbringer:
+     name: "Death Bringer"
+     effects: []
+     lua: "deathbringerEnchant"
+   iceaspect:
+     name: "Ice Aspect"
+     effects: []
+     lua: "iceaspectEnchant"
+   thunderingblow:
+     name: "Thundering Blow"
+     effects: []
+     lua: "thunderingblowEnchant"
+   vampire:
+     name: "Vampire"
+     effects: []
+     lua: "vampireEnchant"
+     
