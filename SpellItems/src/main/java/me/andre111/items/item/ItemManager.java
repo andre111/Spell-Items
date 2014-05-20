@@ -141,6 +141,33 @@ public class ItemManager {
 		return effect;
 	}
 	
+	public static ItemEffect getItemEffectWithoutLocation(String st) {
+		ItemEffect effect = null;
+		
+		//effect
+		String[] split = st.split(" ");
+		if(split.length>1) {
+			try {
+				if(!split[1].contains("me.andre111.items.item.effect.")) {
+					split[1] = "me.andre111.items.item.effect." + split[1];
+				}
+				Class<?> c = Class.forName(split[0]);
+				if(c.getSuperclass().equals(ItemEffect.class)) {
+					effect = (ItemEffect) c.newInstance();
+				}
+			} catch (ClassNotFoundException e) {
+			} catch (InstantiationException e) {
+			} catch (IllegalAccessException e) {
+			}
+		}
+		
+		//vars
+		if(split.length>1 && effect!=null)
+			effect.setVars(split[1]);
+		
+		return effect;
+	}
+	
 	public ItemStack getItemStackByName(String name) {
 		for(int i=0; i<items.length; i++) {
 			if(name.equals(items[i].getInternalName())) {

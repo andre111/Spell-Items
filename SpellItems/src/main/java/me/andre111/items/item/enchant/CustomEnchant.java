@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemEffect;
+import me.andre111.items.item.ItemManager;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.LuaSpell;
 import me.andre111.items.utils.AttributeStorage;
@@ -116,7 +117,11 @@ public class CustomEnchant extends LuaSpell {
 		}
 	}
 
-
+	public void createNewEffect(Location loc, String effect) {
+		ItemEffect e = ItemManager.getItemEffect(effect);
+		e.play(loc);
+	}
+	
 	public String getInternalName() {
 		return internalName;
 	}

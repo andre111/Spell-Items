@@ -22,7 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class CustomItem extends LuaSpell implements IUpCounter {
 	private String internalName;
-	
+
 	private Material material;
 	private int damage;
 	private String name;
@@ -30,10 +30,10 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	private boolean use;
 	private boolean ignoreDamage;
 	private boolean allowPlace;
-	
+
 	private String bookauthor;
 	private List<String> bookpages = new ArrayList<String>();
-	
+
 	private boolean hasCounter;
 	private int counterMax;
 	private int counterStep;
@@ -41,29 +41,29 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	private boolean counterInterruptMove;
 	private boolean counterInterruptDamage;
 	private boolean counterInterruptItem;
-	
+
 	private ArrayList<ItemEffect> effectR = new ArrayList<ItemEffect>();
 	//private ItemSpell castR;
 	private int cooldownR;
 	private int manaCostR;
-	
+
 	private ItemSpell[] castsR;
-	
+
 
 	private ArrayList<ItemEffect> effectL = new ArrayList<ItemEffect>();
 	//private ItemSpell castL;
 	private int cooldownL;
 	private int manaCostL;
-	
+
 	private ItemSpell[] castsL;
-	
+
 	private ArrayList<ItemEffect> effectEat = new ArrayList<ItemEffect>();
 	//private ItemSpell castL;
 	private int cooldownEat;
 	private int manaCostEat;
-	
+
 	private ItemSpell[] castsEat;
-	
+
 	private String luaR;
 	private String luaL;
 	private String luaEat;
@@ -77,13 +77,13 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		/*ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
-		
+
 		if(castsTemp != null) {
 			if(player!=null && cooldownManaCheck(actions, player)) return;
-		
+
 			castIntern(actions, player, loc, block, target);
 		}*/
-		
+
 		//TODO - isHasCounter Counter und Effekte wieder einbeuen
 		//TODO - in die LUA scripte nicht den spielernamen sondern die uuid übergeben
 		//TODO - -> alle Spells müssen bearbeitet werdem
@@ -94,14 +94,14 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 			String luaTemp = luaR;
 			if(actions==0) luaTemp = luaL;
 			if(actions==2) luaTemp = luaEat;
-			
+
 			if(!luaTemp.equals("")) {
 				if(player!=null && cooldownManaCheck(actions, player, false)) return;
 				putOnCoolDown(actions, player);
-				
+
 				String targetUUID = "";
 				if(target!=null) targetUUID = target.getUniqueId().toString();
-				
+
 				currentAction = actions;
 				if(!SpellItems.luacontroller.castFunction(this, luaTemp, player.getUniqueId().toString(), targetUUID, block, loc, -1, -1)) {
 					resetCoolDown(actions, player);
@@ -109,7 +109,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 			}
 		}
 	}
-	
+
 	/*private void castIntern(int actions, Player player, Location loc, Block block, Player target) {
 		if(isHasCounter() && player!=null) {
 			StatManager.setCounter(player.getName(), this, player.getName()+"::"+actions);
@@ -117,41 +117,41 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 			castUse(actions, player, loc, block, target);
 		}
 	}*/
-	
+
 	/*private void castUse(int actions, Player player, Location loc, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
-		
+
 		if(castsTemp != null) {
 			boolean[] states = new boolean[castsTemp.length];
 			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();
-			
+
 			int pos = 0;
 			for(ItemSpell castUse : castsTemp) {
 				if(castUse != null) {
 					if(player!=null) putOnCoolDown(actions, player);
-					
-					
+
+
 					if(block!=null) {
 						createEffects(block.getLocation(), actions, "Target");
 					}
 					else if(target!=null) {
 						createEffects(target.getLocation(), actions, "Target");
 					}
-					
+
 					if(loc==null) {
 						loc = player.getLocation();
 					}
 					states[pos] = castUse.cast(player, loc, target, block, states, variables);
 					createEffects(player.getLocation(), actions, "Caster");
 				}
-				
+
 				pos += 1;
 			}
 		}
 	}*/
-	
+
 	//is the item currently on cooldown
 	private boolean cooldownManaCheck(int actions, Player player, boolean onlyCheck) {
 		//cooldown
@@ -159,25 +159,25 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		if(cd>0) {
 			//player.sendMessage(ConfigManager.getLanguage().getString("string_wait", "You have to wait -0- Seconds!").replace("-0-", ""+cd));
 			player.sendMessage("You have to wait -0- Seconds!".replace("-0-", ""+cd));
-			
+
 			return true;
 		}
-		
+
 		//mana
 		int cost = getManaCostR();
 		if(actions==0) cost = getManaCostL();
 		if(actions==2) cost = getManaCostEat();
-		
+
 		if(cost>0) {
 			if(ManaManager.getMana(player.getUniqueId())<cost) {
 				//player.sendMessage(ConfigManager.getLanguage().getString("string_needmana", "You need -0- Mana!").replace("-0-", ""+cost));
 				player.sendMessage("You need -0- Mana!".replace("-0-", ""+cost));
 				return true;
 			}
-			
+
 			if(!onlyCheck) ManaManager.substractMana(player.getUniqueId(), cost);
 		}
-		
+
 		//substract items
 		if(isUse() && !onlyCheck) {
 			ItemStack item = player.getItemInHand();
@@ -185,78 +185,83 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 				item.setType(Material.AIR);
 			else
 				item.setAmount(item.getAmount()-1);
-			
+
 			player.setItemInHand(item);
 		}
-		
+
 		//everything ok
 		return false;
 	}
-	
+
 	private void putOnCoolDown(int action, Player player) {
 		int time = cooldownR;
 		if(action==0) time = cooldownL;
 		if(action==2) time = cooldownEat;
-		
+
 		if(time>0) CooldownManager.setCustomCooldown(player.getUniqueId(), getCooldownName(action), time);
 	}
-	
+
 	private String getCooldownName(int actions) {
 		return "citem_"+name+"_"+actions;
 	}
-	
+
 	public void resetCoolDown(int action, Player player) {
 		CooldownManager.resetCustomCooldown(player.getUniqueId(), getCooldownName(action));
 	}
-	
+
 	public void createEffects(Location loc, String position) {
 		createEffects(loc, currentAction, position);
 	}
-	
+
+	public void createNewEffect(Location loc, String effect) {
+		ItemEffect e = ItemManager.getItemEffect(effect);
+		e.play(loc);
+	}
+
 	public void createEffects(Location loc, int action, String position) {
 		//effects
 		ArrayList<ItemEffect> effects = effectR;
 		if(action==0) effects = effectL;
 		if(action==2) effects = effectEat;
-		
+
 		for(ItemEffect st : effects) {
 			if(st!=null)
-			if(st.getLocation().equals(position))
-				st.play(loc);
+				if(st.getLocation().equals(position))
+					st.play(loc);
 		}
 	}
-	
+
 	public ItemStack getItemStack() {
 		ItemStack it = new ItemStack(material, 1, (short) damage);
 		ItemMeta im = it.getItemMeta();
-		
+
 		im.setDisplayName(name);
 		im.setLore(lore);
-		
+
 		if(im instanceof BookMeta) {
 			BookMeta bm = (BookMeta) im;
-			
+
 			if(!bookauthor.equals("")) {
 				bm.setAuthor(bookauthor);
 			}
 			bm.setPages(bookpages);
 		}
-		
+
 		it.setItemMeta(im);
-		
+
 		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
 		storage.setData("si_customitem_"+getInternalName());
-		
+
 		return storage.getTarget();
 	}
 	public boolean isThisItem(ItemStack it) {
 		if(it.getType()!=material) return false;
 		if(!ignoreDamage && it.getDurability()!=damage) return false;
-		
+
 		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
 		if(!storage.getData("").startsWith("si_customitem_")) return false;
 		if(!storage.getData("").replace("si_customitem_", "").equals(getInternalName())) return false;
-		
+
 		/*ItemMeta im = it.getItemMeta();
 		if(!im.getDisplayName().equals(name)) return false;
 		if(im.hasLore()) {
@@ -264,10 +269,10 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		} else {
 			if(lore.size()>0) return false;
 		}*/
-		
+
 		return true;
 	}
-	
+
 	//compare lore to ignore custom enchantments
 	/*private boolean isLoreCorrect(ItemMeta im) {
 		int pos = 0;
@@ -279,10 +284,10 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		}
 		//missing lore
 		if(lore.size()>pos) return false;
-		
+
 		return true;
 	}*/
-	
+
 	public void setSizeR(int size) {
 		castsR = new ItemSpell[size];
 	}
@@ -292,7 +297,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void setSizeEat(int size) {
 		castsEat = new ItemSpell[size];
 	}
-	
+
 	public String getInternalName() {
 		return internalName;
 	}
@@ -449,7 +454,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void setManaCostEat(int manaCostEat) {
 		this.manaCostEat = manaCostEat;
 	}
-	
+
 	public String getLuaR() {
 		return luaR;
 	}
@@ -497,10 +502,10 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	@Override
 	public void countUPincrease(String vars) {
 		String[] split = vars.split("::");
-		
+
 		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
-		
+
 		if(player!=null) {
 			createEffects(player.getLocation(), action, "CounterStep");
 		}
@@ -508,10 +513,10 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	@Override
 	public void countUPinterrupt(String vars) {
 		String[] split = vars.split("::");
-		
+
 		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
-		
+
 		if(player!=null) {
 			createEffects(player.getLocation(), action, "CounterInterrupt");
 		}
@@ -519,15 +524,15 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	@Override
 	public void countUPfinish(String vars) {
 		String[] split = vars.split("::");
-		
+
 		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
-		
+
 		if(player!=null) {
 			createEffects(player.getLocation(), action, "CounterFinish");
-			
+
 			//castUse(action, player, null, null, null);
-			
+
 			cast(action, player, null, null, null, true);
 		}
 	}
