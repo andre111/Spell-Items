@@ -1,24 +1,17 @@
 package me.andre111.items.item.utils;
 
-import me.andre111.items.SpellItems;
-import me.andre111.items.item.LuaSpell;
 import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.TwoArgFunction;
+import org.luaj.vm2.lib.ThreeArgFunction;
 
-public class LUADistanceSquared extends TwoArgFunction {
+public class LUADistanceSquared extends ThreeArgFunction {
 	
 	@Override
-	public LuaValue call(LuaValue locationN, LuaValue olocationN) {
-		if(!SpellItems.luacontroller.globals.get("utils").get("currentSpell").isuserdata(LuaSpell.class)) {
-			return LuaValue.FALSE;
-		}
-		LuaSpell spell = (LuaSpell) SpellItems.luacontroller.globals.get("utils").get("currentSpell").touserdata(LuaSpell.class);
-		
+	public LuaValue call(LuaValue locationN, LuaValue olocationN, LuaValue ignoreYN) {
 		//Get Location
 		Location loc = null;
 		if(locationN.isuserdata(Location.class)) {
@@ -43,6 +36,16 @@ public class LUADistanceSquared extends TwoArgFunction {
 			if(player!=null) {
 				oloc = player.getLocation();
 			}
+		}
+		
+		boolean ignoreY = false;
+		if(ignoreYN.isboolean()) {
+			ignoreY = ignoreYN.toboolean();
+		}
+		
+		if(ignoreY) {
+			oloc = oloc.clone();
+			oloc.setY(loc.getY());
 		}
 		
 		if(loc!=null && oloc!=null) {

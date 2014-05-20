@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
 
-public class CreateEffect extends TwoArgFunction {
+public class LUACreateEffect extends TwoArgFunction {
 	
 	@Override
 	public LuaValue call(LuaValue locationN, LuaValue effectN) {
