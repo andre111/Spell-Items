@@ -4,6 +4,4 @@ import org.bukkit.Location;
 
 public abstract class LuaSpell {
 	public abstract void createEffects(Location loc, String position);
-	
-	public abstract void createNewEffect(Location loc, String effect);
 }

@@ -1,9 +1,15 @@
 package me.andre111.items.item.effect;
 
+import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemEffect;
+import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.Varargs;
 
 public class ItemEffectSound extends ItemEffect {
 	private String sName = "";
@@ -24,5 +30,43 @@ public class ItemEffectSound extends ItemEffect {
 		if(!sName.equals("")) {
 			loc.getWorld().playSound(loc, Sound.valueOf(sName), sVolume, sPitch);
 		}
+	}
+	
+	@Override
+	public Varargs invoke(Varargs args) {
+		if(args.narg()>=1) {
+			LuaValue locationN = args.arg(1);
+			
+			//Get Location
+			Location loc = null;
+			if(locationN.isuserdata(Location.class)) {
+				loc = (Location) locationN.touserdata(Location.class);
+			} else if(locationN.isuserdata(Block.class)) {
+				loc = ((Block) locationN.touserdata(Block.class)).getLocation();
+			} else if(locationN.isstring()) {
+				Player player = PlayerHandler.getPlayerFromUUID(locationN.toString());
+				if(player!=null) {
+					loc = player.getLocation();
+				}
+			}
+			
+			if(args.narg()>=2 && args.arg(2).isstring()) {
+				sName = args.arg(2).toString();
+			}
+			if(args.narg()>=3 && args.arg(3).isnumber()) {
+				sVolume = args.arg(3).tofloat();
+			}
+			if(args.narg()>=4 && args.arg(4).isnumber()) {
+				sPitch = args.arg(4).tofloat();
+			}
+			
+			play(loc);
+			
+			return RETURN_TRUE;
+		} else {
+			SpellItems.log("Missing Argument for "+getClass().getCanonicalName());
+		}
+		
+		return RETURN_FALSE;
 	}
 }

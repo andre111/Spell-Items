@@ -213,11 +213,6 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 		createEffects(loc, currentAction, position);
 	}
 
-	public void createNewEffect(Location loc, String effect) {
-		ItemEffect e = ItemManager.getItemEffect(effect);
-		e.play(loc);
-	}
-
 	public void createEffects(Location loc, int action, String position) {
 		//effects
 		ArrayList<ItemEffect> effects = effectR;
