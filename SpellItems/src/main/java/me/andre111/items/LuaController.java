@@ -58,4 +58,14 @@ public class LuaController {
 		
 		return false;
 	}
+	
+	public void tick() {
+		try {
+			if(globals.get("tick").isfunction()) {
+				globals.get("tick").invoke();
+			}
+		} catch (LuaError error) {
+			System.out.println(error.getLocalizedMessage());
+		}
+	}
 }

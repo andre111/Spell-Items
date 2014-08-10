@@ -85,6 +85,12 @@ public class SpellItems extends JavaPlugin {
 		RewardManager.loadRewardPoints();
 		RewardManager.addRewards(ConfigManager.getRewardFile());
 		
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				luacontroller.tick();
+		    }
+		}, 1, 1);
+		
 		//SpellConverter_1_3_to_2_0.convert("oldconfig.yml");
 		
 		new SpellItemListener(this);
