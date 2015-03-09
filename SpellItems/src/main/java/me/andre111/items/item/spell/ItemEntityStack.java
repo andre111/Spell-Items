@@ -5,7 +5,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.SpellItemsPackets;
 
 public class ItemEntityStack extends ItemSpell {
@@ -16,7 +16,7 @@ public class ItemEntityStack extends ItemSpell {
 			LuaValue stackM = args.arg(2);
 			
 			if(entityUUID.isstring() && stackM.isboolean()) {
-				Entity ent = PlayerHandler.getEntityFromUUID(entityUUID.toString());
+				Entity ent = EntityHandler.getEntityFromUUID(entityUUID.toString());
 				boolean stackMode = stackM.toboolean();
 
 				if(stackMode==false && ent.getPassenger()!=null) {
@@ -27,7 +27,7 @@ public class ItemEntityStack extends ItemSpell {
 					if(args.narg()>=3) {
 						LuaValue passengerUUID = args.arg(3);
 						if(passengerUUID.isstring()) {
-							Entity passenger = PlayerHandler.getEntityFromUUID(passengerUUID.toString());
+							Entity passenger = EntityHandler.getEntityFromUUID(passengerUUID.toString());
 							if(passenger==null) return LuaValue.FALSE;
 							int stackingMax = 1;
 							if(args.narg()>=4 && args.arg(4).isint()) stackingMax = args.arg(4).toint();

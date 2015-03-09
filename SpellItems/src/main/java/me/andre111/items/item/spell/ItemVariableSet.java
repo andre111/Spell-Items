@@ -5,10 +5,11 @@ import java.util.Random;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -28,20 +29,24 @@ public class ItemVariableSet extends ItemSpell {
 			if(variableN.isstring()) {
 				String value = variableN.toString();
 				
-				Player player = null;
+				Entity player = null;
 				if(objectN.isstring()) {
-					player = PlayerHandler.getPlayerFromUUID(objectN.toString());
+					player = EntityHandler.getEntityFromUUID(objectN.toString());
 				}
 				Block block = null;
 				if(objectN.isuserdata(Block.class)) {
 					block = (Block) objectN.touserdata(Block.class);
+				}
+				Location location = null;
+				if(objectN.isuserdata(Location.class)) {
+					location = (Location) objectN.touserdata(Location.class);
 				}
 				
 				LuaValue[] returnValue = new LuaValue[2];
 				returnValue[0] = LuaValue.TRUE;
 				
 				//Locations
-				if(value.equalsIgnoreCase("playerPos")) {
+				if(value.equalsIgnoreCase("playerPos") || value.equalsIgnoreCase("entityPos")) {
 					if(player!=null) {
 						returnValue[1] = LuaValue.userdataOf(player.getLocation());
 						return LuaValue.varargsOf(returnValue);
@@ -52,7 +57,7 @@ public class ItemVariableSet extends ItemSpell {
 						return LuaValue.varargsOf(returnValue);
 					}
 				} else if(value.equalsIgnoreCase("worldSpawn")) {
-					Location loc = null;
+					Location loc = location;
 					if(player!=null) {
 						loc = player.getLocation();
 					}
@@ -65,7 +70,7 @@ public class ItemVariableSet extends ItemSpell {
 					}
 				//Players
 				} else if(value.equalsIgnoreCase("randomPlayer")) {
-					Location loc = null;
+					Location loc = location;
 					if(player!=null) {
 						loc = player.getLocation();
 					}
@@ -80,7 +85,7 @@ public class ItemVariableSet extends ItemSpell {
 					}
 				//Numbers
 				} else if(value.equalsIgnoreCase("time")) {
-					Location loc = null;
+					Location loc = location;
 					if(player!=null) {
 						loc = player.getLocation();
 					}

@@ -56,17 +56,15 @@ public class SpellItemListener implements Listener {
 	@EventHandler(priority=EventPriority.MONITOR)
 	public void onEntityDamageEntityMonitor(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
-		if(!(event.getEntity() instanceof Player)) return;
-		Player player = (Player)event.getEntity();
-
+		
 		if(event.getDamager() instanceof Player) {
 			Player attacker = (Player) event.getDamager();
-			SpellItems.enchantManager.attackPlayerByPlayer(attacker, player, attacker.getItemInHand(), event.getDamage());
+			SpellItems.enchantManager.attackEntityByPlayer(attacker, event.getEntity(), attacker.getItemInHand(), event.getDamage());
 			
 			//"leftclicking"
 			if (!ignoreDamage) {
 				ignoreDamage = true;
-				SpellItems.playerSpecialItemC(attacker, attacker.getItemInHand(), 0, null, player);
+				SpellItems.playerSpecialItemC(attacker, attacker.getItemInHand(), 0, null, event.getEntity());
 			} else {
 				ignoreDamage = false;
 			}
@@ -75,7 +73,7 @@ public class SpellItemListener implements Listener {
 			Projectile a = (Projectile) event.getDamager();
 			if(a.getShooter() instanceof Player) {
 				Player attacker = (Player) a.getShooter();
-				SpellItems.enchantManager.attackPlayerByProjectile(attacker, player, a, event.getDamage());
+				SpellItems.enchantManager.attackEntityByProjectile(attacker, event.getEntity(), a, event.getDamage());
 			}
 		}
 	}
@@ -84,9 +82,9 @@ public class SpellItemListener implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
 		
-		if (event.getCause() == DamageCause.FALL && event.getEntity() instanceof Player && SpellItems.jumpingNormal.contains((Player)event.getEntity())) {
+		if (event.getCause() == DamageCause.FALL && SpellItems.jumpingNormal.contains(event.getEntity())) {
 			event.setCancelled(true);
-			SpellItems.jumpingNormal.remove((Player)event.getEntity());
+			SpellItems.jumpingNormal.remove(event.getEntity());
 		}
 	}
 	
@@ -118,9 +116,8 @@ public class SpellItemListener implements Listener {
 			
 		Entity entity = event.getRightClicked();
 		ItemStack item = event.getPlayer().getItemInHand();
-		if(entity instanceof Player) {
-			SpellItems.playerSpecialItemC(player, item, 1, null, (Player)entity);
-		}
+		
+		SpellItems.playerSpecialItemC(player, item, 1, null, entity);
 	}
 	
 	@EventHandler

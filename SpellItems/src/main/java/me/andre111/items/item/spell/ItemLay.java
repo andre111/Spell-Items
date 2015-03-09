@@ -3,13 +3,14 @@ package me.andre111.items.item.spell;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -26,12 +27,12 @@ public class ItemLay extends ItemSpell {
 			LuaValue messageN = args.arg(3);
 			
 			if(playerN.isstring() && radiusN.isint() && messageN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				int radius = radiusN.toint();
 				String message = messageN.toString();
 				
-				if(player!=null) {
-					if(castAt(player, player.getLocation(), radius, message))
+				if(target!=null && target instanceof Player) {
+					if(castAt((Player) target, target.getLocation(), radius, message))
 						return RETURN_TRUE;
 				}
 			}

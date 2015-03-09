@@ -52,7 +52,6 @@ function poisonEnchant(player, target, block, location, level, damage)
     return true
 end
 --WIP(Enchantments not implemented yet->items.yml)
---http://dev.bukkit.org/bukkit-plugins/custom-enchantments/pages/all-enchantments/
 function lifestealEnchant(player, target, block, location, level, damage)
     if(damage>0) then
         spell.ItemDamage(player, player, -1)

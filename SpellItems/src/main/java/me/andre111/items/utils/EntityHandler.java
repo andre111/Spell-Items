@@ -5,14 +5,15 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class PlayerHandler {
-	public static boolean hasHigherPotionEffect(Player player, PotionEffectType type, int level) {
-		if(player.hasPotionEffect(type)) {
-			PotionEffect[] effects = (PotionEffect[]) player.getActivePotionEffects().toArray(new PotionEffect[player.getActivePotionEffects().size()]);
+public class EntityHandler {
+	public static boolean hasHigherPotionEffect(LivingEntity target, PotionEffectType type, int level) {
+		if(target.hasPotionEffect(type)) {
+			PotionEffect[] effects = (PotionEffect[]) target.getActivePotionEffects().toArray(new PotionEffect[target.getActivePotionEffects().size()]);
 			for(int i=0; i<effects.length; i++) {
 				if(effects[i].getType()==type) {
 					if(effects[i].getAmplifier()>level) {

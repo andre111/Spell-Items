@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import me.andre111.items.config.ConfigManager;
 import me.andre111.items.iface.IUpCounter;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.SpellItemsPackets;
 
 import org.bukkit.Bukkit;
@@ -51,13 +51,13 @@ public class StatManager {
 		
 		//show stats, when they should always show
 		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
-			Player p = PlayerHandler.getPlayerFromUUID(player);
+			Player p = EntityHandler.getPlayerFromUUID(player);
 			if(p!=null) show(p);
 		}
 		
 		if(xpBarShown.containsKey(player)) {
 			if(xpBarShown.get(player)) {
-				Player p = PlayerHandler.getPlayerFromUUID(player);
+				Player p = EntityHandler.getPlayerFromUUID(player);
 				
 				if(p!=null) {
 					SpellItemsPackets.sendFakeXP(p, level, xp);
@@ -164,7 +164,7 @@ public class StatManager {
 		countervars.remove(player);
 		counterCurrent.remove(player);
 		
-		Player p = PlayerHandler.getPlayerFromUUID(player);
+		Player p = EntityHandler.getPlayerFromUUID(player);
 		if(p!=null) {
 			SpellItemsPackets.sendRealXP(p);
 			
@@ -188,7 +188,7 @@ public class StatManager {
 			if(cu>=counter.countUPgetMax()) {
 				counter.countUPfinish(countervars.get(player));
 				
-				Player p = PlayerHandler.getPlayerFromUUID(player);
+				Player p = EntityHandler.getPlayerFromUUID(player);
 				if(p!=null) {
 					SpellItemsPackets.sendRealXP(p);
 					
@@ -205,7 +205,7 @@ public class StatManager {
 				counterCurrent.put(player, cu);
 				counter.countUPincrease(countervars.get(player));
 				
-				Player p = PlayerHandler.getPlayerFromUUID(player);
+				Player p = EntityHandler.getPlayerFromUUID(player);
 				if(p!=null) {
 					SpellItemsPackets.sendFakeXP(p, 0, ((float)cu)/counter.countUPgetMax());
 				}

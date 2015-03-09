@@ -20,6 +20,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -150,7 +151,7 @@ public class SpellItems extends JavaPlugin {
 	//1 = rigthclick
 	//2 = eat
 	//#######################################
-	public static void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Player target) {
+	public static void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Entity target) {
 		/*ItemMeta im = item.getItemMeta();
 		if(im!=null) {
 			if(im.hasDisplayName()) {*/
@@ -220,5 +221,5 @@ public class SpellItems extends JavaPlugin {
 				material == Material.ENCHANTMENT_TABLE;
 	}
 	
-	public final static HashSet<Player> jumpingNormal = new HashSet<Player>();
+	public final static HashSet<Entity> jumpingNormal = new HashSet<Entity>();
 }

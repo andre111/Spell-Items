@@ -14,6 +14,7 @@ import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -50,7 +51,7 @@ public class CustomEnchant extends LuaSpell {
 		Attributes attributes = new Attributes(it);
 		for(Attribute att : attributes.values()) {
 			if(att.getUUID().equals(SpellItems.itemEnchantUUID)) {
-				if(!att.getName().equals("")) currentEnchants = att.getName().replace("si_customenchant_", "");
+				if(!att.getName().equals("")) currentEnchants = att.getName();
 			}
 		}
 		
@@ -103,7 +104,7 @@ public class CustomEnchant extends LuaSpell {
 		}
 	}
 	
-	public void cast(Player player, Player target, int enchantLevel, double damage) {
+	public void cast(Player player, Entity target, int enchantLevel, double damage) {
 		/*if(casts != null) {
 			boolean[] states = new boolean[casts.length];
 			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();

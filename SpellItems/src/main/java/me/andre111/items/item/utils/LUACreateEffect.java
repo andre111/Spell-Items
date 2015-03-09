@@ -2,11 +2,11 @@ package me.andre111.items.item.utils;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.LuaSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
 
@@ -26,9 +26,9 @@ public class LUACreateEffect extends TwoArgFunction {
 		} else if(locationN.isuserdata(Block.class)) {
 			loc = ((Block) locationN.touserdata(Block.class)).getLocation();
 		} else if(locationN.isstring()) {
-			Player player = PlayerHandler.getPlayerFromUUID(locationN.toString());
-			if(player!=null) {
-				loc = player.getLocation();
+			Entity target = EntityHandler.getEntityFromUUID(locationN.toString());
+			if(target!=null) {
+				loc = target.getLocation();
 			}
 		}
 		

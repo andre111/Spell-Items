@@ -2,9 +2,10 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.luaj.vm2.LuaValue;
@@ -17,13 +18,14 @@ public class ItemDrop extends ItemSpell {
 			LuaValue playerN = args.arg(1);
 			
 			if(playerN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				
-				if(player!=null) {
-					ItemStack held = player.getItemInHand();
-					player.setItemInHand(null);
+				//TODO - X code for other entities
+				if(target!=null && target instanceof Player) {
+					ItemStack held = ((Player) target).getItemInHand();
+					((Player) target).setItemInHand(null);
 					if(held.getType()!=Material.AIR) {
-						player.getWorld().dropItemNaturally(player.getLocation(), held);
+						target.getWorld().dropItemNaturally(target.getLocation(), held);
 						
 						return RETURN_TRUE;
 					}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -25,12 +25,12 @@ public class ItemRoar extends ItemSpell {
 			LuaValue messageN = args.arg(3);
 			
 			if(playerN.isstring() && rangeN.isnumber() && messageN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				double range = rangeN.todouble();
 				String message = messageN.toString();
 				
-				if(player!=null) {
-					castAtEntity(player, player, range, message);
+				if(target!=null) {
+					castAtEntity(target, range, message);
 					
 					return RETURN_TRUE;
 				}
@@ -42,12 +42,12 @@ public class ItemRoar extends ItemSpell {
 		return RETURN_FALSE;
 	}
 	
-	private boolean castAtEntity(Entity ent, Player damage, double range, String message) {
+	private boolean castAtEntity(Entity ent, double range, String message) {
 		boolean success = false;
 		List<Entity> entities = ent.getNearbyEntities(range, range, range);
         for (Entity e : entities) {
         	if (e instanceof Silverfish) {
-        		((Silverfish)e).damage((double) 0, damage);
+        		((Silverfish)e).damage((double) 0, ent);
         		success = true;
         	}
         }

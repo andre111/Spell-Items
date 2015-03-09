@@ -3,8 +3,9 @@ package me.andre111.items.item.spell;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.luaj.vm2.LuaValue;
@@ -24,9 +25,10 @@ public class ItemArmorSet extends ItemSpell {
 			LuaValue playerN = args.arg(1);
 
 			if(playerN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				
-				if(player!=null) {
+				//TODO - X code for other entities
+				if(target!=null && target instanceof Player) {
 					String helmet = "";
 					String chest = "";
 					String leggins = "";
@@ -37,7 +39,7 @@ public class ItemArmorSet extends ItemSpell {
 					if(args.narg()>=4 && args.arg(4).isstring()) helmet = args.arg(4).toString();
 					if(args.narg()>=5 && args.arg(5).isstring()) helmet = args.arg(5).toString();
 					
-					setArmor(player, helmet, chest, leggins, boots);
+					setArmor((Player) target, helmet, chest, leggins, boots);
 					return RETURN_TRUE;
 				}
 			}

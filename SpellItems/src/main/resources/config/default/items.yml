@@ -54,8 +54,8 @@
 # "ItemDamage"
 # Damages or heals a Player
 # castVar0: playername/variable with player/"" for casting player
-# castVar1: damage(negative to heal)
-# castVar2: range(for targeted spells)
+# castVar1: playername/variable with player/"" for target player
+# castVar2: damage(negative to heal)
 ######################################
 # "ItemCommand"
 # Execute command as the Player or console

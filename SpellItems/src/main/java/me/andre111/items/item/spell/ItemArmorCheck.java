@@ -3,8 +3,9 @@ package me.andre111.items.item.spell;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -20,11 +21,12 @@ public class ItemArmorCheck extends ItemSpell {
 			LuaValue armorN = args.arg(2);
 			
 			if(playerN.isstring() && armorN.isboolean()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				boolean shouldHave = armorN.toboolean();
 				
-				if(player!=null) {
-					if(ItemHandler.isArmorEmpty(player)) {
+				//TODO - X code for other entities
+				if(target!=null && target instanceof Player) {
+					if(ItemHandler.isArmorEmpty((Player) target)) {
 						if(shouldHave) return RETURN_FALSE;
 						else return RETURN_TRUE;
 					} else {

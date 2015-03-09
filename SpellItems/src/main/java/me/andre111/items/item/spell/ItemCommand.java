@@ -2,11 +2,11 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
@@ -23,10 +23,10 @@ public class ItemCommand extends ItemSpell {
 			LuaValue consoleN = args.arg(2);
 			
 			if(playerN.isstring() && consoleN.isboolean()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				boolean console = consoleN.toboolean();
 				
-				CommandSender sender = player;
+				CommandSender sender = target;
 				if(console) sender = Bukkit.getConsoleSender();
 				
 				if(sender!=null) {

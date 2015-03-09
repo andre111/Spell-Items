@@ -2,9 +2,10 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
@@ -20,10 +21,10 @@ public class ItemKill extends ItemSpell {
 			LuaValue playerN = args.arg(1);
 			
 			if(playerN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				
-				if(player!=null) {
-					player.setHealth(0);
+				if(target!=null && target instanceof LivingEntity) {
+					((LivingEntity) target).setHealth(0);
 					
 					return RETURN_TRUE;
 				}

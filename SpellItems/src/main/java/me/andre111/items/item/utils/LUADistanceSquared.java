@@ -1,10 +1,10 @@
 package me.andre111.items.item.utils;
 
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ThreeArgFunction;
 
@@ -19,9 +19,9 @@ public class LUADistanceSquared extends ThreeArgFunction {
 		} else if(locationN.isuserdata(Block.class)) {
 			loc = ((Block) locationN.touserdata(Block.class)).getLocation();
 		} else if(locationN.isstring()) {
-			Player player = PlayerHandler.getPlayerFromUUID(locationN.toString());
-			if(player!=null) {
-				loc = player.getLocation();
+			Entity target = EntityHandler.getEntityFromUUID(locationN.toString());
+			if(target!=null) {
+				loc = target.getLocation();
 			}
 		}
 		
@@ -32,9 +32,9 @@ public class LUADistanceSquared extends ThreeArgFunction {
 		} else if(olocationN.isuserdata(Block.class)) {
 			oloc = ((Block) olocationN.touserdata(Block.class)).getLocation();
 		} else if(olocationN.isstring()) {
-			Player player = PlayerHandler.getPlayerFromUUID(olocationN.toString());
-			if(player!=null) {
-				oloc = player.getLocation();
+			Entity target = EntityHandler.getEntityFromUUID(olocationN.toString());
+			if(target!=null) {
+				oloc = target.getLocation();
 			}
 		}
 		

@@ -5,10 +5,11 @@ import java.util.Random;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.util.Vector;
@@ -30,28 +31,29 @@ public class ItemSnowballs extends ItemSpell {
 			LuaValue needSN = args.arg(3);
 			
 			if(playerN.isstring() && neededN.isnumber() && needSN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				int needed = neededN.toint();
 				String needS = needSN.toString();
 				
-				if(player!=null) {
-					if(ItemHandler.countItems(player, Material.SNOW_BALL, 0)>=needed) {
-						ItemHandler.removeItems(player, Material.SNOW_BALL, 0, needed);
+				if(target!=null && target instanceof Player) {
+					Player p = (Player) target;
+					if(ItemHandler.countItems(p, Material.SNOW_BALL, 0)>=needed) {
+						ItemHandler.removeItems(p, Material.SNOW_BALL, 0, needed);
 
 						Random rand = new Random();
 						Vector mod;
 						for (int i = 0; i < 250; i++) {
-							Snowball snowball = player.launchProjectile(Snowball.class);
+							Snowball snowball = p.launchProjectile(Snowball.class);
 							snowball.setFallDistance(identifier); // tag the snowballs
 							mod = new Vector((rand.nextDouble() - .5) * 15 / 10.0, (rand.nextDouble() - .5) * 5 / 10.0, (rand.nextDouble() - .5) * 15 / 10.0);
 							snowball.setVelocity(snowball.getVelocity().add(mod));
 						}
 
-						UnsafeMethods.updateInventory(player);
+						UnsafeMethods.updateInventory(p);
 						
 						return RETURN_TRUE;
 					} else {
-						player.sendMessage(needS);
+						target.sendMessage(needS);
 					}
 				}
 			}

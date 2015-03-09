@@ -2,9 +2,10 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
@@ -20,12 +21,12 @@ public class ItemDamage extends ItemSpell {
 			LuaValue damageN = args.arg(3);
 			
 			if(playerN.isstring() && targetN.isstring() && damageN.isnumber()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
-				Player target = PlayerHandler.getPlayerFromUUID(targetN.toString());
+				Entity player = EntityHandler.getEntityFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(targetN.toString());
 				double damage = damageN.todouble();
 				
-				if(player!=null && target!=null) {
-					if(castIntern(player, target, damage))
+				if(player!=null && target!=null && player instanceof LivingEntity && target instanceof LivingEntity) {
+					if(castIntern((LivingEntity) player, (LivingEntity) target, damage))
 						return RETURN_TRUE;
 				}
 			}
@@ -36,14 +37,14 @@ public class ItemDamage extends ItemSpell {
 		return RETURN_FALSE;
 	}
 	
-	private boolean castIntern(Player player, Player source, double damage) {
+	private boolean castIntern(LivingEntity player, LivingEntity target, double damage) {
 		if(damage>0) {
-			player.damage(damage, source);
+			target.damage(damage, player);
 		} else {
-			double newHealth = player.getHealth() - damage;
-			if(newHealth>player.getMaxHealth()) newHealth = player.getMaxHealth();
+			double newHealth = target.getHealth() - damage;
+			if(newHealth>target.getMaxHealth()) newHealth = target.getMaxHealth();
 			
-			player.setHealth(newHealth);
+			target.setHealth(newHealth);
 		}
 		
 		return true;

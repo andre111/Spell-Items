@@ -2,9 +2,10 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.luaj.vm2.LuaValue;
@@ -22,13 +23,14 @@ public class ItemConfuse extends ItemSpell {
 			LuaValue levelN = args.arg(3);
 			
 			if(playerN.isstring() && durationN.isnumber() && levelN.isnumber()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				int duration = durationN.toint();
 				int level = levelN.toint();
 				
-				if(player!=null) {
-					player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration, level), true);
-					player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, duration, level), true);
+				if(target!=null && target instanceof LivingEntity) {
+					LivingEntity living = (LivingEntity) target;
+					living.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration, level), true);
+					living.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, duration, level), true);
 					
 					return RETURN_TRUE;
 				}

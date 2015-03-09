@@ -3,9 +3,10 @@ package me.andre111.items.item.spell;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.UnsafeMethods;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -24,19 +25,20 @@ public class ItemGetItem extends ItemSpell {
 			LuaValue timesN = args.arg(3);
 			
 			if(playerN.isstring() && itemN.isstring() && timesN.isnumber()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				String item = itemN.toString();
 				int times = timesN.toint();
 				
-				if(player!=null) {
-					PlayerInventory inv = player.getInventory();
+				if(target!=null && target instanceof Player) {
+					Player p = (Player) target;
+					PlayerInventory inv = p.getInventory();
 					for(int i=0; i<times; i++) {
-						ItemStack it = ItemHandler.decodeItem(item, player);
+						ItemStack it = ItemHandler.decodeItem(item, p);
 						if(it!=null)
 							inv.addItem(it);
 					}
 					
-					UnsafeMethods.updateInventory(player);
+					UnsafeMethods.updateInventory(p);
 					
 					return RETURN_TRUE;
 				}

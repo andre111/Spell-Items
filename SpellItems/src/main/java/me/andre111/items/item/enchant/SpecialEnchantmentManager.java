@@ -11,6 +11,7 @@ import me.andre111.items.utils.Attributes.Attribute;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
@@ -70,12 +71,12 @@ public class SpecialEnchantmentManager {
 	}
 	
 	//cast an enchantment
-	private void castOn(Player attacker, Player player, CustomEnchant ce, int enchantLevel, double damage) {
-		ce.cast(attacker, player, enchantLevel, damage);
+	private void castOn(Player attacker, Entity target, CustomEnchant ce, int enchantLevel, double damage) {
+		ce.cast(attacker, target, enchantLevel, damage);
 	}
 	
 	//get enchantments from item
-	public void attackPlayerByPlayer(Player attacker, Player player, ItemStack it, double damage) {
+	public void attackEntityByPlayer(Player attacker, Entity target, ItemStack it, double damage) {
 		if(it==null) return;
 		if(it.getType()==Material.AIR) return;
 		
@@ -96,7 +97,7 @@ public class SpecialEnchantmentManager {
 					}
 					
 					if(ce!=null) {
-						castOn(attacker, player, ce, level, damage);
+						castOn(attacker, target, ce, level, damage);
 					}
 				}
 			}
@@ -105,7 +106,7 @@ public class SpecialEnchantmentManager {
 	}
 	
 	//get enchantments from arrow
-	public void attackPlayerByProjectile(Player attacker, Player player, Projectile a, double damage) {
+	public void attackEntityByProjectile(Player attacker, Entity target, Projectile a, double damage) {
 		int pos = 0;
 		while(!a.getMetadata("spellitems_enchant_"+pos).isEmpty()) {
 			String info[] = a.getMetadata("spellitems_enchant_"+pos).get(0).asString().split(":");
@@ -116,7 +117,7 @@ public class SpecialEnchantmentManager {
 			}
 			
 			if(ce!=null) {
-				castOn(attacker, player, ce, level, damage);
+				castOn(attacker, target, ce, level, damage);
 			}
 			
 			pos++;

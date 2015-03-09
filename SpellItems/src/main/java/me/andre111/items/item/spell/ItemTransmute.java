@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -36,7 +37,11 @@ public class ItemTransmute extends ItemSpell {
 			LuaValue addToInvN = args.arg(6);
 			
 			if(playerN.isstring() && iidN.isnumber() && dataN.isnumber() && ammountN.isnumber() && failNeedN.isstring() && addToInvN.isboolean()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+				if(!(target instanceof Player)) return RETURN_FALSE;
+				
+				Player player = (Player) target;
+				
 				int iid = iidN.toint();
 				int data = dataN.toint();
 				int ammount = ammountN.toint();

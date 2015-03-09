@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.luaj.vm2.LuaValue;
@@ -22,9 +23,9 @@ public class ItemPotionEffect extends ItemSpell {
 			LuaValue playerN = args.arg(1);
 			
 			if(playerN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 
-				if(player!=null) {
+				if(target!=null && target instanceof LivingEntity) {
 					ArrayList<String> effects = new ArrayList<String>();
 					
 					int pos = 2;
@@ -34,7 +35,7 @@ public class ItemPotionEffect extends ItemSpell {
 						pos += 1;
 					}
 					
-					addEffects(player, effects);
+					addEffects((LivingEntity) target, effects);
 					
 					return RETURN_TRUE;
 				}
@@ -46,7 +47,7 @@ public class ItemPotionEffect extends ItemSpell {
 		return RETURN_FALSE;
 	}
 	
-	private void addEffects(Player player, ArrayList<String> effects) {
+	private void addEffects(LivingEntity player, ArrayList<String> effects) {
 		for(String st : effects) {
 			String[] split = st.split(":");
 			
@@ -56,7 +57,7 @@ public class ItemPotionEffect extends ItemSpell {
 			if(split.length>2) level = Integer.parseInt(split[2]);
 			
 			PotionEffectType type = PotionEffectType.getById(id);
-			if(!PlayerHandler.hasHigherPotionEffect(player, type, level)) {
+			if(!EntityHandler.hasHigherPotionEffect(player, type, level)) {
 				player.addPotionEffect(new PotionEffect(type, duration, level), true);
 			}
 		}

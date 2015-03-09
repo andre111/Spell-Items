@@ -2,10 +2,11 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
 import org.luaj.vm2.LuaValue;
@@ -21,12 +22,13 @@ public class ItemBlink extends ItemSpell {
 			LuaValue playerN = args.arg(1);
 			LuaValue rangeN = args.arg(2);
 			
+			//TODO - X code for other entities
 			if(playerN.isstring() && rangeN.isnumber()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				int range = rangeN.toint();
 				
-				if(player!=null) {
-					if(castIntern(player, range))
+				if(target!=null && target instanceof Player) {
+					if(castIntern((Player) target, range))
 						return RETURN_TRUE;
 				}
 			}

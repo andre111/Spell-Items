@@ -12,11 +12,12 @@ import me.andre111.items.iface.IUpCounter;
 import me.andre111.items.utils.Attributes;
 import me.andre111.items.utils.Attributes.Attribute;
 import me.andre111.items.utils.Attributes.AttributeType;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -75,7 +76,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	//1 = rigthclick
 	//2 = eat
 	private int currentAction = 0;
-	public void cast(int actions, Player player, Location loc, Block block, Player target, boolean isCounter) {
+	public void cast(int actions, Player player, Location loc, Block block, Entity target, boolean isCounter) {
 		/*ItemSpell[] castsTemp = castsR;
 		if(actions==0) castsTemp = castsL;
 		if(actions==2) castsTemp = castsEat;
@@ -507,7 +508,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void countUPincrease(String vars) {
 		String[] split = vars.split("::");
 
-		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
+		Player player = EntityHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
 
 		if(player!=null) {
@@ -518,7 +519,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void countUPinterrupt(String vars) {
 		String[] split = vars.split("::");
 
-		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
+		Player player = EntityHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
 
 		if(player!=null) {
@@ -529,7 +530,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 	public void countUPfinish(String vars) {
 		String[] split = vars.split("::");
 
-		Player player = PlayerHandler.getPlayerFromUUID(UUID.fromString(split[0]));
+		Player player = EntityHandler.getPlayerFromUUID(UUID.fromString(split[0]));
 		int action = Integer.parseInt(split[1]);
 
 		if(player!=null) {

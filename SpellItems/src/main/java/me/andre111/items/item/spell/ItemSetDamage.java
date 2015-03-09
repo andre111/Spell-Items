@@ -2,8 +2,9 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.utils.PlayerHandler;
+import me.andre111.items.utils.EntityHandler;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.luaj.vm2.LuaValue;
@@ -19,13 +20,14 @@ public class ItemSetDamage extends ItemSpell {
 			LuaValue damageN = args.arg(1);
 			
 			if(playerN.isstring() && damageN.isnumber()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				int damage = damageN.toint();
 				
-				if(player!=null) {
-					ItemStack it = player.getItemInHand();
+				//TODO - X code for other entities
+				if(target!=null && target instanceof Player) {
+					ItemStack it = ((Player) target).getItemInHand();
 					it.setDurability((short) damage);
-					player.setItemInHand(it);
+					((Player) target).setItemInHand(it);
 					
 					return RETURN_TRUE;
 				}
