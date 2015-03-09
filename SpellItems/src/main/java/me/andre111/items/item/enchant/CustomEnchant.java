@@ -51,7 +51,7 @@ public class CustomEnchant extends LuaSpell {
 		Attributes attributes = new Attributes(it);
 		for(Attribute att : attributes.values()) {
 			if(att.getUUID().equals(SpellItems.itemEnchantUUID)) {
-				if(!att.getName().equals("")) currentEnchants = att.getName();
+				if(att.getName().startsWith("si_customenchant_")) currentEnchants = att.getName();
 			}
 		}
 		
