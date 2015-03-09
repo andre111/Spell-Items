@@ -217,7 +217,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 				}
 				if(args[0].equalsIgnoreCase("Syntax")) {
 					sender.sendMessage("Itemsyntax: ");
-					sender.sendMessage("!<ItemName> <damagevalue> <min_count>:<max_count> <chance_to_get_item> <customEnchantmentName>:<level>,... <permission> <dataTag>");
+					sender.sendMessage("<ItemName> <damagevalue> <min_count>:<max_count> <chance_to_get_item> <customEnchantmentName>:<level>,... <permission> <dataTag>");
 					sender.sendMessage("Chance is X out of 100");
 					sender.sendMessage("Enchantments: ");
 					sender.sendMessage("internalname of a custom one");

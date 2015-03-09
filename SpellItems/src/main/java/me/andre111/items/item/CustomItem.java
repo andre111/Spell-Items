@@ -9,7 +9,9 @@ import me.andre111.items.ManaManager;
 import me.andre111.items.SpellItems;
 import me.andre111.items.StatManager;
 import me.andre111.items.iface.IUpCounter;
-import me.andre111.items.utils.AttributeStorage;
+import me.andre111.items.utils.Attributes;
+import me.andre111.items.utils.Attributes.Attribute;
+import me.andre111.items.utils.Attributes.AttributeType;
 import me.andre111.items.utils.PlayerHandler;
 
 import org.bukkit.Location;
@@ -244,19 +246,26 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 
 		it.setItemMeta(im);
 
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
-		storage.setData("si_customitem_"+getInternalName());
-
-		return storage.getTarget();
+		Attribute att = Attribute.newBuilder().uuid(SpellItems.itemUUID).name("si_customitem_"+getInternalName()).amount(0).type(AttributeType.GENERIC_ATTACK_DAMAGE).build();
+		
+		Attributes attributes = new Attributes(it);
+		attributes.add(att);
+		
+		return attributes.getStack();
 	}
 	public boolean isThisItem(ItemStack it) {
 		if(it.getType()!=material) return false;
 		if(!ignoreDamage && it.getDurability()!=damage) return false;
 
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemUUID);
-		if(!storage.getData("").startsWith("si_customitem_")) return false;
-		if(!storage.getData("").replace("si_customitem_", "").equals(getInternalName())) return false;
-
+		Attributes attributes = new Attributes(it);
+		for(Attribute att : attributes.values()) {
+			if(att.getUUID().equals(SpellItems.itemUUID)) {
+				if(!att.getName().startsWith("si_customitem_")) return false;
+				if(!att.getName().replace("si_customitem_", "").equals(getInternalName())) return false;
+				
+				return true;
+			}
+		}
 		/*ItemMeta im = it.getItemMeta();
 		if(!im.getDisplayName().equals(name)) return false;
 		if(im.hasLore()) {
@@ -265,7 +274,7 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 			if(lore.size()>0) return false;
 		}*/
 
-		return true;
+		return false;
 	}
 
 	//compare lore to ignore custom enchantments

@@ -5,7 +5,8 @@ import java.util.Set;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemManager;
-import me.andre111.items.utils.AttributeStorage;
+import me.andre111.items.utils.Attributes;
+import me.andre111.items.utils.Attributes.Attribute;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -78,23 +79,29 @@ public class SpecialEnchantmentManager {
 		if(it==null) return;
 		if(it.getType()==Material.AIR) return;
 		
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemEnchantUUID);
-		if(!storage.getData("").startsWith("si_customenchant_")) return;
-		String enchants = storage.getData("").replace("si_customenchant_", "");
-		
-		//REGEX ESCPAPE | with \ -> \| -> java escape \ -> \\|
-		for(String st : enchants.split("\\|")) {
-			String[] info = st.split(":");
-			CustomEnchant ce = getEnchantmentByName(info[0]);
-			int level = 0;
-			if(info.length>1) {
-				level = Integer.parseInt(info[1]);
-			}
-			
-			if(ce!=null) {
-				castOn(attacker, player, ce, level, damage);
+		Attributes attributes = new Attributes(it);
+		for(Attribute att : attributes.values()) {
+			if(att.getUUID().equals(SpellItems.itemEnchantUUID)) {
+				if(!att.getName().startsWith("si_customenchant_")) return;
+				
+				String enchants = att.getName().replace("si_customenchant_", "");
+				
+				//REGEX ESCPAPE | with \ -> \| -> java escape \ -> \\|
+				for(String st : enchants.split("\\|")) {
+					String[] info = st.split(":");
+					CustomEnchant ce = getEnchantmentByName(info[0]);
+					int level = 0;
+					if(info.length>1) {
+						level = Integer.parseInt(info[1]);
+					}
+					
+					if(ce!=null) {
+						castOn(attacker, player, ce, level, damage);
+					}
+				}
 			}
 		}
+		return;
 	}
 	
 	//get enchantments from arrow
@@ -120,23 +127,28 @@ public class SpecialEnchantmentManager {
 	public void projectileShoot(ItemStack it, Projectile a) {
 		if(it==null) return;
 		
-		AttributeStorage storage = AttributeStorage.newTarget(it, SpellItems.itemEnchantUUID);
-		if(!storage.getData("").startsWith("si_customenchant_")) return;
-		String enchants = storage.getData("").replace("si_customenchant_", "");
-		
-		int pos = 0;
-		//REGEX ESCPAPE | with \ -> \| -> java escape \ -> \\|
-		for(String st : enchants.split("\\|")) {
-			String[] info = st.split(":");
-			CustomEnchant ce = getEnchantmentByName(info[0]);
-			int level = 0;
-			if(info.length>1) {
-				level = Integer.parseInt(info[1]);
-			}
-			
-			if(ce!=null) {
-				a.setMetadata("spellitems_enchant_"+pos, new FixedMetadataValue(SpellItems.instance, ce.getInternalName()+":"+level));
-				pos++;
+		Attributes attributes = new Attributes(it);
+		for(Attribute att : attributes.values()) {
+			if(att.getUUID().equals(SpellItems.itemEnchantUUID)) {
+				if(!att.getName().startsWith("si_customenchant_")) return;
+				
+				String enchants = att.getName().replace("si_customenchant_", "");
+				
+				int pos = 0;
+				//REGEX ESCPAPE | with \ -> \| -> java escape \ -> \\|
+				for(String st : enchants.split("\\|")) {
+					String[] info = st.split(":");
+					CustomEnchant ce = getEnchantmentByName(info[0]);
+					int level = 0;
+					if(info.length>1) {
+						level = Integer.parseInt(info[1]);
+					}
+					
+					if(ce!=null) {
+						a.setMetadata("spellitems_enchant_"+pos, new FixedMetadataValue(SpellItems.instance, ce.getInternalName()+":"+level));
+						pos++;
+					}
+				}
 			}
 		}
 	}

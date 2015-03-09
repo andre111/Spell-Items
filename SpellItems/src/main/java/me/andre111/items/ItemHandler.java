@@ -1,7 +1,5 @@
 package me.andre111.items;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import me.andre111.items.item.enchant.CustomEnchant;
@@ -9,11 +7,9 @@ import me.andre111.items.volatileCode.DynamicClassFunctions;
 import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemHandler {
 	private static final Random random = new Random();
@@ -29,7 +25,7 @@ public class ItemHandler {
 		if(str.startsWith("!")) {
 			return decodeNewItem(str.substring(1), player);
 		} else {
-			return decodeOldItem(str);
+			return decodeNewItem(str, player);
 		}
 	}
 	
@@ -143,136 +139,6 @@ public class ItemHandler {
 		}
 		
 		if((item==null && !str.equals("0")) || exception) { 
-			SpellItems.log("Could not decode Itemstring: "+str);
-		}
-		return null;
-	}
-	
-	private static ItemStack decodeOldItem(String str) {
-		while(str.startsWith(" ")) {
-			str = str.substring(1);
-		}
-		while(str.endsWith(" ")) {
-			str = str.substring(0, str.length()-1);
-		}
-		
-		int id = 0;
-		int damage = 0;
-		int countmin = 1;
-		int countmax = -1;
-		double chance = 100;
-		boolean addGlow = false;
-		boolean exception = false;
-		ItemStack item = null;
-		String[] geteilt = str.split(" ");
-		try {
-			//id + damage
-			if(geteilt.length>0) {
-				String[] id_d = geteilt[0].split(":");
-				if(id_d.length>0) {
-					try {
-						id = Integer.parseInt(id_d[0]);
-					} catch (NumberFormatException e) {
-						item = SpellItems.itemManager.getItemStackByName(id_d[0]);
-					}
-				}
-				if(id_d.length>1) damage = Integer.parseInt(id_d[1]);
-			}
-			//count
-			if(geteilt.length>1) {
-				String[] counts = geteilt[1].split(":");
-				if(counts.length>0) countmin = Integer.parseInt(counts[0]);
-				if(counts.length>1) countmax = Integer.parseInt(counts[1]);
-			}
-			//chance
-			if(geteilt.length>2) {
-				chance = Double.parseDouble(geteilt[2]);
-			}
-
-			if((id!=0 || item!=null) && random.nextDouble()*100<chance) {
-				int count = countmin;
-				if(countmax!=-1) count = countmin + random.nextInt(countmax-countmin+1);
-				if(item==null) {
-					item = new ItemStack(id, count, (short)damage);
-				} else {
-					item.setAmount(count);
-				}
-
-				//enchantments
-				if(geteilt.length>3) {
-					String[] enchants = geteilt[3].split(",");
-					for(int i=0; i<enchants.length; i++) {
-						String[] split_e = enchants[i].split(":");
-						int eid = -1;
-						int elevel = 0;
-
-						try {
-							if(split_e.length>0) eid = Integer.parseInt(split_e[0]);
-							if(split_e.length>1) elevel = Integer.parseInt(split_e[1]);
-	
-							if(eid>-1) {
-								item.addUnsafeEnchantment(Enchantment.getById(eid), elevel);
-							}
-							//glow only(-10)
-							else if(eid==-10) {
-								addGlow = true;
-							}
-						}
-						//custom enchant
-						catch(NumberFormatException ex) {
-							CustomEnchant ce = SpellItems.enchantManager.getEnchantmentByName(split_e[0]);
-							if(ce!=null) {
-								item = ce.enchantItem(item, elevel);
-							}
-						}
-						
-					}
-				}
-
-				//name+lore
-				if(geteilt.length>4) {
-					ItemMeta itemM = item.getItemMeta();
-
-					//rest wieder zusammensetzen(weil leerzeichen im namen sein können)
-					String added = "";
-					int j = 4;
-					while(geteilt.length>j) {
-						if(added.equals("")) added = geteilt[j].intern();
-						else added = added + " " + geteilt[j].intern();
-						j++;
-					}
-
-					String[] names = added.split(",");
-
-					//name
-					if(names.length>0) itemM.setDisplayName(names[0]);
-					//lore 1+2+3
-					if(names.length>1) {
-						List<String> lore = new ArrayList<String>();
-
-						for(int i=0; i<3; i++) {
-							if(names.length>1+i) {
-								lore.add(names[1+i]);
-							}
-						}
-
-						itemM.setLore(lore);
-					}
-
-					item.setItemMeta(itemM);
-				}
-				
-				if(addGlow) {
-					item = DynamicClassFunctions.addGlow(item);
-				}
-
-				return item;
-			}
-		} catch (NumberFormatException e) {
-			exception = true;
-		}
-		
-		if(((id==0 && item==null) && !str.equals("0")) || exception) { 
 			SpellItems.log("Could not decode Itemstring: "+str);
 		}
 		return null;

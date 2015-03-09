@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import me.andre111.items.SpellItems;
-import me.andre111.items.utils.AttributeStorage;
+import me.andre111.items.utils.Attributes;
+import me.andre111.items.utils.Attributes.Attribute;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -155,13 +156,19 @@ public class ItemManager {
 		
 		if(it.getType()==Material.AIR) return itemList;
 		
-		AttributeStorage storage = AttributeStorage.newTarget(it.clone(), SpellItems.itemUUID);
-		if(!storage.getData("").startsWith("si_customitem_")) return itemList;
-		String iname = storage.getData("").replace("si_customitem_", "");
 		
-		for(int i=0; i<items.length; i++) {
-			if(iname.equals(items[i].getInternalName())) {
-				itemList.add(items[i]);
+		Attributes attributes = new Attributes(it);
+		for(Attribute att : attributes.values()) {
+			if(att.getUUID().equals(SpellItems.itemUUID)) {
+				if(!att.getName().startsWith("si_customitem_")) return itemList;
+				
+				String iname = att.getName().replace("si_customitem_", "");
+				
+				for(int i=0; i<items.length; i++) {
+					if(iname.equals(items[i].getInternalName())) {
+						itemList.add(items[i]);
+					}
+				}
 			}
 		}
 		

@@ -1,22 +1,26 @@
 package me.andre111.items.utils;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
- 
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
- 
+
 import org.bukkit.inventory.ItemStack;
- 
-import me.andre111.items.utils.NbtFactory.NbtCompound;
-import me.andre111.items.utils.NbtFactory.NbtList;
+import com.comphenix.protocol.utility.MinecraftReflection;
+import com.comphenix.protocol.wrappers.nbt.NbtBase;
+import com.comphenix.protocol.wrappers.nbt.NbtCompound;
+import com.comphenix.protocol.wrappers.nbt.NbtFactory;
+import com.comphenix.protocol.wrappers.nbt.NbtList;
+import com.comphenix.protocol.wrappers.nbt.NbtType;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
- 
+
 public class Attributes {
     public enum Operation {
         ADD_NUMBER(0),
@@ -98,12 +102,12 @@ public class Attributes {
             return LOOKUP.values();
         }
     }
- 
+
     public static class Attribute {
         private NbtCompound data;
- 
+
         private Attribute(Builder builder) {
-            data = NbtFactory.createCompound();
+            data = NbtFactory.ofCompound("");
             setAmount(builder.amount);
             setOperation(builder.operation);
             setAttributeType(builder.type);
@@ -116,49 +120,49 @@ public class Attributes {
         }
         
         public double getAmount() {
-            return data.getDouble("Amount", 0.0);
+            return data.getDouble("Amount");
         }
- 
+
         public void setAmount(double amount) {
             data.put("Amount", amount);
         }
- 
+
         public Operation getOperation() {
-            return Operation.fromId(data.getInteger("Operation", 0));
+            return Operation.fromId(data.getInteger("Operation"));
         }
- 
+
         public void setOperation(@Nonnull Operation operation) {
             Preconditions.checkNotNull(operation, "operation cannot be NULL.");
             data.put("Operation", operation.getId());
         }
- 
+
         public AttributeType getAttributeType() {
-            return AttributeType.fromId(data.getString("AttributeName", null));
+            return AttributeType.fromId(data.getString("AttributeName"));
         }
- 
+
         public void setAttributeType(@Nonnull AttributeType type) {
             Preconditions.checkNotNull(type, "type cannot be NULL.");
             data.put("AttributeName", type.getMinecraftId());
         }
- 
+
         public String getName() {
-            return data.getString("Name", null);
+            return data.getString("Name");
         }
- 
+
         public void setName(@Nonnull String name) {
             data.put("Name", name);
         }
- 
+
         public UUID getUUID() {
-            return new UUID(data.getLong("UUIDMost", null), data.getLong("UUIDLeast", null));
+            return new UUID(data.getLong("UUIDMost"), data.getLong("UUIDLeast"));
         }
- 
+
         public void setUUID(@Nonnull UUID id) {
             Preconditions.checkNotNull("id", "id cannot be NULL.");
             data.put("UUIDLeast", id.getLeastSignificantBits());
             data.put("UUIDMost", id.getMostSignificantBits());
         }
- 
+
         /**
          * Construct a new attribute builder with a random UUID and default operation of adding numbers.
          * @return The attribute builder.
@@ -174,7 +178,7 @@ public class Attributes {
             private AttributeType type;
             private String name;
             private UUID uuid;
- 
+
             private Builder() {
                 // Don't make this accessible
             }
@@ -207,15 +211,16 @@ public class Attributes {
     
     // This may be modified
     public ItemStack stack;
-    private NbtList attributes;
+    private NbtList<Map<String, NbtBase<?>>> attributes;
     
     public Attributes(ItemStack stack) {
         // Create a CraftItemStack (under the hood)
-        this.stack = NbtFactory.getCraftItemStack(stack);
+        this.stack = MinecraftReflection.getBukkitItemStack(stack);
         
         // Load NBT
-        NbtCompound nbt = NbtFactory.fromItemTag(this.stack);
-        this.attributes = nbt.getList("AttributeModifiers", true);
+        NbtCompound nbt = (NbtCompound) NbtFactory.fromItemTag(this.stack);
+        this.attributes = nbt.getListOrDefault("AttributeModifiers");
+        this.attributes.setElementType(NbtType.TAG_COMPOUND);
     }
     
     /**
@@ -262,7 +267,7 @@ public class Attributes {
     }
     
     public void clear() {
-        attributes.clear();
+        attributes.getValue().clear();
     }
     
     /**
@@ -271,18 +276,20 @@ public class Attributes {
      * @return The attribute at that index.
      */
     public Attribute get(int index) {
-        return new Attribute((NbtCompound) attributes.get(index));
+        return new Attribute((NbtCompound) attributes.getValue().get(index));
     }
- 
+
     // We can't make Attributes itself iterable without splitting it up into separate classes
     public Iterable<Attribute> values() {
         return new Iterable<Attribute>() {
             @Override
             public Iterator<Attribute> iterator() {
-                return Iterators.transform(attributes.iterator(), 
-                  new Function<Object, Attribute>() {
+                // Generics disgust me sometimes
+                return Iterators.transform(
+                        attributes.getValue().iterator(), 
+                        new Function<NbtBase<Map<String, NbtBase<?>>>, Attribute>() {
                     @Override
-                    public Attribute apply(@Nullable Object element) {
+                    public Attribute apply(@Nullable NbtBase<Map<String, NbtBase<?>>> element) {
                         return new Attribute((NbtCompound) element);
                     }
                 });

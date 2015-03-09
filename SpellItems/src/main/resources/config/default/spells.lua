@@ -78,7 +78,9 @@ function iceaspectEnchant(player, target, block, location, level, damage)
     spell.ItemPotionEffect(target, "2:200:1")
     --freeze
     local maxRand = 10-level
-    if(maxRand<1) maxRand = 0
+    if(maxRand<1) then 
+        maxRand = 0
+    end
     
     if(math.random(0, maxRand)==0) then
         spell.ItemPotionEffect(target, "2:200:7")
@@ -91,7 +93,9 @@ end
 
 function thunderingblowEnchant(player, target, block, location, level, damage)
     local maxRand = 10-level
-    if(maxRand<1) maxRand = 0
+    if(maxRand<1) then 
+        maxRand = 0
+    end
     
     if(math.random(0, maxRand)==0) then
         local success, tPos = spell.ItemVariableSet("playerPos", target)
