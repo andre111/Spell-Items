@@ -69,9 +69,13 @@ public class SpellCommandExecutor implements CommandExecutor {
 				int level = 0;
 				if(args.length>1) {
 					try {
-					level = Integer.parseInt(args[1]);
+						level = Integer.parseInt(args[1]) - 1;
+						if(level<0) {
+							sender.sendMessage((level+1)+" is not a valid Level!");
+							return false;
+						}
 					} catch(NumberFormatException e) {
-						sender.sendMessage(args[1]+" is not a valid Number!");
+						sender.sendMessage(args[1]+" is not a valid Level!");
 						return false;
 					}
 				}

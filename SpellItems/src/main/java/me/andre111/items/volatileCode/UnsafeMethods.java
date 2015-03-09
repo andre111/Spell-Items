@@ -16,7 +16,6 @@ public class UnsafeMethods {
 	}
 
 	//TODO - remove temporary workaround
-	@SuppressWarnings("deprecation")
 	public static void updateInventory(Player player) {
 		player.updateInventory();
 	}

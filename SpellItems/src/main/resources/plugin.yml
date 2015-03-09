@@ -15,7 +15,7 @@ commands:
    siEnchant:
       description: Allows you to enchant the Item you are currently holding with a custom Enchantment
       aliases: []
-      usage: /<command> [internal_enchantment_name]
+      usage: /<command> [internal_enchantment_name] [level]
       permission: spellitems.enchant
    siMana:
       description: Allows you to set the maximum Mana and Mana regenerationrate for Players

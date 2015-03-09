@@ -8,7 +8,6 @@ import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;

@@ -1,6 +1,7 @@
 package me.andre111.items.item.enchant;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import me.andre111.items.SpellItems;
@@ -39,7 +40,19 @@ public class CustomEnchant extends LuaSpell {
 		ItemMeta im = it.getItemMeta();
 		List<String> st = im.getLore();
 		
-		if(st==null) st = new ArrayList<String>();
+		
+		
+		if(st==null) {
+			st = new ArrayList<String>();
+		} else {
+			//remove old enchantment text
+			Iterator<String> iter = st.iterator();
+			while(iter.hasNext()) {
+				if(iter.next().startsWith(ChatColor.GRAY+getName()+" ")) {
+					iter.remove();
+				}
+			}
+		}
 		st.add(0, ChatColor.GRAY+getName()+" "+getLevelName(level));
 		
 		im.setLore(st);
@@ -51,7 +64,27 @@ public class CustomEnchant extends LuaSpell {
 		Attributes attributes = new Attributes(it);
 		for(Attribute att : attributes.values()) {
 			if(att.getUUID().equals(SpellItems.itemEnchantUUID)) {
-				if(att.getName().startsWith("si_customenchant_")) currentEnchants = att.getName();
+				if(att.getName().startsWith("si_customenchant_")) {
+					currentEnchants = att.getName();
+					
+					//remove enchantment if already present
+					if(currentEnchants.contains(getInternalName()+":")) {
+						String[] split = currentEnchants.split("\\|");
+						currentEnchants = "";
+						for(String str : split) {
+							if(!str.startsWith(getInternalName()+":")) {
+								if(currentEnchants.equals("")) {
+									currentEnchants = "si_customenchant_" + str;
+								} else {
+									currentEnchants = currentEnchants + "|" + str;
+								}
+								System.out.println("Added "+str);
+							} else {
+								System.out.println("Remove "+str);
+							}
+						}
+					}
+				}
 			}
 		}
 		
@@ -100,7 +133,7 @@ public class CustomEnchant extends LuaSpell {
 		case 9:
 			return "X";
 		default:
-			return ""+level;
+			return ""+(level+1);
 		}
 	}
 	
