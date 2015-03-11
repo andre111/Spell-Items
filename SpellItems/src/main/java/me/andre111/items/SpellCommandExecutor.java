@@ -1,8 +1,8 @@
 package me.andre111.items;
 
 import me.andre111.items.item.enchant.CustomEnchant;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +22,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 			
 			//get the player
 			if(args.length>0) {
-				Player player = Bukkit.getServer().getPlayerExact(args[0]);
+				Player player = DeprecatedMethods.getPlayerByName(args[0]);
 				
 				if(player!=null) {
 					//recombine all other arguments
@@ -103,7 +103,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 			
 			//get the player
 			if(args.length>0) {
-				Player player = Bukkit.getServer().getPlayerExact(args[0]);
+				Player player = DeprecatedMethods.getPlayerByName(args[0]);
 				
 				if(player!=null) {
 					//get the value
@@ -147,7 +147,7 @@ public class SpellCommandExecutor implements CommandExecutor {
 
 			//get the player
 			if(args.length>0) {
-				Player player = Bukkit.getServer().getPlayerExact(args[0]);
+				Player player = DeprecatedMethods.getPlayerByName(args[0]);
 
 				if(player!=null) {
 					//get the value

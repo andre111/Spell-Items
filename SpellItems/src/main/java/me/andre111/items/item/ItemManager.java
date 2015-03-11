@@ -7,6 +7,7 @@ import java.util.Set;
 import me.andre111.items.SpellItems;
 import me.andre111.items.utils.Attributes;
 import me.andre111.items.utils.Attributes.Attribute;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -57,7 +58,7 @@ public class ItemManager {
 		}
 		Material mat = null;
 			int id = df.getInt("items."+it+".id", 0);
-			mat = Material.getMaterial(id);
+			mat = DeprecatedMethods.getMaterialByID(id);
 		if(mat==null) return;
 		itTemp.setMaterial(mat);
 		itTemp.setDamage(df.getInt("items."+it+".data", 0));

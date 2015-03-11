@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -55,8 +56,8 @@ public class ItemReplace extends ItemSpell {
 				for(int zz=-range; zz<=range; zz++) {
 					Block block = loc.getWorld().getBlockAt(loc.getBlockX()+xx, loc.getBlockY()+yy, loc.getBlockZ()+zz);
 					
-					if(block.getTypeId()==originalID && block.getData()==originalDamage) {
-						block.setTypeIdAndData(replaceID, (byte) replaceDamage, false);
+					if(DeprecatedMethods.getBlockID(block)==originalID && DeprecatedMethods.getBlockData(block)==originalDamage) {
+						DeprecatedMethods.setBlockIDandData(block, replaceID, (byte) replaceDamage);
 					}
 				}
 			}

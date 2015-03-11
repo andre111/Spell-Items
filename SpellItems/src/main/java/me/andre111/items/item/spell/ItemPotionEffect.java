@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.EntityHandler;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -56,7 +57,7 @@ public class ItemPotionEffect extends ItemSpell {
 			int level = 0;
 			if(split.length>2) level = Integer.parseInt(split[2]);
 			
-			PotionEffectType type = PotionEffectType.getById(id);
+			PotionEffectType type = DeprecatedMethods.getPotionEffectByID(id);
 			if(!EntityHandler.hasHigherPotionEffect(player, type, level)) {
 				player.addPotionEffect(new PotionEffect(type, duration, level), true);
 			}

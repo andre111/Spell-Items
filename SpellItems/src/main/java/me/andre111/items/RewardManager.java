@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import me.andre111.items.item.ItemManager;
-import me.andre111.items.volatileCode.UnsafeMethods;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -53,7 +53,7 @@ public class RewardManager {
 				
 				if(level==pPoints || (repeating && pPoints%level==0)) {
 					player.getInventory().addItem(ItemHandler.decodeItem(r.getItem(), player));
-					UnsafeMethods.updateInventory(player);
+					DeprecatedMethods.updateInventory(player);
 					r.createEffects(player.getLocation(), "PLAYER");
 					
 					if(r.isReset()) reset = true;

@@ -6,7 +6,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.EntityHandler;
-import me.andre111.items.volatileCode.UnsafeMethods;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -49,7 +49,7 @@ public class ItemSnowballs extends ItemSpell {
 							snowball.setVelocity(snowball.getVelocity().add(mod));
 						}
 
-						UnsafeMethods.updateInventory(p);
+						DeprecatedMethods.updateInventory(p);
 						
 						return RETURN_TRUE;
 					} else {

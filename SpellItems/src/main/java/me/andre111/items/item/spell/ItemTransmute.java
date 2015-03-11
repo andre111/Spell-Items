@@ -6,7 +6,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.EntityHandler;
-import me.andre111.items.volatileCode.UnsafeMethods;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -57,7 +57,7 @@ public class ItemTransmute extends ItemSpell {
 						pos++;
 					}
 					
-					Material mat = Material.getMaterial(iid);
+					Material mat = DeprecatedMethods.getMaterialByID(iid);
 					if(ItemHandler.countItems(player, mat, data)>=ammount || ammount==0) {
 						if(ammount!=0)
 							ItemHandler.removeItems(player, mat, data, ammount);
@@ -78,7 +78,7 @@ public class ItemTransmute extends ItemSpell {
 							}
 						}
 						
-						UnsafeMethods.updateInventory(player);
+						DeprecatedMethods.updateInventory(player);
 						
 						return RETURN_TRUE;
 					} else {

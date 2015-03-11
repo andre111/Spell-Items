@@ -3,6 +3,7 @@ package me.andre111.items.item.spell;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.utils.EntityHandler;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -45,7 +46,7 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 					} else if(value.equalsIgnoreCase("saturation")) {
 						returnValue[1] = LuaValue.valueOf(0.0D+player.getSaturation());
 					} else if(value.equalsIgnoreCase("gamemode")) {
-						returnValue[1] = LuaValue.valueOf(0.0D+player.getGameMode().getValue());
+						returnValue[1] = LuaValue.valueOf(0.0D+DeprecatedMethods.getGameModeValue(player.getGameMode()));
 					}
 					return LuaValue.varargsOf(returnValue);
 				}

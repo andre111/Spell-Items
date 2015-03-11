@@ -3,6 +3,7 @@ package me.andre111.items.world;
 import java.util.Random;
 
 import me.andre111.items.SpellItems;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 import me.andre111.items.volatileCode.SpellItemsPackets;
 
@@ -92,7 +93,7 @@ public class WorldTornado extends WorldEffect {
 		Block b = blockLoc.getBlock();
 		
 		if(b.getType()!=Material.AIR && !SpellItems.isUntachable(b.getType())) {
-			FallingBlock fb = getWorld().spawnFallingBlock(loc, b.getType(), b.getData());
+			FallingBlock fb = DeprecatedMethods.spawnFallingBlock(loc, b.getType(), DeprecatedMethods.getBlockData(b));
 			double power = 2.0;
 			fb.setVelocity(new Vector(rand.nextDouble()*power-power/2, power, rand.nextDouble()*power-power/2));
 			fb.setDropItem(false);
@@ -101,7 +102,7 @@ public class WorldTornado extends WorldEffect {
 			}
 			
 			b.setType(Material.AIR);
-			b.setData((byte)0);
+			DeprecatedMethods.setBlockData(b, (byte)0);
 		}
 	}
 	private void createEffects() {

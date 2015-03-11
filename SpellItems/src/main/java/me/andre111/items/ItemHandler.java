@@ -3,8 +3,8 @@ package me.andre111.items;
 import java.util.Random;
 
 import me.andre111.items.item.enchant.CustomEnchant;
+import me.andre111.items.volatileCode.DeprecatedMethods;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
-import me.andre111.items.volatileCode.UnsafeMethods;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,7 +49,7 @@ public class ItemHandler {
 					material = Material.matchMaterial(geteilt[0]);
 	
 					if (material == null) {
-						material = UnsafeMethods.getMaterialFromInternalName(geteilt[0]);
+						material = DeprecatedMethods.getMaterialFromInternalName(geteilt[0]);
 					}
 				} else if(geteilt[0].toLowerCase().startsWith("spellitems:")) {
 					String[] iname = geteilt[0].split(":");
@@ -98,7 +98,7 @@ public class ItemHandler {
 			//dataTag einfügen
 			if(!dataTag.equals("")) {
 				try {
-					item = UnsafeMethods.modifyItemStack(item, dataTag);
+					item = DeprecatedMethods.modifyItemStack(item, dataTag);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -225,7 +225,7 @@ public class ItemHandler {
 	public static int removeItems(Player player, Material type, int data, int remaining) {
 		int itemsExchanged = 0;
 		for (ItemStack i : player.getInventory()){
-			if (i != null && i.getType() == type && i.getData().getData() == data){
+			if (i != null && i.getType() == type && DeprecatedMethods.getDatavalue(i.getData()) == data){
 				if (i.getAmount() > remaining){
 					i.setAmount(i.getAmount() - remaining);
 					itemsExchanged += remaining;
@@ -244,7 +244,7 @@ public class ItemHandler {
 	public static int countItems(Player player, Material type, int data) {
 		int items = 0;
 		for (ItemStack i : player.getInventory()){
-			if (i != null && i.getType() == type && i.getData().getData() == data){
+			if (i != null && i.getType() == type && DeprecatedMethods.getDatavalue(i.getData()) == data){
 				items += i.getAmount();
 			}
 		}
