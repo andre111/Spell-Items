@@ -82,7 +82,11 @@ public class ItemHandler {
 			//dataTag
 			if(geteilt.length>6) {
 				for(int i=6; geteilt.length>i; i++) {
-					dataTag = dataTag + geteilt[i];
+					if(dataTag.equals("")) {
+						dataTag = geteilt[i];
+					} else {
+						dataTag = dataTag + " " + geteilt[i];
+					}
 				}
 			}
 			

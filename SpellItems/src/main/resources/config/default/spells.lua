@@ -75,6 +75,7 @@ end
 function iceaspectEnchant(player, target, block, location, level, damage)
     --slow
     spell.ItemPotionEffect(target, "2:200:1")
+    utils.CreateEffect(target, "Target")
     --freeze
     local maxRand = 10-level
     if(maxRand<1) then 
