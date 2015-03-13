@@ -16,6 +16,7 @@ public class ItemRoar extends ItemSpell {
 	/*private double range;
 	private String message = "";*/
 	
+	//TODO - remove message and make it a separate spell
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {

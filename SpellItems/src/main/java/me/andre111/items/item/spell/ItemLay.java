@@ -19,6 +19,7 @@ public class ItemLay extends ItemSpell {
 	/*private int radius;
 	private String message = "";*/
 	
+	//TODO - remove message and make it a separate spell
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {
