@@ -23,7 +23,6 @@ public class ItemExplode extends ItemSpell {
 				
 				if(loc!=null) {
 					loc.getWorld().createExplosion(loc, power);
-					loc.getWorld().createExplosion(loc, power);
 					
 					return RETURN_TRUE;
 				}
