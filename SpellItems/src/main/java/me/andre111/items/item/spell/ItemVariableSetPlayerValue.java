@@ -28,7 +28,7 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
 				String value = valueN.toString();
 				
-				LuaValue[] returnValue = new LuaValue[2];
+				LuaValue[] returnValue = new LuaValue[4];
 				returnValue[0] = LuaValue.TRUE;
 				
 				if(target!=null && target instanceof Player) {
@@ -48,9 +48,23 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 							}
 						}
 						
-						Location loc = getLooking(player, distance);
-						if(loc==null) return RETURN_FALSE;
-						returnValue[1] = LuaValue.userdataOf(loc);
+						Location loc = getLooking(player, distance, false);
+						Location locPath = getLooking(player, distance, true);
+						if(loc==null) {
+							returnValue[0] = LuaValue.FALSE;
+						} else {
+							returnValue[0] = LuaValue.TRUE;
+							returnValue[1] = LuaValue.userdataOf(loc);
+						}
+						
+						
+						//additional pathable location
+						if(locPath==null) {
+							returnValue[2] = LuaValue.FALSE;
+						} else {
+							returnValue[2] = LuaValue.TRUE;
+							returnValue[3] = LuaValue.userdataOf(locPath);
+						}
 					//Numbers
 					} else if(value.equalsIgnoreCase("health")) {
 						returnValue[1] = LuaValue.valueOf(player.getHealth());
@@ -71,7 +85,7 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 		return RETURN_FALSE;
 	}
 	
-	private Location getLooking(Player player, int range) {
+	private Location getLooking(Player player, int range, boolean pathable) {
 		BlockIterator iter; 
 		try {
 			iter = new BlockIterator(player, range>0&&range<150?range:150);
@@ -94,24 +108,28 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 		}
 
 		if (found != null) {
-			Location loc = null;
-			if (range > 0 && !(found.getLocation().distanceSquared(player.getLocation()) < range*range)) {
-			} else if (SpellItems.isPathable(found.getRelative(0,1,0)) && SpellItems.isPathable(found.getRelative(0,2,0))) {
-				// try to stand on top
-				loc = found.getLocation();
-				loc.setY(loc.getY() + 1);
-			} else if (prev != null && SpellItems.isPathable(prev) && SpellItems.isPathable(prev.getRelative(0,1,0))) {
-				// no space on top, put adjacent instead
-				loc = prev.getLocation();
-			}
-			if (loc != null) {
-				loc.setX(loc.getX()+.5);
-				loc.setZ(loc.getZ()+.5);
-				loc.setPitch(player.getLocation().getPitch());
-				loc.setYaw(player.getLocation().getYaw());
-				return loc;
+			if(pathable) {
+				Location loc = null;
+				if (range > 0 && !(found.getLocation().distanceSquared(player.getLocation()) < range*range)) {
+				} else if (SpellItems.isPathable(found.getRelative(0,1,0)) && SpellItems.isPathable(found.getRelative(0,2,0))) {
+					// try to stand on top
+					loc = found.getLocation();
+					loc.setY(loc.getY() + 1);
+				} else if (prev != null && SpellItems.isPathable(prev) && SpellItems.isPathable(prev.getRelative(0,1,0))) {
+					// no space on top, put adjacent instead
+					loc = prev.getLocation();
+				}
+				if (loc != null) {
+					loc.setX(loc.getX()+.5);
+					loc.setZ(loc.getZ()+.5);
+					loc.setPitch(player.getLocation().getPitch());
+					loc.setYaw(player.getLocation().getYaw());
+					return loc;
+				} else {
+					return null;
+				}
 			} else {
-				return null;
+				return found.getLocation();
 			}
 		} else {
 			return null;
