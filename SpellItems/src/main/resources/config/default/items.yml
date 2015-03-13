@@ -425,6 +425,7 @@ enchantments:
      lua: "deathbringerEnchant"
    iceaspect:
      name: "Ice Aspect"
+     effects: 
        - "Target ItemEffectNormal STEP_SOUND:79"
      lua: "iceaspectEnchant"
    thunderingblow:
