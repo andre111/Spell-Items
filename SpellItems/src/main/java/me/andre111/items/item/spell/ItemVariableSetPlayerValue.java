@@ -6,8 +6,10 @@ import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BlockIterator;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
@@ -38,6 +40,17 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 						Location sloc = player.getBedSpawnLocation();
 						if(sloc==null) sloc = player.getWorld().getSpawnLocation();
 						returnValue[1] = LuaValue.userdataOf(sloc);
+					} else if(value.equalsIgnoreCase("looking")) {
+						int distance = 50;
+						if(args.narg()>=3) {
+							if(args.arg(3).isnumber()) {
+								distance = args.arg(3).toint();
+							}
+						}
+						
+						Location loc = getLooking(player, distance);
+						if(loc==null) return RETURN_FALSE;
+						returnValue[1] = LuaValue.userdataOf(loc);
 					//Numbers
 					} else if(value.equalsIgnoreCase("health")) {
 						returnValue[1] = LuaValue.valueOf(player.getHealth());
@@ -56,5 +69,52 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 		}
 		
 		return RETURN_FALSE;
+	}
+	
+	private Location getLooking(Player player, int range) {
+		BlockIterator iter; 
+		try {
+			iter = new BlockIterator(player, range>0&&range<150?range:150);
+		} catch (IllegalStateException e) {
+			iter = null;
+		}
+		Block prev = null;
+		Block found = null;
+		Block b;
+		if (iter != null) {
+			while (iter.hasNext()) {
+				b = iter.next();
+				if (SpellItems.isPathable(b.getType())) {
+					prev = b;
+				} else {
+					found = b;
+					break;
+				}
+			}
+		}
+
+		if (found != null) {
+			Location loc = null;
+			if (range > 0 && !(found.getLocation().distanceSquared(player.getLocation()) < range*range)) {
+			} else if (SpellItems.isPathable(found.getRelative(0,1,0)) && SpellItems.isPathable(found.getRelative(0,2,0))) {
+				// try to stand on top
+				loc = found.getLocation();
+				loc.setY(loc.getY() + 1);
+			} else if (prev != null && SpellItems.isPathable(prev) && SpellItems.isPathable(prev.getRelative(0,1,0))) {
+				// no space on top, put adjacent instead
+				loc = prev.getLocation();
+			}
+			if (loc != null) {
+				loc.setX(loc.getX()+.5);
+				loc.setZ(loc.getZ()+.5);
+				loc.setPitch(player.getLocation().getPitch());
+				loc.setYaw(player.getLocation().getYaw());
+				return loc;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 }

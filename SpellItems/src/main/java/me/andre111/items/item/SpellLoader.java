@@ -2,7 +2,6 @@ package me.andre111.items.item;
 
 import me.andre111.items.item.spell.ItemArmorCheck;
 import me.andre111.items.item.spell.ItemArmorSet;
-import me.andre111.items.item.spell.ItemBlink;
 import me.andre111.items.item.spell.ItemCommand;
 import me.andre111.items.item.spell.ItemDamage;
 import me.andre111.items.item.spell.ItemDrop;
@@ -33,7 +32,6 @@ public class SpellLoader {
 	public static void addSpells() {
 		ItemSpell.addSpellToLUA(new ItemArmorCheck(), "ItemArmorCheck");
 		ItemSpell.addSpellToLUA(new ItemArmorSet(), "ItemArmorSet");
-		ItemSpell.addSpellToLUA(new ItemBlink(), "ItemBlink");
 		ItemSpell.addSpellToLUA(new ItemCommand(), "ItemCommand");
 		ItemSpell.addSpellToLUA(new ItemDamage(), "ItemDamage");
 		ItemSpell.addSpellToLUA(new ItemDrop(), "ItemDrop");
