@@ -23,7 +23,6 @@ import me.andre111.items.item.spell.ItemSmash;
 import me.andre111.items.item.spell.ItemSnowballs;
 import me.andre111.items.item.spell.ItemTeleport;
 import me.andre111.items.item.spell.ItemTransmute;
-import me.andre111.items.item.spell.ItemVariableSetPlayerValue;
 import me.andre111.items.item.spell.ItemWorldThunderStorm;
 import me.andre111.items.item.spell.ItemWorldTornado;
 
@@ -52,7 +51,6 @@ public class SpellLoader {
 		ItemSpell.addSpellToLUA(new ItemSnowballs(), "ItemSnowballs");
 		ItemSpell.addSpellToLUA(new ItemTeleport(), "ItemTeleport");
 		ItemSpell.addSpellToLUA(new ItemTransmute(), "ItemTransmute");
-		ItemSpell.addSpellToLUA(new ItemVariableSetPlayerValue(), "ItemVariableSetPlayerValue");
 		ItemSpell.addSpellToLUA(new ItemWorldThunderStorm(), "ItemWorldThunderStorm");
 		ItemSpell.addSpellToLUA(new ItemWorldTornado(), "ItemWorldTornado");
 	}
