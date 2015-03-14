@@ -26,8 +26,8 @@ function eatTester(player, target, block, location)
 end
 
 function teleTester(player, target, block, location)
-    local success, pPos = spell.ItemVariableSet("playerPos", player)
-    local success2, tPos = spell.ItemVariableSet("playerPos", target)
+    local success, pPos = player:getLocation()
+    local success2, tPos = target:getLocation()
     
     if(success and success2) then
         spell.ItemTeleport(player, tPos)
@@ -98,7 +98,7 @@ function thunderingblowEnchant(player, target, block, location, level, damage)
     end
     
     if(math.random(0, maxRand)==0) then
-        local success, tPos = spell.ItemVariableSet("playerPos", target)
+        local success, tPos = target:getLocation()
     
         if(success) then
             effects.CreateLightning(tPos)
