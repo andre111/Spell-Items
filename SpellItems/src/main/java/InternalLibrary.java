@@ -11,6 +11,7 @@ import me.andre111.items.lua.GetTime;
 import me.andre111.items.lua.GetWorld;
 import me.andre111.items.lua.IsPlayer;
 import me.andre111.items.lua.SetTime;
+import me.andre111.items.lua.SetType;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -35,6 +36,7 @@ public class InternalLibrary extends TwoArgFunction {
 			
 			library.set("isPlayer", new IsPlayer());
 			
+			library.set("setType", new SetType());
 			library.set("setTime", new SetTime());
 		env.set("internalLib", library);
 		return library;

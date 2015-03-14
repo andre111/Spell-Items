@@ -59,6 +59,12 @@ function Block:getLocation()
 	return internalLib.getLocation(self)
 end
 
+function Block:setType(_type, _data)
+	_data = _data or 0
+
+	return internalLib.setType(self, _type, _data)
+end
+
 --Location
 Location = CustomObject:new()
 
