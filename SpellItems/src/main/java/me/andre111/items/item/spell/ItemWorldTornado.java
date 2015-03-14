@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.world.WorldTornado;
 
 import org.bukkit.Location;
@@ -9,18 +10,10 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemWorldTornado extends ItemSpell {
-	/*private int time = 10*20;
-	private double moveSpeed = 0.05;
-	private int changeChance = 1;
-	
-	private int blockChance = 70;
-	private int radius = 3;
-	private boolean hurt = false;*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=7) {
-			LuaValue locN = args.arg(1);
+			LuaValue locN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue timeN = args.arg(2);
 			LuaValue moveSpeedN = args.arg(3);
 			LuaValue changeChanceN = args.arg(4);

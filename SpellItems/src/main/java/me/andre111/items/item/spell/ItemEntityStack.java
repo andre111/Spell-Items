@@ -1,10 +1,13 @@
 package me.andre111.items.item.spell;
 
+import java.util.UUID;
+
 import org.bukkit.entity.Entity;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.SpellItemsPackets;
 
@@ -12,11 +15,11 @@ public class ItemEntityStack extends ItemSpell {
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=2) {
-			LuaValue entityUUID = args.arg(1);
+			LuaValue entityUUID = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue stackM = args.arg(2);
 			
-			if(entityUUID.isstring() && stackM.isboolean()) {
-				Entity ent = EntityHandler.getEntityFromUUID(entityUUID.toString());
+			if(entityUUID.isuserdata(UUID.class) && stackM.isboolean()) {
+				Entity ent = EntityHandler.getEntityFromUUID((UUID) entityUUID.touserdata(UUID.class));
 				boolean stackMode = stackM.toboolean();
 
 				if(stackMode==false && ent.getPassenger()!=null) {
@@ -25,9 +28,9 @@ public class ItemEntityStack extends ItemSpell {
 					return LuaValue.TRUE;
 				} else if(stackMode==true) {
 					if(args.narg()>=3) {
-						LuaValue passengerUUID = args.arg(3);
-						if(passengerUUID.isstring()) {
-							Entity passenger = EntityHandler.getEntityFromUUID(passengerUUID.toString());
+						LuaValue passengerUUID = LUAHelper.getInternalValue(args.arg(3));
+						if(passengerUUID.isuserdata(UUID.class)) {
+							Entity passenger = EntityHandler.getEntityFromUUID((UUID) passengerUUID.touserdata(UUID.class));
 							if(passenger==null) return LuaValue.FALSE;
 							int stackingMax = 1;
 							if(args.narg()>=4 && args.arg(4).isint()) stackingMax = args.arg(4).toint();

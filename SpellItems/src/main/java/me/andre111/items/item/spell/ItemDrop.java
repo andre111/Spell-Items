@@ -1,7 +1,10 @@
 package me.andre111.items.item.spell;
 
+import java.util.UUID;
+
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Material;
@@ -15,10 +18,10 @@ public class ItemDrop extends ItemSpell {
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=1) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			
-			if(playerN.isstring()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class)) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				
 				//TODO - X code for other entities
 				if(target!=null && target instanceof Player) {

@@ -1,9 +1,13 @@
 package me.andre111.items;
 
+import java.io.File;
+
 import me.andre111.items.item.LuaSpell;
+import me.andre111.items.lua.LUAHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaValue;
@@ -16,6 +20,15 @@ public class LuaController {
 	public LuaController() {
 		// create an environment to run in
 		globals = JsePlatform.standardGlobals();
+		
+		String script = new File(SpellItems.instance.getDataFolder(), "config" +  File.separatorChar + "internal" +  File.separatorChar + "objects.lua").getAbsolutePath();
+		try {
+			LuaValue chunk = globals.loadfile(script);
+			
+			chunk.call( LuaValue.valueOf(script) );
+		} catch (LuaError error) {
+			System.out.println(error.getLocalizedMessage());
+		}
 	}
 	
 	public void loadScript(String script) {
@@ -30,14 +43,14 @@ public class LuaController {
 		}
 	}
 	
-	public boolean castFunction(LuaSpell spell, String name, String playerUUID, String targetPlayerUUID, Block block, Location loc, int enchantLevel, double damage) {
+	public boolean castFunction(LuaSpell spell, String name, Entity player, Entity target, Block block, Location loc, int enchantLevel, double damage) {
 		try {
 			if(globals.get(name).isfunction()) {
 				LuaValue[] args = new LuaValue[6];
-				args[0] = LuaValue.valueOf(playerUUID);
-				args[1] = LuaValue.valueOf(targetPlayerUUID);
-				args[2] = LuaValue.userdataOf(block);
-				args[3] = LuaValue.userdataOf(loc);
+				args[0] = LUAHelper.createEntityObject(player);
+				args[1] = LUAHelper.createEntityObject(target);
+				args[2] = LUAHelper.createBlockObject(block);
+				args[3] = LUAHelper.createLocationObject(loc);
 				args[4] = LuaValue.valueOf(enchantLevel);
 				args[5] = LuaValue.valueOf(damage);
 				

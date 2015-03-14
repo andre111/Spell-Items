@@ -1,8 +1,11 @@
 package me.andre111.items.item.spell;
 
+import java.util.UUID;
+
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
@@ -16,19 +19,16 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemLay extends ItemSpell {
-	/*private int radius;
-	private String message = "";*/
-	
 	//TODO - remove message and make it a separate spell
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue radiusN = args.arg(2);
 			LuaValue messageN = args.arg(3);
 			
-			if(playerN.isstring() && radiusN.isint() && messageN.isstring()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && radiusN.isint() && messageN.isstring()) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				int radius = radiusN.toint();
 				String message = messageN.toString();
 				

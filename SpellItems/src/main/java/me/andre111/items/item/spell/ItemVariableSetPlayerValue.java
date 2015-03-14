@@ -1,7 +1,10 @@
 package me.andre111.items.item.spell;
 
+import java.util.UUID;
+
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
@@ -14,18 +17,14 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemVariableSetPlayerValue extends ItemSpell {
-	/*private int variable = 0;
-	private String playername = "";
-	private String value = "";*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=2) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue valueN = args.arg(2);
 			
-			if(playerN.isstring() && valueN.isstring()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && valueN.isstring()) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				String value = valueN.toString();
 				
 				LuaValue[] returnValue = new LuaValue[4];
@@ -35,11 +34,11 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 					Player player = (Player) target;
 					//Locations
 					if(value.equalsIgnoreCase("location")) {
-						returnValue[1] = LuaValue.userdataOf(player.getLocation());
+						returnValue[1] = LUAHelper.createLocationObject(player.getLocation());
 					} else if(value.equalsIgnoreCase("spawn")) {
 						Location sloc = player.getBedSpawnLocation();
 						if(sloc==null) sloc = player.getWorld().getSpawnLocation();
-						returnValue[1] = LuaValue.userdataOf(sloc);
+						returnValue[1] = LUAHelper.createLocationObject(sloc);
 					} else if(value.equalsIgnoreCase("looking")) {
 						int distance = 50;
 						if(args.narg()>=3) {
@@ -54,7 +53,7 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 							returnValue[0] = LuaValue.FALSE;
 						} else {
 							returnValue[0] = LuaValue.TRUE;
-							returnValue[1] = LuaValue.userdataOf(loc);
+							returnValue[1] = LUAHelper.createLocationObject(loc);
 						}
 						
 						
@@ -63,7 +62,7 @@ public class ItemVariableSetPlayerValue extends ItemSpell {
 							returnValue[2] = LuaValue.FALSE;
 						} else {
 							returnValue[2] = LuaValue.TRUE;
-							returnValue[3] = LuaValue.userdataOf(locPath);
+							returnValue[3] = LUAHelper.createLocationObject(locPath);
 						}
 					//Numbers
 					} else if(value.equalsIgnoreCase("health")) {

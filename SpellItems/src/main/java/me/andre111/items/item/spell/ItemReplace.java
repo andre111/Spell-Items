@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Location;
@@ -10,16 +11,10 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemReplace extends ItemSpell {
-	/*private int range = 3;
-	private int originalID = 1;
-	private int originalDamage = 0;
-	private int replaceID = 1;
-	private int replaceDamage = 0;*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=6) {
-			LuaValue locN = args.arg(1);
+			LuaValue locN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue rangeN = args.arg(2);
 			LuaValue originalIDN = args.arg(3);
 			LuaValue originalDamageN = args.arg(2);

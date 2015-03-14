@@ -1,10 +1,12 @@
 package me.andre111.items.item.spell;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
@@ -19,25 +21,18 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemTransmute extends ItemSpell {
-	/*private int iid = 0;
-	private int data = 0;
-	private int ammount = 0;
-	private String failNeed = "";
-	private boolean addToInv = false;
-	private ArrayList<String> items = new ArrayList<String>();*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=6) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue iidN = args.arg(2);
 			LuaValue dataN = args.arg(3);
 			LuaValue ammountN = args.arg(4);
 			LuaValue failNeedN = args.arg(5);
 			LuaValue addToInvN = args.arg(6);
 			
-			if(playerN.isstring() && iidN.isnumber() && dataN.isnumber() && ammountN.isnumber() && failNeedN.isstring() && addToInvN.isboolean()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && iidN.isnumber() && dataN.isnumber() && ammountN.isnumber() && failNeedN.isstring() && addToInvN.isboolean()) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				if(!(target instanceof Player)) return RETURN_FALSE;
 				
 				Player player = (Player) target;

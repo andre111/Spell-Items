@@ -159,7 +159,7 @@ public class CustomEnchant extends LuaSpell {
 			if(player==null) return;
 
 			
-			SpellItems.luacontroller.castFunction(this, lua, player.getUniqueId().toString(), target.getUniqueId().toString(), null, null, enchantLevel, damage);
+			SpellItems.luacontroller.castFunction(this, lua, player, target, null, null, enchantLevel, damage);
 		}
 	}
 	

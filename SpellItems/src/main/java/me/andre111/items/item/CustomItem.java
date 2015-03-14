@@ -102,11 +102,8 @@ public class CustomItem extends LuaSpell implements IUpCounter {
 				if(player!=null && cooldownManaCheck(actions, player, false)) return;
 				putOnCoolDown(actions, player);
 
-				String targetUUID = "";
-				if(target!=null) targetUUID = target.getUniqueId().toString();
-
 				currentAction = actions;
-				if(!SpellItems.luacontroller.castFunction(this, luaTemp, player.getUniqueId().toString(), targetUUID, block, loc, -1, -1)) {
+				if(!SpellItems.luacontroller.castFunction(this, luaTemp, player, target, block, loc, -1, -1)) {
 					resetCoolDown(actions, player);
 				}
 			}

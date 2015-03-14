@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.world.WorldThunderStorm;
 
 import org.bukkit.Location;
@@ -9,14 +10,10 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemWorldThunderStorm extends ItemSpell {
-	/*private int time = 10*20;
-	private int chance = 8;
-	private int distance = 10;*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=4) {
-			LuaValue locN = args.arg(1);
+			LuaValue locN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue timeN = args.arg(2);
 			LuaValue chanceN = args.arg(3);
 			LuaValue distanceN = args.arg(4);

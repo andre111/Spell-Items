@@ -1,10 +1,12 @@
 package me.andre111.items.item.spell;
 
 import java.util.Random;
+import java.util.UUID;
 
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
@@ -17,21 +19,17 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemSnowballs extends ItemSpell {
-	/*private int needed = 96;
-	private String needS = "You need 96 Snowballs!";
-	private boolean isReset = true;*/
-	
 	private static float identifier = (float)Math.random() * 20F;
 	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue neededN = args.arg(2);
 			LuaValue needSN = args.arg(3);
 			
-			if(playerN.isstring() && neededN.isnumber() && needSN.isstring()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && neededN.isnumber() && needSN.isstring()) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				int needed = neededN.toint();
 				String needS = needSN.toString();
 				

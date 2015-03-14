@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,13 +10,10 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemSmash extends ItemSpell {
-	/*private boolean playSound = true;
-	private boolean isReset = true;*/
-
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=1) {
-			LuaValue locN = args.arg(1);
+			LuaValue locN = LUAHelper.getInternalValue(args.arg(1));
 			
 			if(locN.isuserdata(Location.class)) {
 				Location targetLoc = (Location) locN.touserdata(Location.class);

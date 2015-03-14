@@ -1,7 +1,10 @@
 package me.andre111.items.item.spell;
 
+import java.util.UUID;
+
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
@@ -11,19 +14,16 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemCommand extends ItemSpell {
-	/*private boolean console = false;
-	private ArrayList<String> commands = new ArrayList<String>();*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		boolean succed = false;
 		
 		if(args.narg()>=2) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue consoleN = args.arg(2);
 			
-			if(playerN.isstring() && consoleN.isboolean()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if((playerN.isuserdata(UUID.class) || (consoleN.isboolean() && consoleN.toboolean())) && consoleN.isboolean()) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				boolean console = consoleN.toboolean();
 				
 				CommandSender sender = target;

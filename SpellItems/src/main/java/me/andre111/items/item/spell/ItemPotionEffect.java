@@ -1,9 +1,11 @@
 package me.andre111.items.item.spell;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
@@ -15,16 +17,14 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemPotionEffect extends ItemSpell {
-	/*private String playername = "";
-	private ArrayList<String> effects = new ArrayList<String>();*/
 	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=1) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			
-			if(playerN.isstring()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class)) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 
 				if(target!=null && target instanceof LivingEntity) {
 					ArrayList<String> effects = new ArrayList<String>();

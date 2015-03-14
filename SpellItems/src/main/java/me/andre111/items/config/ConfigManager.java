@@ -47,6 +47,7 @@ public class ConfigManager {
 		SpellItems.instance.saveResource("config/default/items.yml", true);
 		SpellItems.instance.saveResource("config/default/rewards.yml", true);
 		SpellItems.instance.saveResource("config/default/spells.lua", true);
+		SpellItems.instance.saveResource("config/internal/objects.lua", true);
 	}
 
 	public static void reloadConfig() {

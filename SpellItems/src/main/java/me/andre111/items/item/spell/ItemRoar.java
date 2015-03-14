@@ -1,9 +1,11 @@
 package me.andre111.items.item.spell;
 
 import java.util.List;
+import java.util.UUID;
 
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 import me.andre111.items.utils.EntityHandler;
 
 import org.bukkit.Bukkit;
@@ -13,19 +15,16 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemRoar extends ItemSpell {
-	/*private double range;
-	private String message = "";*/
-	
 	//TODO - remove message and make it a separate spell
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue rangeN = args.arg(2);
 			LuaValue messageN = args.arg(3);
 			
-			if(playerN.isstring() && rangeN.isnumber() && messageN.isstring()) {
-				Entity target = EntityHandler.getEntityFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && rangeN.isnumber() && messageN.isstring()) {
+				Entity target = EntityHandler.getEntityFromUUID((UUID) playerN.touserdata(UUID.class));
 				double range = rangeN.todouble();
 				String message = messageN.toString();
 				
