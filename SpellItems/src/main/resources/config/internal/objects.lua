@@ -48,6 +48,10 @@ function Entity:getGameMode()
 	return internalLib.getGameMode(self)
 end
 
+function Entity:isPlayer()
+	return internalLib.isPlayer(self)
+end
+
 --Block
 Block = CustomObject:new()
 
@@ -57,6 +61,10 @@ end
 
 --Location
 Location = CustomObject:new()
+
+function Location:getBlock()
+	return internalLib.getBlock(self)
+end
 
 function Location:getWorld()
 	return internalLib.getWorld(self)
@@ -77,6 +85,10 @@ function World:getPlayerCount()
 	return internalLib.getPlayerCount(self)
 end
 
-function World:getPlayer(_pos)
-	return internalLib.getPlayer(self, _pos)
+function World:getPlayer(_n)
+	return internalLib.getPlayer(self, _n)
+end
+
+function World:setTime(_time)
+	return internalLib.setTime(self, _time)
 end

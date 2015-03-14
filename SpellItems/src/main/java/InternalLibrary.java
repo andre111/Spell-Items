@@ -9,6 +9,8 @@ import me.andre111.items.lua.GetSaturation;
 import me.andre111.items.lua.GetSpawn;
 import me.andre111.items.lua.GetTime;
 import me.andre111.items.lua.GetWorld;
+import me.andre111.items.lua.IsPlayer;
+import me.andre111.items.lua.SetTime;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -19,6 +21,7 @@ public class InternalLibrary extends TwoArgFunction {
 	public LuaValue call(LuaValue modname, LuaValue env) {
 		LuaValue library = tableOf();
 			library.set("getLocation", new GetLocation());
+			library.set("getBlock", new GetWorld());
 			library.set("getWorld", new GetWorld());
 			library.set("getTime", new GetTime());
 			library.set("getSpawn", new GetSpawn());
@@ -29,6 +32,10 @@ public class InternalLibrary extends TwoArgFunction {
 			library.set("getFoodLevel", new GetFoodLevel());
 			library.set("getSaturation", new GetSaturation());
 			library.set("getGameMode", new GetGameMode());
+			
+			library.set("isPlayer", new IsPlayer());
+			
+			library.set("setTime", new SetTime());
 		env.set("internalLib", library);
 		return library;
 	}
