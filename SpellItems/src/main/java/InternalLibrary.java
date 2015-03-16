@@ -1,3 +1,4 @@
+import me.andre111.items.lua.DistanceSquared;
 import me.andre111.items.lua.GetFoodLevel;
 import me.andre111.items.lua.GetGameMode;
 import me.andre111.items.lua.GetHealth;
@@ -10,6 +11,7 @@ import me.andre111.items.lua.GetSpawn;
 import me.andre111.items.lua.GetTime;
 import me.andre111.items.lua.GetWorld;
 import me.andre111.items.lua.IsPlayer;
+import me.andre111.items.lua.SendMessage;
 import me.andre111.items.lua.SetTime;
 import me.andre111.items.lua.SetType;
 
@@ -38,6 +40,10 @@ public class InternalLibrary extends TwoArgFunction {
 			
 			library.set("setType", new SetType());
 			library.set("setTime", new SetTime());
+			
+			library.set("sendMessage", new SendMessage());
+			
+			library.set("distanceSquared", new DistanceSquared());
 		env.set("internalLib", library);
 		return library;
 	}

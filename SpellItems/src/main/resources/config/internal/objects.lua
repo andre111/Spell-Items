@@ -52,6 +52,10 @@ function Entity:isPlayer()
 	return internalLib.isPlayer(self)
 end
 
+function Entity:sendMessage(_message)
+	return internalLib.sendMessage(self, _message)
+end
+
 --Block
 Block = CustomObject:new()
 
@@ -74,6 +78,12 @@ end
 
 function Location:getWorld()
 	return internalLib.getWorld(self)
+end
+
+function Location:distanceSquared(_loc, _ignoreY)
+	_ignoreY = _ignoreY or false
+
+	return internalLib.distanceSquared(self, _loc, _ignoreY)
 end
 
 --World
