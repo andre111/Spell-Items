@@ -1,10 +1,8 @@
 package me.andre111.items.item.enchant;
 
-import java.util.List;
 import java.util.Set;
 
 import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemManager;
 import me.andre111.items.utils.Attributes;
 import me.andre111.items.utils.Attributes.Attribute;
 
@@ -57,12 +55,7 @@ public class SpecialEnchantmentManager {
 		
 		enTemp.setInternalName(en);
 		enTemp.setName(df.getString("enchantments."+en+".name", ""));
-		List<String> effects = df.getStringList("enchantments."+en+".effects");
-		if(effects.size()>0)
-		for(String st : effects) {
-			enTemp.addEffect(ItemManager.getItemEffect(st));
-		}
-		
+
 		//Cast
 		enTemp.setLua(df.getString("enchantments."+en+".lua", ""));
 

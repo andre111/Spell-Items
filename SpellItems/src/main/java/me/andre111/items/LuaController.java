@@ -2,7 +2,6 @@ package me.andre111.items;
 
 import java.io.File;
 
-import me.andre111.items.item.LuaSpell;
 import me.andre111.items.lua.LUAHelper;
 
 import org.bukkit.Location;
@@ -43,7 +42,7 @@ public class LuaController {
 		}
 	}
 	
-	public boolean castFunction(LuaSpell spell, String name, Entity player, Entity target, Block block, Location loc, int enchantLevel, double damage) {
+	public boolean castFunction(String name, Entity player, Entity target, Block block, Location loc, int enchantLevel, double damage) {
 		try {
 			if(globals.get(name).isfunction()) {
 				LuaValue[] args = new LuaValue[6];
@@ -54,9 +53,7 @@ public class LuaController {
 				args[4] = LuaValue.valueOf(enchantLevel);
 				args[5] = LuaValue.valueOf(damage);
 				
-				globals.get("utils").set("currentSpell", LuaValue.userdataOf(spell));
 				Varargs vars = globals.get(name).invoke(LuaValue.varargsOf(args));
-				globals.get("utils").set("currentSpell", LuaValue.NIL);
 				
 				if(vars.narg()>0) {
 					LuaValue returnVal = vars.arg(1);

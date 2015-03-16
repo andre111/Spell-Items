@@ -6,7 +6,6 @@
 #       repeating: false    # Should the rewards be given out all *points* Points
 #       reset: true         # Should the points get reset to 0 after giving out the reward(all other rewards with the same *points* will still be given out)
 #       item: "1 10"        # The Item to give as an reward(with the Spellitems syntax)
-#       effects: []         # An List of effects to play(look into items.yml for an explanation) Location: PLAYER
 #       
 
 

@@ -3,7 +3,14 @@ require 'SpellLibrary'
 
 function firestaff(player, target, block, location)
     spell.ItemLeap(player, 4, 1.5, 1, true)
-    utils.CreateEffect(player, "Caster")
+
+	local suc, loc = player:getLocation()
+	effects.CreateParticle(loc, "MOBSPAWNER_FLAMES", 0)
+	effects.CreateParticle(loc, "MOBSPAWNER_FLAMES", 0)
+	effects.CreateParticle(loc, "MOBSPAWNER_FLAMES", 0)
+	effects.CreateParticle(loc, "MOBSPAWNER_FLAMES", 0)
+	effects.CreateParticle(loc, "MOBSPAWNER_FLAMES", 0)
+	effects.CreateSound(loc, "ARROW_HIT", 1, 0.5)
 
     return true
 end
@@ -12,7 +19,8 @@ function vampire(player, target, block, location)
     if(spell.ItemDamage(player, target, 2)) then
         spell.ItemDamage(player, player, -2)
         
-        utils.CreateEffect(player, "Caster")
+        local suc, loc = player:getLocation()
+		effects.CreateSound(loc, "BAT_IDLE", 1, 0.5)
     end
     
     return true
@@ -20,7 +28,9 @@ end
 
 function eatTester(player, target, block, location)
     spell.ItemPotionEffect(player, "5:600:0")
-    utils.CreateEffect(player, "Caster")
+    
+	local suc, loc = player:getLocation()
+	effects.CreateSound(loc, "BURP", 1, 0.5)
     
     return true
 end
@@ -51,7 +61,7 @@ function poisonEnchant(player, target, block, location, level, damage)
     
     return true
 end
---WIP(Enchantments not implemented yet->items.yml)
+
 function lifestealEnchant(player, target, block, location, level, damage)
     if(damage>0) then
         spell.ItemDamage(player, player, -1)
@@ -75,7 +85,9 @@ end
 function iceaspectEnchant(player, target, block, location, level, damage)
     --slow
     spell.ItemPotionEffect(target, "2:200:1")
-    utils.CreateEffect(target, "Target")
+	
+	local suc, loc = target:getLocation()
+	effects.CreateParticle(loc, "STEP_SOUND", 79)
     --freeze
     local maxRand = 10-level
     if(maxRand<1) then 
@@ -102,7 +114,7 @@ function thunderingblowEnchant(player, target, block, location, level, damage)
     
         if(success) then
             effects.CreateLightning(tPos)
-            spell.ItemDamage(player, target, 10)
+            spell.ItemDamage(player, target, 20)
         end
     end
     

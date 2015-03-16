@@ -1,12 +1,3 @@
-# WARNING:
-# No longer true
-# Items are now Identified by 
-# id,data and a unique invisible tag
-# --You should always set a lore,
-# --because the items are identified by
-# --id,data,name and lore
-# --and lore can not be canged in normal minecraft!
-
 # -------
 # countup - can be used to countup before using the cast
 # WARNING: It cannot use any attack needing a target(block or player)
@@ -20,294 +11,6 @@
 #   damage: true
 #   itemSwitch: true
 # -------
-# Certain Spells can be used to set variables
-# you can use
-# "var:0" or "var:1" -> in general "var:id"
-# as an castVar to use the Variable
-# -------
-
-# Usable attacks(cast):
-######################################
-# "ItemLeap"
-# Leap through the air
-#
-# castVar0: forwardvel0city(defaut: 4)
-# castVar1: upwardvelocity(defaut: 1.5)
-# castVar2: power(default: 1) 
-# castVar3: disableDamage(1=true)
-# castVar4: range(only used when casted on a location by another spell)
-######################################
-# "ItemLaunch"
-# Launches an Falling BlockEntity
-# and casts another spell on impact
-# EffectPosition: onHit
-# castVar0: BlockID
-# castVar1: Damagevalue(0-15)
-# castVar2: Power
-# castVar3: Create Item when not landing right(1=true)
-# castVar4: Create Block(1=true)
-# castVar5: do Damage(1=true)
-# castVar6: damage
-# castVar7: onHit(another cast)
-# castVar8+: onHit vars
-######################################
-# "ItemDamage"
-# Damages or heals a Player
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: playername/variable with player/"" for target player
-# castVar2: damage(negative to heal)
-######################################
-# "ItemCommand"
-# Execute command as the Player or console
-# -0- gets replaced by the casters name
-# -1- gets replaced by the target players name
-# (if no target target exists, all commands containing -1- are skipped!)
-# castVar0: console(1=true)
-# castVar1+: Commands
-######################################
-# "ItemReplace"
-# Replace nearby blocks
-#
-# castVar0: Range(in Blocks)
-# castVar1: originalID:originalData
-# castVar2: targetID:targetData
-######################################
-# "ItemArmorCheck"
-# Check if an Player has armor
-#
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: should have armor(1=true)
-######################################
-# "ItemArmorSet"
-# Sets the Armor of an player
-# (formated itemcodes)
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: helmet
-# castVar2: chestpice
-# castVar3: leggins
-# castVar4: boots
-######################################
-# "ItemPotionEffect"
-# Adds one or more effects to an player
-#
-# castVar0: playername/variable with player/"" for casting player
-# castVar1+: effectID:duration:level
-######################################
-# "ItemBlink"
-# Blinks(Teleports) to target Block
-# EffectPosition: Teleport
-# castVar0: maxRange
-# castVar1: reset cooldown when no target was found(=true)
-######################################
-# "ItemConfuse"
-# Confuses Player
-# (CONFUSION+BLINDNESS)
-# castVar0: Duration in ticks(20=1 second)
-# castVar1: Level
-######################################
-# "ItemDrop"
-# Makes the targeted Player drop his weapon
-######################################
-# "ItemExplode"
-# Creates an explosion
-#
-# castVar0: Power
-# castVar1: Kill Caster(0=No, 1=Yes)
-######################################
-# "ItemHunger"
-# Drains Hunger of targeted Player
-#
-# castVar0: Ammount(>50 -> all)
-######################################
-# "ItemGetItem"
-# Gives Items
-#
-# castVar0: Item(formated)
-# castVar1: Times
-######################################
-# "ItemSnowballs"
-# Throw a barricade of snowballs
-#
-# castVar0: Required ammount
-# castVar1: You got not enough snowballs message
-# castVar2: Reset cooldown, when not enough snowballs(1=true)
-######################################
-# "ItemLay"
-# Lay Silverfish eggs in nearby ston blocks
-# (Requires an silverfish egg in inventory 383:60)
-# castVar0: Radius
-# castVar1: Message to display ""->No Message
-######################################
-# "ItemRoar"
-# Roars and makes silverfish call for help
-#
-# castVar0: Range
-# castVar1: Message to display ""->No Message
-######################################
-# "ItemSmash"
-# Smashes the block
-#
-# castVar0: Play Sound Effect(0=No, 1=Yes)
-# castVar1: reset Cooldown, when no block is targeted(1=true)
-######################################
-# "ItemSetDamage"
-# Set the Damage/Durability of the Spellitem
-#
-# castVar0: new Damage
-######################################
-# "ItemTransmute"
-# Let's players transmute, like the books
-# in the old gametype
-# castVar0: Required Item - ID
-# castVar1: Required Item - Data
-# castVar2: Required Item - Ammount
-# castVar3: String displayed when not enough items
-# castVar4: add to inventory(1=true)
-# castVar5+: Formated items to give
-######################################
-# "ItemExperience"
-# Give Experience
-#
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: amount
-######################################
-# "ItemRewardPoints"
-# Gives Rewardpoints a Player
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: points
-######################################
-# "ItemRandom"
-# Randomly gives out success or fail
-# of spell
-# castVar0: chance: 1 out of this
-######################################
-# "ItemWorldThunderStorm"
-# Creates a Thunderstorm with many
-# Lightnings in the world
-# castVar0: time(ticks->20=1 second)
-# castVar1: chance(1-100) to strike a lightning per tick(default: 8)
-# castVar2: distance(the maximum distance from the selected player)(default: 10)
-######################################
-# "ItemWorldTornado"
-# Creates a destrutive tornado
-# in the current world/location
-# castVar0: time(ticks->20=1 second)
-# castVar1: moveSpeed(default:  0.05)
-# castVar2: chance(1-100) to change direction per tick(default: 1)
-# castVar3: chance(1-100) to pickup/throw a block per tick(default: 70)
-# castVar4: radius of picking up blocks(default: 3)
-# castVar5: hurting blocks(1=true)
-######################################
-# "ItemKill"
-# Kills a Player
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: range(for targeted spells)
-######################################
-# "ItemVariableSet"
-# Sets a variable to the given Object
-#
-# castVar0: variableID(int)
-# castVar1: value
-# Available values:
-# Locations: playerPos, targetPos, blockPos, worldSpawn
-# Players: player, target, randomPlayer(only in same World)
-# Numbers: time
-# block
-######################################
-# "ItemVariableSetPlayerValue"
-# Sets a variable to the given Object gotten from a player
-#
-# castVar0: variableID(int)
-# castVar1: playername/variable with player
-# castVar2: value
-# Available values:
-# Locations: location, spawn
-# Numbers: health, food, saturation, gamemode
-######################################
-# "ItemVariableSetRandom"
-# Sets a variable to a random Number
-#
-# castVar0: variableID(int)
-# castVar1: minValue
-# castVar2: maxValue
-# castVar3: useDecimals(1=true)
-######################################
-# "ItemVariableCheck"
-# Checks a variable with another Object
-#
-# castVar0: variableID(int)
-# castVar1: otherValue
-# castVar2: Operation
-# Available operations:
-# 0: ==     (only for numbers)
-# 1: >      (only for numbers)
-# 2: <      (only for numbers)
-# 3: >=     (only for numbers)
-# 4: <=     (only for numbers)
-# 5: !=     (only for numbers)
-# 6: equals
-# 7: !equals
-######################################
-# "ItemVariableCheckNull"
-# Checks a variable for null
-#
-# castVar0: variableID(int)
-# castVar1: isNull(1=true, 0=false)
-######################################
-# "ItemTeleport"
-# Teleport a player to a location
-#
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: location(variable)
-######################################
-# ""
-# 
-#
-# castVar0:
-# castVar1:
-######################################
-
-
-# -------
-# Effectsyntax: effectlocation effect <optionalData>
-# -------
-# position can be: Caster,Target or something specified by the ItemSpell
-# and when an counter is used: CounterStep,CounterInterrupt,CounterFinish
-# default: Caster
-
-# Usable effects:
-######################################
-# "ItemEffectNormal"
-# Creates a normal Minecraft Effect
-# (Look at org.bukkit.Effect)
-# Vars:
-# name:data
-######################################
-# "ItemEffectSound"
-# Creates a Sound
-# (Look at org.bukkit.Sound)
-# Vars:
-# name:volume:pitch
-######################################
-# "ItemEffectLightning"
-# Creates a lightning
-#
-# Vars:
-# 
-######################################
-# "ItemEffectItemSpray"
-# Creates fakeitems spraying from the location
-#
-# Vars:
-# number;duration;force(float);item(formated)
-######################################
-# ""
-# 
-#
-# Vars:
-# 
-######################################
-
 
 items:
    firestaff:
@@ -321,13 +24,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects:
-         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
-         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
-         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
-         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
-         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
-         - "Caster ItemEffectSound ARROW_HIT:1:0.5"
        cooldown: 5
        mana:
          cost: 0
@@ -343,14 +39,11 @@ items:
      data: 0
      useUp: false
      leftclick:
-       effects: []
        cooldown: 5
        mana:
          cost: 0
        casts: []
      rightclick:
-       effects:
-         - "Caster ItemEffectSound BAT_IDLE:1:0.5"
        cooldown: 1
        mana:
          cost: 0
@@ -363,8 +56,6 @@ items:
      data: 0
      useUp: false
      onEat:
-       effects:
-         - "Caster ItemEffectSound BURP:1:0.5"
        cooldown: 1
        mana:
          cost: 0
@@ -379,7 +70,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 1
        mana:
          cost: 0
@@ -394,13 +84,11 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 60
        mana:
          cost: 0
        lua: "stackTesterR"
      leftclick:
-       effects: []
        cooldown: 60
        mana:
          cost: 0
@@ -409,31 +97,23 @@ items:
 enchantments:
    poison:
      name: "Poison"
-     effects: []
      lua: "poisonEnchant"
    lifesteal:
      name: "Lifesteal"
-     effects: []
      lua: "lifestealEnchant"
    blind:
      name: "Blind"
-     effects: []
      lua: "blindEnchant"
    deathbringer:
      name: "Death Bringer"
-     effects: []
      lua: "deathbringerEnchant"
    iceaspect:
      name: "Ice Aspect"
-     effects: 
-       - "Target ItemEffectNormal STEP_SOUND:79"
      lua: "iceaspectEnchant"
    thunderingblow:
      name: "Thundering Blow"
-     effects: []
      lua: "thunderingblowEnchant"
    vampire:
      name: "Vampire"
-     effects: []
      lua: "vampireEnchant"
      

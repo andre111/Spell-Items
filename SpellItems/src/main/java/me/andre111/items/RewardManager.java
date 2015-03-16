@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import me.andre111.items.item.ItemManager;
 import me.andre111.items.volatileCode.DeprecatedMethods;
 
 import org.bukkit.configuration.ConfigurationSection;
@@ -54,7 +52,8 @@ public class RewardManager {
 				if(level==pPoints || (repeating && pPoints%level==0)) {
 					player.getInventory().addItem(ItemHandler.decodeItem(r.getItem(), player));
 					DeprecatedMethods.updateInventory(player);
-					r.createEffects(player.getLocation(), "PLAYER");
+					//TODO - reimplement reward effects
+					//r.createEffects(player.getLocation(), "PLAYER");
 					
 					if(r.isReset()) reset = true;
 				}
@@ -83,12 +82,6 @@ public class RewardManager {
 		rwTemp.setRepeating(df.getBoolean("rewards."+rd+".repeating", false));
 		rwTemp.setReset(df.getBoolean("rewards."+rd+".reset", false));
 		rwTemp.setItem(df.getString("rewards."+rd+".item", ""));
-		
-		List<String> effects = df.getStringList("rewards."+rd+".effects");
-		if(effects.size()>0)
-		for(String st : effects) {
-			rwTemp.addEffect(ItemManager.getItemEffect(st));
-		}
 		
 		rewards.add(rwTemp);
 	}

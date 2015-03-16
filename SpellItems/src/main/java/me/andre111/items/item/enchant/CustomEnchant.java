@@ -5,29 +5,22 @@ import java.util.Iterator;
 import java.util.List;
 
 import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemEffect;
-import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.LuaSpell;
 import me.andre111.items.utils.Attributes;
 import me.andre111.items.utils.Attributes.Attribute;
 import me.andre111.items.utils.Attributes.AttributeType;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CustomEnchant extends LuaSpell {
+public class CustomEnchant {
 	private String internalName;
 	
 	private int id;
 	private String name;
-	
-	private ArrayList<ItemEffect> effects = new ArrayList<ItemEffect>();
-	private ItemSpell[] casts;
 	
 	private String lua;
 	
@@ -138,37 +131,11 @@ public class CustomEnchant extends LuaSpell {
 	}
 	
 	public void cast(Player player, Entity target, int enchantLevel, double damage) {
-		/*if(casts != null) {
-			boolean[] states = new boolean[casts.length];
-			HashMap<Integer, SpellVariable> variables = new HashMap<Integer, SpellVariable>();
-			
-			int pos = 0;
-			for(ItemSpell castUse : casts) {
-				if(castUse != null) {
-					states[pos] = castUse.cast(player, null, target, null, states, variables);
-					
-					createEffects(target.getLocation(), "Target");
-					createEffects(player.getLocation(), "Caster");
-				}
-				
-				pos += 1;
-			}
-		}*/
-		
 		if(!lua.equals("")) {
 			if(player==null) return;
 
 			
-			SpellItems.luacontroller.castFunction(this, lua, player, target, null, null, enchantLevel, damage);
-		}
-	}
-	
-	public void createEffects(Location loc, String position) {
-		//effects
-		for(ItemEffect st : effects) {
-			if(st!=null)
-			if(st.getLocation().equals(position))
-				st.play(loc);
+			SpellItems.luacontroller.castFunction(lua, player, target, null, null, enchantLevel, damage);
 		}
 	}
 	
@@ -189,18 +156,6 @@ public class CustomEnchant extends LuaSpell {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public void addEffect(ItemEffect effect) {
-		effects.add(effect);
-	}
-	public void setSize(int size) {
-		casts = new ItemSpell[size];
-	}
-	public ItemSpell getCast(int pos) {
-		return casts[pos];
-	}
-	public void setCast(ItemSpell cast, int pos) {
-		this.casts[pos] = cast;
 	}
 	public String getLua() {
 		return lua;
