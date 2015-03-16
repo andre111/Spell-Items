@@ -1,5 +1,8 @@
 package me.andre111.items.volatileCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -57,6 +60,10 @@ public class DeprecatedMethods {
 	//TODO - the getUnsafe methods should be replaced when they get allternatives
 	public static Material getMaterialFromInternalName(String name) {
 		return Bukkit.getUnsafe().getMaterialFromInternalName(name);
+	}
+	
+	public static List<String> tabCompleteInternalName(String name) {
+		return Bukkit.getUnsafe().tabCompleteInternalMaterialName(name, new ArrayList<String>());
 	}
 
 	public static ItemStack modifyItemStack(ItemStack it, String dataTag) {

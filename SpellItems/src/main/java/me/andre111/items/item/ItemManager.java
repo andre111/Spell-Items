@@ -151,6 +151,10 @@ public class ItemManager {
 		return null;
 	}
 	
+	public CustomItem[] getItems() {
+		return items;
+	}
+	
 	//reload this configsection/file
 	public void reload(FileConfiguration df) {
 		loadItems(df);

@@ -43,7 +43,6 @@ public class SpellItems extends JavaPlugin {
 	public static SpecialEnchantmentManager enchantManager;
 	public static LuaController luacontroller;
 	
-	
 	@Override
 	public void onLoad() {
 		logger = Logger.getLogger("Minecraft");
@@ -99,6 +98,7 @@ public class SpellItems extends JavaPlugin {
 		SpellCommandExecutor command = new SpellCommandExecutor();
 		for(String st : getDescription().getCommands().keySet()) {
 			getCommand(st).setExecutor(command);
+			getCommand(st).setTabCompleter(command);
 		}
 		
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {

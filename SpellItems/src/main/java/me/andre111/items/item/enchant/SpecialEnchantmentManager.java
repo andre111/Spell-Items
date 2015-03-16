@@ -182,6 +182,10 @@ public class SpecialEnchantmentManager {
 		return null;
 	}
 	
+	public CustomEnchant[] getEnchantments() {
+		return enchants;
+	}
+	
 	//reload this configsection/file
 	public void reload(FileConfiguration df) {
 		loadEnchants(df);

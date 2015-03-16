@@ -11,6 +11,7 @@ import me.andre111.items.utils.Attributes.AttributeType;
 import me.andre111.items.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,10 +31,9 @@ public class CustomEnchant {
 	}
 
 	public ItemStack enchantItem(ItemStack it, int level) {
+		if(it==null || it.getType()==Material.AIR) return it;
 		ItemMeta im = it.getItemMeta();
 		List<String> st = im.getLore();
-		
-		
 		
 		if(st==null) {
 			st = new ArrayList<String>();
