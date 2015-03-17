@@ -93,6 +93,26 @@ items:
        mana:
          cost: 0
        lua: "stackTesterL"
+   commandTester:
+     name: "FillTool"
+     lore:
+       - "&6its just like worldedit"
+       - "&6- well not really"
+       - "Left: Set first location"
+       - "Right: Set second location"
+     id: 370
+     data: 0
+     useUp: false
+     rightclick:
+       cooldown: 1
+       mana:
+         cost: 0
+       lua: "commandTesterR"
+     leftclick:
+       cooldown: 1
+       mana:
+         cost: 0
+       lua: "commandTesterL"
 
 enchantments:
    poison:

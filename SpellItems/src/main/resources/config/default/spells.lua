@@ -56,6 +56,64 @@ function stackTesterL(player, target, block, location)
     return spell.ItemEntityStack(player, false)
 end
 
+commandLocs = {}
+function commandTesterR(player, target, block, location)
+    local suc, uuid = player:getUUID()
+	local suc2, loc = block:getLocation()
+	if(suc and suc2) then
+		if(commandLocs[uuid]==nil) then
+			commandLocs[uuid] = {locSaved=false, isRightClick=true, x=0, y=0, z=0}
+		end
+		
+		commandTester(player, uuid, loc, false)
+	end
+	
+	return true
+end
+function commandTesterL(player, target, block, location)
+    local suc, uuid = player:getUUID()
+	local suc2, loc = block:getLocation()
+	if(suc and suc2) then
+		if(commandLocs[uuid]==nil) then
+			commandLocs[uuid] = {locSaved=false, isRightClick=true, x=0, y=0, z=0}
+		end
+		
+		commandTester(player, uuid, loc, true)
+	end
+	
+	return true
+end
+
+function commandTester(player, uuid, loc, leftclick)
+	local suc3, x, y, z = loc:getCoordinates()
+	if(suc3) then
+		x = math.floor(x)
+		y = math.floor(y)
+		z = math.floor(z)
+		
+		if(commandLocs[uuid].locSaved and commandLocs[uuid].isRightClick==leftclick) then
+			commandLocs[uuid].locSaved = false
+		
+			local command = "fill "
+			command = command..tostring(commandLocs[uuid].x).." "
+			command = command..tostring(commandLocs[uuid].y).." "
+			command = command..tostring(commandLocs[uuid].z).." "
+			command = command..tostring(x).." "
+			command = command..tostring(y).." "
+			command = command..tostring(z).." "
+			command = command.."minecraft:stone"
+			
+			spell.ItemCommand(player, false, command)
+		else
+			commandLocs[uuid].locSaved = true
+			commandLocs[uuid].isRightClick = not leftclick
+			commandLocs[uuid].x = x
+			commandLocs[uuid].y = y
+			commandLocs[uuid].z = z
+		end
+	end
+end
+
 function poisonEnchant(player, target, block, location, level, damage)
     spell.ItemPotionEffect(target, "19:60:4")
     
