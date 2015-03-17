@@ -4,6 +4,8 @@ import java.io.File;
 
 import me.andre111.items.lua.LUAHelper;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -26,7 +28,7 @@ public class LuaController {
 			
 			chunk.call( LuaValue.valueOf(script) );
 		} catch (LuaError error) {
-			System.out.println(error.getLocalizedMessage());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED+" "+error.getLocalizedMessage());
 		}
 	}
 	
@@ -38,7 +40,7 @@ public class LuaController {
 			// Use any of the "call()" or "invoke()" functions directly on the chunk.
 			chunk.call( LuaValue.valueOf(script) );
 		} catch (LuaError error) {
-			System.out.println(error.getLocalizedMessage());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED+" "+error.getLocalizedMessage());
 		}
 	}
 	
@@ -63,7 +65,7 @@ public class LuaController {
 				}
 			}
 		} catch (LuaError error) {
-			System.out.println(error.getLocalizedMessage());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED+" "+error.getLocalizedMessage());
 		}
 		
 		return false;
@@ -75,7 +77,7 @@ public class LuaController {
 				globals.get("tick").invoke();
 			}
 		} catch (LuaError error) {
-			System.out.println(error.getLocalizedMessage());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED+" "+error.getLocalizedMessage());
 		}
 	}
 }
