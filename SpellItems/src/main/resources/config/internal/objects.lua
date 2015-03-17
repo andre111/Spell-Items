@@ -48,6 +48,10 @@ function Entity:getGameMode()
 	return internalLib.getGameMode(self)
 end
 
+function Entity:getUUID()
+	return internalLib.getUUID(self)
+end
+
 function Entity:isPlayer()
 	return internalLib.isPlayer(self)
 end

@@ -10,6 +10,7 @@ import me.andre111.items.lua.GetPlayerCount;
 import me.andre111.items.lua.GetSaturation;
 import me.andre111.items.lua.GetSpawn;
 import me.andre111.items.lua.GetTime;
+import me.andre111.items.lua.GetUUID;
 import me.andre111.items.lua.GetWorld;
 import me.andre111.items.lua.IsPlayer;
 import me.andre111.items.lua.SendMessage;
@@ -37,6 +38,7 @@ public class InternalLibrary extends TwoArgFunction {
 			library.set("getSaturation", new GetSaturation());
 			library.set("getGameMode", new GetGameMode());
 			library.set("getCoordinates", new GetCoordinates());
+			library.set("getUUID", new GetUUID());
 			
 			library.set("isPlayer", new IsPlayer());
 			
