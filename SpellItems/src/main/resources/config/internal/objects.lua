@@ -80,6 +80,10 @@ function Location:getWorld()
 	return internalLib.getWorld(self)
 end
 
+function Location:getCoordinates()
+	return internalLib.getCoordinates(self)
+end
+
 function Location:distanceSquared(_loc, _ignoreY)
 	_ignoreY = _ignoreY or false
 

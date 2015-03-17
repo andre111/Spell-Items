@@ -1,4 +1,5 @@
 import me.andre111.items.lua.DistanceSquared;
+import me.andre111.items.lua.GetCoordinates;
 import me.andre111.items.lua.GetFoodLevel;
 import me.andre111.items.lua.GetGameMode;
 import me.andre111.items.lua.GetHealth;
@@ -35,6 +36,7 @@ public class InternalLibrary extends TwoArgFunction {
 			library.set("getFoodLevel", new GetFoodLevel());
 			library.set("getSaturation", new GetSaturation());
 			library.set("getGameMode", new GetGameMode());
+			library.set("getCoordinates", new GetCoordinates());
 			
 			library.set("isPlayer", new IsPlayer());
 			
